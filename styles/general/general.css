@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+header, footer, body{
+  color: rgb(10, 25, 49);
+  margin: 0;
+  background-color: rgb(255, 255, 255);
+}
+
+h1{
+  font-size: 62px;
+}
+
+h2{
+  font-size: 32px;
+}
+
+h3{
+  font-size: 22px;
+}
+
+.sub-header-percent, .optimize-number{
+  font-family: 'JetBrains Mono', monospace;
+}
+
+body, html{
+  margin: 0;
+  padding: 0;
+}
+
+.k-body{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.k-content{
+  background-blend-mode: multiply;
+  background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+  margin-top: 70px;
+  flex:1;
+}
+
+.k-content.beige{
+  background-color: rgb(244, 239, 239);
+  background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+  color: rgb(10,25,49);
+}
+
+.k-content.blue{
+  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  background-blend-mode: luminosity;
+  color: white;
+}
+
+@media (min-width: 1200px) {
+  body {
+    zoom: 0.8; /* Chrome, Edge */
+  }
+}
+
+@media (min-width: 1700px){
+  body {
+    zoom: 0.95; /* Chrome, Edge */
+  }
+}
+
+@media (max-width: 1200px) {
+  /* Header adjustments */
+
+  .left-k-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .head-logo {
+    width: 40px;
+    height: auto;
+    margin-right: 8px;
+  }
+
+  .head-title {
+    font-size: 22px;
+    color: #0A1931;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .right-k-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    min-width: 160px;
+  }
+
+  .dropdown-content a {
+    padding: 15px 20px;         /* Bigger padding for bigger items */
+    font-size: 16px;            /* Make text bigger */
+  }
+
+  /* Footer */
+  .k-socials-container, .k-socials-container-bot {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .k-socials-section.left, .k-socials-section.center, .k-socials-section.right{
+    text-align: center;
+  }
+
+  .k-footer-line {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .k-socials-icons {
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+}

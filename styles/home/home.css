@@ -1,0 +1,561 @@
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 145vh;
+  background-color: rgb(10, 25, 49);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+}
+
+.overlay-content {
+  display: grid;
+  position: relative;
+  z-index: 2;
+  padding: 100px 240px;
+  color: white;
+}
+
+.header-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 2s ease, transform 2s ease;
+  color: rgb(244, 239, 239);
+}
+
+.header-grid.visible{
+  opacity: 1;
+  transform: translateX(0);
+  transform: scale(1);
+}
+
+.header-text{
+  font-size: 80px;
+}
+
+.header-capital-text{
+  color: white;
+  font-size: 72px;
+  font-weight: bold;
+}
+
+.sub-header-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: auto;
+  margin: 0 auto;
+  column-gap: 350px;
+  padding-top: 120px;
+  align-items: center;
+  text-align: center;
+}
+
+.sub-header-item{
+  opacity: 0;
+  transition: opacity 2s ease, transform 1s ease;
+  transform: translateX(0);
+  transform: scale(0.5);
+  padding: 15px 25px;
+  border-radius: 20px;
+}
+
+.sub-header-item.visible, .logo-container.visible, .products-grid.visible{
+  opacity: 1;
+  transform: translateX(0);
+  transform: scale(1);
+}
+
+.sub-header-item:hover{
+  transform: scale(1.1);
+}
+
+.sub-header-percent {
+  font-size: 80px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.sub-header-desc{
+  color: rgb(244, 239, 239);
+  font-size: 22px;
+  line-height: 1.5;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.sub-header-left, .sub-header-center, .sub-header-right{
+  text-align: center;
+}
+
+/* Fin del header de la intro */
+
+.products{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+
+.products-header{
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sub-product-header{
+  font-size: 32px;
+  font-weight: lighter;
+  width: 1000px;
+}
+
+.products-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  max-width: 1500px;
+  margin: 0 auto;
+  column-gap: 150px;
+  padding-bottom: 250px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 2s ease, transform 2s ease;
+}
+
+.products-left, .products-right {
+  transition: transform 0.5s ease;
+  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  color:rgb(244, 239, 239);
+  padding: 60px;
+  border-radius: 10px;
+}
+
+.products-left:hover, .products-right:hover{
+  transform: scale(1.025);
+}
+
+.products-main{
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.products-desc{
+  color: rgb(245, 239, 224);
+  font-size: 20px;
+  line-height: 1.5;
+  max-width: 475px;
+  margin: 0 auto;
+}
+
+.fa-image, .fa-camera{
+  margin-right: 20px;
+}
+
+/* Fin productos exclusivos */
+
+.optimize-container{
+  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  color: white;
+  height: auto;
+  padding-top: 250px;
+  padding-bottom: 90px;
+  overflow: hidden;
+}
+
+.optimize-title{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 180px;
+}
+
+.optimize-title-header{
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.optimize-title-desc{
+  color: rgb(245, 239, 224);
+  font-size: 32px;
+  font-weight: lighter;
+  width: 1000px;
+}
+
+.logo-container{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.5);
+  max-width: 1500px;
+  font-size: 82px;
+  transition: all 1s ease;
+  cursor: pointer;
+  margin: 40px 0px;
+}
+
+.logo-container:hover{
+  transform: scale(1.05);
+}
+
+.logo{
+  width: 280px;
+  margin-right: 50px
+}
+
+.optimize-section {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.optimize-first, .optimize-third, .optimize-second{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: 500px;
+}
+
+/* 'https://www.transparenttextures.com/patterns/fabric-of-squares.png' */
+
+
+
+.yellow, .white, .grey{
+  background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+  background-blend-mode: multiply;
+  display: flex;
+  padding: 140px;
+  height: 100%;
+  align-items: center;
+}
+
+video.photo {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.yellow{
+  background-color:rgb(245, 239, 224);
+  --header-color:rgb(10, 25, 49);
+  --number-color: rgb(42, 69, 112);
+  --desc-color: rgb(42, 69, 112);
+}
+
+.white{
+  background-color:rgb(220, 235, 245);
+  color:rgb(10, 25, 49);
+  --header-color:rgb(10, 25, 49);
+  --number-color: rgb(42, 69, 112);
+  --desc-color: rgb(42, 69, 112);
+}
+
+.grey{
+  background-color: rgb(140, 119, 117);
+  --header-color:rgb(255, 237, 237);
+  --number-color: rgb(255, 225, 225);
+  --desc-color: rgb(255, 225, 225);
+}
+
+.optimize-left, .optimize-right{
+  height: 100%;
+}
+
+.optimize-left{
+  grid-column: 1;
+}
+
+.optimize-right{
+  grid-column: 2;
+}
+
+.optimize-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.optimize-number{
+  color: var(--number-color);
+  text-align: left;
+  font-size: 60px;
+  margin-bottom: 30px;
+}
+
+.optimize-header{
+  color: var(--header-color);
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.optimize-desc{
+  color: var(--desc-color);
+  font-size: 28px;
+  line-height: 2;
+  font-weight: lighter;
+  text-align: left;
+}
+
+.optimize-call-header{
+  color:rgb(248, 243, 231);
+  font-size: 56px;
+  margin-bottom: 40px;
+  max-width: 800px;
+}
+
+.optimize-call-button{
+  border: none;
+  padding: 40px 120px;
+  border-radius: 20px;
+  background-color: white;
+  color: rgb(10, 25, 49);
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.optimize-call-button:hover{
+  transition: all 0.4s ease;
+  background-color: rgb(42, 69, 112);
+  color: rgb(245, 239, 224);
+  transform: scale(1.05);
+}
+
+.optimize-call-button:active{
+  transform: scale(0.95);
+}
+
+.optimize-container.beige{
+  background:rgb(244, 239, 239) url('https://www.transparenttextures.com/patterns/paper.png');
+}
+
+.optimize-call-header.blue{
+  color: rgb(10, 25, 49);
+}
+
+
+.optimize-call-button.blue-button{
+  background-color: rgb(10, 25, 49);
+  color: rgb(244, 239, 239);
+}
+
+.optimize-call-button.blue-button:hover{
+  transition: all 0.4s ease;
+  background-color:rgb(218, 174, 105);
+  color: rgb(10, 25, 49);
+  transform: scale(1.05);
+}
+
+/* MOBILE */
+
+@media (min-width: 1700px) {
+  .video-container {
+    height: 130vh;
+  }
+
+  .header-grid{
+    margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  /* Video container */
+  .overlay-content{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 160px;
+  }
+
+  video.background-video {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .video-container {
+    padding-top: 80px;
+    height: auto;
+  }
+
+  /* Grid adjustments */
+
+  .header-grid {
+    display: flex;
+    align-items: center;
+    padding: 160px 20px;
+  }
+
+  .sub-header-grid, .products-grid{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 80px;
+  }
+
+  .sub-header-left, .sub-header-center, .sub-header-right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .sub-header-percent {
+    font-size: 50px;
+  }
+
+  .sub-header-desc {
+    font-size: 16px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .header-capital-text{
+    font-size: 54px;
+  }
+
+  .header-text {
+    font-size: 48px;
+    text-align: center;
+    line-height: 1.1;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 160px;
+  }
+
+  /* Products section */
+  .products-grid{
+    padding: 10px 10px 0 10px;
+    margin-bottom: 240px;
+  }
+
+  .products-main{
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+  }
+
+  .products-desc {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .products-left, .products-right {
+    padding: 30px;
+  }
+
+  .fas{
+    margin-bottom: 20px;
+  }
+
+  .logo{
+    width: 120px;
+    margin-right: 4px;
+  }
+
+  .logo-container{
+    font-size: 40px;
+  }
+
+  /* Optimize sections */
+  .optimize-section {
+    width: 100%;
+    display: flex;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .optimize-left, .optimize-right{
+    width: 100%;
+    min-width: 50%; /* Prevents collapse */
+    flex-shrink: 0;
+
+  }
+
+  .optimize-first, .optimize-second, .optimize-third {
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+  }
+
+  .photo, video.photo {
+    width: 100%;
+    height: 100%; /* Minimum height to keep video visible */
+    object-fit: cover;
+  }
+
+  .yellow, .white, .grey {
+    padding: 20px;
+  }
+
+  .optimize-content {
+    max-width: 90%;
+  }
+  /* Titles and text scaling */
+  .products-header {
+    font-size: 32px;
+  }
+
+  .optimize-title-header{
+    width: 90%;
+    font-size: 36px;
+  }
+
+  .sub-product-header, .optimize-title-desc {
+    width: 90%;
+    font-size: 24px;
+  }
+
+  .optimize-call-header {
+    font-size: 36px;
+    width: 90%;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .optimize-call-button {
+    padding: 20px 30px;
+    font-size: 24px;
+  }
+
+  .optimize-header, .optimize-number, .optimize-desc{
+    width: 90%;
+  }
+
+  .optimize-header{
+    font-size: 22px;
+  }
+
+  .optimize-number{
+    font-size: 36px;
+  }
+
+  .optimize-desc{
+    font-size: 16px;
+    line-height: 1.4;
+    padding-bottom: 20px;
+  }
+}

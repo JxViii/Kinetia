@@ -1,0 +1,89 @@
+
+.k-header{
+  background-color: rgb(255, 255, 255);
+  color: rgb(10, 25, 49);
+  padding-left: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 20;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+}
+
+.right-k-header{
+  margin-left: auto;
+}
+
+.head-title{
+  font-size: 28px;
+  font-weight: bold;
+  background: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border: none;
+  color: rgb(10, 25, 49);
+}
+
+.head-logo{
+  width: 70px;
+  margin-right: 20px
+}
+
+/* Container for dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+  background-color: transparent;
+  color: rgb(10,25,49);
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 19px 25px;
+}
+
+/* Dropdown links container (hidden by default) */
+.dropdown-content {
+  position: absolute;
+  background-color: white;
+  min-width: 220px;           /* Bigger size */
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  right: 0;
+  z-index: 25;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a {
+  color: rgb(0, 0, 0);
+  padding: 20px 30px;         /* Bigger padding for bigger items */
+  text-decoration: none;
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;            /* Make text bigger */
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(244, 239, 239);
+}
+
+.dropdown-content.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
