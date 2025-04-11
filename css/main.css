@@ -1,0 +1,17 @@
+@import 'base/var.css?v=1744366774';
+@import 'base/reset.css?v=1744366774';
+@import 'base/typo.css?v=1744366774';
+@import 'base/globals.css?v=1744366774';
+@import 'base/transitions.css?v=1744366774';
+@import 'base/svg.css?v=1744366774';
+
+@import 'layout/header.css?v=1744366774';
+@import 'layout/footer.css?v=1744366774';
+@import 'layout/Lslider.css?v=1744366774';
+
+@import 'pages/home.css?v=1744366774';
+@import 'pages/blog.css?v=1744366774';
+@import 'pages/art.css?v=1744366774';
+@import 'pages/info.css?v=1744366774';
+
+

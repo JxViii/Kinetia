@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&family=Comforter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+body, button {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-blue-dark);
+  background-color: rgb(255, 255, 255);
+}
+
+.pop{
+  font-family: 'Poppins', sans-serif;
+}
+
+.beb{
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.ari{
+  font-family: 'Arizonia', cursive;
+}
+
+h1 {
+  font-size: 62px;
+}
+h2 {
+  font-size: 32px;
+}
+h3 {
+  font-size: 22px;
+}
+h1, h2, h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sub-header-percent,
+.optimize-number, .terminal-intro{
+  font-family: 'JetBrains Mono', monospace;
+}

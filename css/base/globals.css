@@ -1,0 +1,44 @@
+.k-content {
+  flex: 1;
+}
+
+.k-content.axion {
+  background-color: rgba(0, 0, 0, 0.12);
+  background-blend-mode: multiply;
+  background-image: url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
+}
+
+.k-content.beige {
+  background: var(--color-soft-white) url('https://www.transparenttextures.com/patterns/paper.png');
+  color: rgb(10,25,49);
+}
+
+.k-content.blue {
+  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  background-blend-mode: luminosity;
+  color: white;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Zoom Tweaks */
+@media (min-width: 1200px) {
+  body {
+    zoom: 0.8;
+  }
+}
+@media (min-width: 1700px) {
+  body {
+    zoom: 0.95;
+  }
+}

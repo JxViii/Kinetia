@@ -1,0 +1,5 @@
+#Ideas que puedo llegar a tener:
+
+1. Cambiar todas las animaciones indiviudales por un tipo concreto: animations.css
+2. Bordes dinámicos
+3. Aparicion de prácticamente todo en Scroll, por lo menos en el Home

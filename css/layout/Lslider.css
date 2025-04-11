@@ -1,0 +1,263 @@
+.Lslider{
+  color: white;
+  width: 100%;
+  height: 150dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+.Lslider .list .item{
+  position: absolute;
+  inset: 0 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lslider .list .item .content{
+  position: absolute;
+  top: 25%;
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(2, 30vw);
+  column-gap: 100px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 0px 5px 2px black;
+  z-index: 100;
+}
+
+.Lslider .list .item .content h2{
+  font-size: clamp(4em, 8vw ,6em);
+  line-height: 0.9;
+}
+
+.Lslider .list .item .content .information{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.45vw;
+  font-weight: bold;
+}
+
+.Lslider .list .image{
+  flex-shrink: 0;
+  width: var(--diameter);
+  height: var(--diameter);
+  background-image: var(--url);
+  background-position: center;
+  background-size: var(--diameter) var(--diameter);
+  border-radius: 50%;
+  position: relative;
+}
+
+/* previous to the item (I think) */
+
+.Lslider .list .item .image::before,
+.Lslider .list .item .image::after{
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  content:'';
+  border-radius: 50%;
+  background-image: 
+    linear-gradient( to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    var(--url);
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-position: center;
+  background-size: var(--diameter) var(--diameter);
+}
+
+.Lslider .list .item .image::after{
+  width: 30%;
+  height: 30%;
+  background-image: var(--url);
+}
+
+.Lslider .list .content h2{
+  transform: translateY(-100%);
+  transition: transform 1s;
+}
+
+.Lslider .list .item .image{
+  transform: rotate(-60deg);
+  filter: blur(20px);
+  transition: 1s;
+}
+
+.Lslider .list .item .image::before{
+  transform: translateX(-50%) translateY(-50%) rotate(-120deg);
+  transition: transform 1s;
+}
+
+.Lslider .list .item .image::after{
+  transform: translateX(-50%) translateY(-50%) rotate(-180deg);
+  transition: transform 1s;
+}
+
+.Lslider .list .item{
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/* item active */
+.Lslider .list .item.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.Lslider .list .item.active .content h2{
+  transform: translateY(0);
+}
+
+.Lslider .list .item.active .image{
+  transform: rotate(0);
+  filter: blur(0) brightness(0.85);
+}
+
+.Lslider .list .item.active .image::before,
+.Lslider .list .item.active .image::after{
+  transform: translate(-50%, -50%) rotate(0);
+}
+
+/* after active */
+
+.Lslider .list .item.active ~ .item{
+  opacity: 0;
+}
+
+.Lslider .list .item.active ~ .item .content h2{
+  transform: translateY(100%);
+}
+
+.Lslider .list .item.active ~ .item .image{
+  transform: rotate(60deg);
+  filter: blur(20px);
+}
+
+.Lslider .list .item.active ~ .item .image::before{
+  transform: translate(-50% -50%) rotate(120deg);
+}
+
+.Lslider .list .item.active ~ .item .image::after{
+  transform: translate(-50% -50%) rotate(180deg);
+}
+
+/* buttons */
+
+.arrows{
+  z-index:11;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 35vh;
+  width: var(--width-df);
+  display: flex;
+  padding: 0 5vw;
+  justify-content: space-between;
+}
+
+.arrows button{
+  all: unset;
+  cursor: pointer;
+  border-radius: 30%;
+  transition: transform 0.5s ease;
+  scale: 3;
+}
+
+.arrows button:hover{
+  transform: scale(1.2);
+}
+
+/* model */
+
+/* .Lslider .list::after{
+  position: absolute;
+  content:'';
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 100vw);
+  background-image: url('../../images/phone.png');
+  height:80%;
+  background-size: cover ;
+  background-position: top;
+  pointer-events: none;
+  z-index: 300;
+  animation: showModel 1.5s ease-in-out 1 forwards;
+} */
+
+.gradient{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 500px; /* height of the fade effect */
+  background: linear-gradient(to bottom, rgba(10,49,90,0) 0%, var(--color-blue-dark) 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+@keyframes showModel{
+  from{
+    transform: translateX(-50%) scale(1.5) translateY(88px);
+  }
+}
+
+@media all and (max-width: 1500px){
+  .Lslider .list .item .content{
+    grid-template-columns: repeat(2, 30vw);
+    gap: 150px;
+    margin: 0 10vw;
+  }
+
+  .Lslider .list .item .content .information{
+    font-size: 2vw;
+  }
+}
+
+@media all and (max-width: 767px){
+
+  .Lslider{
+    height: 105dvh;
+  }
+
+  .Lslider .list .item .content{
+    grid-template-columns: 80vw;
+    gap: 80px;
+    top: 70px;
+  }
+
+  .Lslider .list .item .content h2{
+    font-size: 3em;
+  }
+
+  .Lslider .list .item .content .information{
+    font-size: 0.8rem;
+    line-height: 1.7;
+    text-align: right;
+    padding-left: 30%;
+  }
+
+  .arrows{
+    bottom: clamp(75px, 5vh, 200px);
+  }
+
+  .arrows button{
+    scale: 1.7;
+  }
+
+  .gradient{
+    height: 200px;
+  }
+
+  /* .Lslider .list::after{
+    background-image: none;
+  } */
+
+}
+
