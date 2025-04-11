@@ -144,3 +144,6 @@ fetch('blog/blog.json')
     document.querySelector('.prev-page').addEventListener('click', prevPage);
 
   });
+
+  setupScrollAnimations('scroll-animate-base');
+  buttonAgendar();

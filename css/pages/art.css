@@ -1,4 +1,6 @@
-.blog-article-body h1,h2,h3{
+.blog-article-body h1,
+.blog-article-body h2,
+.blog-article-body h3{
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -38,7 +40,7 @@
 
 @media (max-width: 1200px){
 
-  h1{
+  /* h1{
     font-size: 24px;
   }
 
@@ -48,7 +50,7 @@
 
   h3{
     font-size: 18px;
-  }
+  } */
 
   .blog-article-body{
     display: flex;

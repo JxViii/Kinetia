@@ -31,12 +31,8 @@ h2 {
 h3 {
   font-size: 22px;
 }
+
 h1, h2, h3 {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.sub-header-percent,
-.optimize-number, .terminal-intro{
-  font-family: 'JetBrains Mono', monospace;
 }

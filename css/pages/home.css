@@ -273,7 +273,7 @@
   background-blend-mode: luminosity;
   --color-button: var(--color-white);
   --color-sub: var(--color-yellow-accent);
-  z-index: 23;
+  z-index: 25;
   height: auto;
   overflow: hidden;
   margin-top: 20vh;
