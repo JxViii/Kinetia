@@ -1,20 +1,23 @@
 import CMS from "decap-cms-app";
 
-CMS.registerPreviewStyle("/css/pages/art.css"); // o el CSS que usas para artículos
+// Importa tu estilo para artículos
+CMS.registerPreviewStyle("/css/pages/art.css", { raw: false });
 
-CMS.registerPreviewTemplate("blog", ({ entry }) => {
+// Plantilla básica para ver el artículo
+CMS.registerPreviewTemplate("blog", ({ entry, widgetFor }) => {
   const title = entry.getIn(["data", "title"]);
   const desc = entry.getIn(["data", "desc"]);
-  const date = entry.getIn(["data", "date"]);
   const image = entry.getIn(["data", "image"]);
-  const body = entry.getIn(["data", "body"]);
+  const date = entry.getIn(["data", "date"]);
+  const body = widgetFor("body");
 
-  return `
+  return (
     <article class="article">
-      <h1>${title}</h1>
-      <p>${desc}</p>
-      <img src="/images/${image}" alt="">
-      <div>${body}</div>
+      <h1>{title}</h1>
+      <p>{desc}</p>
+      <img src={`/images/${image}`} alt="" />
+      <p><strong>{date}</strong></p>
+      <div>{body}</div>
     </article>
-  `;
+  );
 });
