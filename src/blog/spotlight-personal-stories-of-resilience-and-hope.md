@@ -1,6 +1,6 @@
 ---
-title: “Understanding Food Insecurity And Strategies For Sustainable Solutions In Equatorial Guinea”
-desc: “Food insecurity remains a pressing issue in Equatorial Guinea, impacting the well-being of its population. This article explores the causes of food insecurity and offers sustainable solutions to address this challenge effectively.”  
+title: "Understanding Food Insecurity And Strategies For Sustainable Solutions In Equatorial Guinea"
+desc: "Food insecurity remains a pressing issue in Equatorial Guinea, impacting the well-being of its population. This article explores the causes of food insecurity and offers sustainable solutions to address this challenge effectively."
 date: 2023-10-04  
 img: 01-article.jpg  
 layout: article.njk  
