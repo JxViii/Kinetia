@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: JxViii/Kinetia
+  name: git-gateway
   branch: main
 media_folder: "public/images"
 public_folder: "/images"
