@@ -1,0 +1,128 @@
+.k-socials{
+  background-color: transparent;
+  padding: 0 40px;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  --color-footer: var(--color-blue-dark);
+}
+
+.white{
+  --color-footer: var(--color-white);
+}
+
+.k-socials-container{
+  color: var(--color-footer);
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5px;
+}
+
+.k-socials-container-bot{
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.k-socials-section{
+  color: var(--color-footer);
+  display: flex;
+  flex-direction: column;
+}
+
+.k-socials-headers{
+  margin-top: 40px;
+  margin-bottom: 10vh;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.k-socials-links{
+  color: var(--color-footer);
+  margin-bottom: 5px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.k-socials-section.left{
+  text-align: left;
+}
+
+.k-socials-section.center{
+  text-align: center;
+}
+
+.k-socials-section.right{
+  text-align: end;
+}
+
+.k-socials-links:hover {
+  color:rgb(0, 153, 204);
+}
+
+.k-socials-icons{
+  display: flex;
+  gap: 20px;
+}
+
+.k-socials-icons a {
+  color: var(--color-footer);
+  font-size: 32px;         
+  text-decoration: none;
+}
+
+.k-socials-icons a:hover {
+  color: var(--color-link-hover); /* hover color effect */
+}
+
+.k-footer-line {
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+  margin: 40px auto;
+  margin-left: 12%;
+  margin-right: 12%;
+}
+
+@media (max-width: 1200px){
+
+  .k-socials-container{
+    margin: 0 5vw;
+  }
+
+  .k-socials-container-bot {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .k-socials-headers{
+    font-size: 1.1rem;
+    margin: 6vh auto;
+  }
+
+  .k-socials-links{
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .k-footer-line {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .k-socials-icons {
+    justify-content: center;
+    margin-bottom: 3vh;
+  }
+}
+
+@media (max-width: 400px){
+
+  .k-socials{
+    padding: 0;
+    margin: 0;
+  }
+}

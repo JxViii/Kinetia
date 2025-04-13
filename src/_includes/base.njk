@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <head>
+    <title>{{ title }}</title>
+    <link rel="icon" href="images/kinetia.png?v=1744385732" type="image/jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Explora el futuro de la creación de contenido con IA y automatización. Servicios personalizados para empresas modernas.">
+    <meta name="keywords" content="automatización, inteligencia artificial, IA, creación de contenido, contenido con IA, productividad empresarial, eficiencia digital, automatización procesos, Kinetia">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kinetia | Automatización con IA para empresas modernas">
+    <meta property="og:description" content="Explora el futuro de la creación de contenido con IA y automatización. Servicios personalizados para empresas modernas.">
+    <meta property="og:url" content="https://kinetia.tech">
+    <meta property="og:image" content="https://kinetia.tech/images/kinetia.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kinetia | Automatización con IA para empresas modernas">
+    <meta name="twitter:description" content="Transforma tu negocio con automatización, IA y contenido inteligente.">
+    <meta name="twitter:image" content="https://kinetia.tech/images/kinetia.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1744385732">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  </head>
+  <body>
+    {% include 'header.njk' %}
+    {{ content | safe }}
+    {% include 'footer.njk' %}
+  </body>
+  </html>

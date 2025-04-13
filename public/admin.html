@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración - Kinetia Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/pages/admin.css?v=1744385732">
+  <style>
+  </style>
+</head>
+<body>
+
+  <h1>Panel de Revisión de Artículos</h1>
+
+  <div id="articles-container">
+    <!-- Aquí se cargan los artículos -->
+  </div>
+
+  <script>
+    fetch('blog/blog.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('articles-container');
+
+        data.reverse().forEach(article => {
+          const div = document.createElement('div');
+          div.className = 'article';
+          div.innerHTML = `
+            <img src="images/${article.img}?v=1744385732" alt="Imagen artículo">
+            <h2>${article.title}</h2>
+            <p>${article.desc}</p>
+            <p><strong>Archivo:</strong> ${article.redirect}</p>
+            <p><strong>Fecha:</strong> ${article.date}</p>
+            <div class="actions">
+              <button onclick="approveArticle('${article.id}')">Publicar</button>
+              <button class="delete" onclick="deleteArticle('${article.id}')">Eliminar</button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      });
+
+    function approveArticle(id) {
+      alert('Simulación: artículo aprobado (' + id + '). Aquí se haría la lógica para publicar.');
+    }
+
+    function deleteArticle(id) {
+      alert('Simulación: artículo eliminado (' + id + '). Aquí se haría la lógica para eliminar.');
+    }
+  </script>
+
+</body>
+</html>
