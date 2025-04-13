@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <html lang="es">
-  <head>
     <head>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>{{ title }}</title>
     <link rel="icon" href="images/kinetia.png?v=1744385732" type="image/jpg">
     <meta charset="UTF-8">
@@ -27,10 +27,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1744385732">
     <link rel="stylesheet" href="/css/main.css">
   </head>
-  </head>
   <body>
     {% include 'header.njk' %}
     {{ content | safe }}
     {% include 'footer.njk' %}
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
   </html>
