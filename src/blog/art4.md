@@ -1,7 +1,7 @@
 ---
 title: El Cazador Virtual: Risitas y Lecciones de la Era del Porno  
 desc: En la era digital, el acceso a contenido para adultos ha transformado la manera en que consumimos entretenimiento. Este artículo explora las risas y lecciones que dejamos atrás en este contexto.  
-date: 2025-02-26  
+date: 2025-01-10  
 img: 01-article.jpg  
 layout: article.njk  
 ---
