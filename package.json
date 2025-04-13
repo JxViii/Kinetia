@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "watch": "npx @11ty/eleventy --watch",
-    "build": "npx @11ty/eleventy && node src/_data/blog.js",
+    "build": "node src/_data/blog.js && npx @11ty/eleventy"
   },
   "keywords": [],
   "author": "",
