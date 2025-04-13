@@ -1,6 +1,6 @@
 ---
-title: Nourishing Pathways: Empowering Gords Through Smart Eating Choices  
-desc: Este artículo trata sobre cómo las elecciones alimenticias inteligentes pueden empoderar a las personas, contribuyendo a su bienestar y salud. A través de un enfoque consciente hacia la nutrición, se puede mejorar la calidad de vida.  
+title: "Nourishing Pathways: Empowering Gords Through Smart Eating Choices"
+desc: "Este artículo trata sobre cómo las elecciones alimenticias inteligentes pueden empoderar a las personas, contribuyendo a su bienestar y salud. A través de un enfoque consciente hacia la nutrición, se puede mejorar la calidad de vida."  
 date: 2023-10-05  
 img: 01-article.jpg  
 layout: article.njk  
