@@ -1,4 +1,11 @@
-node_modules
+# Node
+node_modules/
+.cache/
+
+# Eleventy
+public/
+
+# Sistema
 .DS_Store
+*.log
 .env
-public/cache
