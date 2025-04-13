@@ -7,7 +7,9 @@ const articlesPerPage = 9;
 
 fetch('blog/blog.json')
   .then(res => res.json())
-  .then(articles => {
+  .then(data => {
+
+    const articles = data.reverse();
 
     function introDisplay(intro) {
       document.querySelector('.blog-head-photo').src = `images/${intro.img}`;
