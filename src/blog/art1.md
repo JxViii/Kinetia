@@ -1,9 +1,15 @@
 ---
-title: "¿Puede un chatbot generar más ingresos en cualquier negocio?"
-desc: "En la era digital, los chatbots se han convertido en una herramienta indispensable para las empresas que buscan mejorar su atención al cliente y, al mismo tiempo, aumentar sus ingresos. Estos asistentes virtuales, impulsados por inteligencia artificial, son capaces de interactuar con los clientes de manera automática y eficiente. Pero, ¿realmente un chatbot puede generar más ingresos en cualquier tipo de negocio? La respuesta es sí, y aquí te explicamos cómo."
+title: ¿Puede un chatbot generar más ingresos en cualquier empresa?
+desc: En la era digital, los chatbots se han convertido en una herramienta
+  indispensable para las empresas que buscan mejorar su atención al cliente y,
+  al mismo tiempo, aumentar sus ingresos. Estos asistentes virtuales, impulsados
+  por inteligencia artificial, son capaces de interactuar con los clientes de
+  manera automática y eficiente. Pero, ¿realmente un chatbot puede generar más
+  ingresos en cualquier tipo de negocio? La respuesta es sí, y aquí te
+  explicamos cómo.
 date: 2025-02-26
-img: "01-article.jpg"
-layout: 'article.njk'
+img: 01-article.jpg
+layout: article.njk
 ---
 
 <h2>1. Atención al cliente 24/7: Más oportunidades de venta</h2>
