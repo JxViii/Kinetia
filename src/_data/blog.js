@@ -5,17 +5,18 @@ const matter = require("gray-matter");
 const sourceDir = path.join(__dirname, "..", "blog");
 const outputFile = path.join(__dirname, "..", "..", "public", "blog", "blog.json");
 
-const files = fs.readdirSync(sourceDir).filter(f => f.endsWith(".njk"));
+// AHORA buscamos archivos .md
+const files = fs.readdirSync(sourceDir).filter(f => f.endsWith(".md"));
 
 const data = files.map(file => {
   const filePath = path.join(sourceDir, file);
   const content = fs.readFileSync(filePath, "utf-8");
   const { data } = matter(content);
 
-  const filename = file.replace(".njk", ".html");
+  const filename = file.replace(".md", ".html");
 
   return {
-    id: file.replace(".njk", ""),
+    id: file.replace(".md", ""),
     title: data.title,
     desc: data.desc,
     img: data.img,
