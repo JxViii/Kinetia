@@ -1,8 +1,10 @@
+---
 title: “Understanding Food Insecurity And Strategies For Sustainable Solutions In Equatorial Guinea”
 desc: “La inseguridad alimentaria es un problema crítico en Guinea Ecuatorial. Este artículo explora sus causas, impactos y comparte estrategias para soluciones sostenibles que permiten mejorar la situación de la población.”  
 date: 2023-10-04  
 img: 01-article.jpg  
-layout: article.njk  
+layout: article.njk
+---
 
 <h2>1. Introducción a la Inseguridad Alimentaria</h2>  
 <p>La inseguridad alimentaria es un fenómeno que afecta a millones de personas en todo el mundo, y Guinea Ecuatorial no es una excepción. A pesar de ser un país rico en recursos naturales, grandes sectores de la población sufren de desnutrición y falta de acceso a alimentos adecuados. En este artículo, analizaremos las raíces del problema y propondremos soluciones sostenibles para abordar esta crisis.</p>  
