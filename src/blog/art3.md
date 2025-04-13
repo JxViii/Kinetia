@@ -1,7 +1,7 @@
 ---
 title: "Viva Franco"
 desc: "La inteligencia artificial (IA) sigue evolucionando a pasos agigantados y está impactando todos los sectores, y el mundo de la creación de contenido no es una excepción. En 2025, la IA ha dado un giro significativo en cómo se genera, distribuye y consume contenido, convirtiéndose en una herramienta esencial para creadores, empresas y profesionales del marketing. Este artículo explora las últimas novedades sobre la IA y su influencia en la creación de contenido, destacando las innovaciones más relevantes que están marcando el presente y el futuro de la industria."
-date: 2025-03-11
+date: 2025-04-11
 img: "03-article.jpg"
 layout: 'article.njk'
 ---
