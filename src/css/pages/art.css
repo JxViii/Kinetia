@@ -40,6 +40,19 @@
 
 @media (max-width: 1200px){
 
+  .blog-article-body h1{
+    margin-top: 70px;
+    font-size: 24px;
+  }
+
+  .blog-article-body h2{
+    font-size: 20px;
+  }
+
+  .blog-article-body h3{
+    font-size: 18px;
+  }
+
   .blog-article-body{
     display: flex;
     flex-direction: column;

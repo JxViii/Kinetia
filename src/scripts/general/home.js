@@ -14,14 +14,11 @@
 
 // Initialize scroll animations for home
 
-setupScrollAnimations('scroll-animate-base');
 
 window.addEventListener('resize', spin);
 spin();
 
 // Para el boton de Agendar Llamada
-
-buttonAgendar();
 
 const focusView = document.getElementById('focus-view');
 const slider = document.querySelector('.products-3d .slider');

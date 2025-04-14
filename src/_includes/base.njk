@@ -30,6 +30,7 @@
   <body>
     {% include 'header.njk' %}
     {{ content | safe }}
+    {% include 'button.njk' %}
     {% include 'footer.njk' %}
 
     <script>
@@ -43,5 +44,6 @@
         });
       }
     </script>
+    <script src="scripts/general/setup.js"></script>
   </body>
   </html>
