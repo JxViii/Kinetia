@@ -3,4 +3,6 @@ setupScrollAnimations('scroll-animate-base');
 
 buttonAgendar();
 
+console.log('updated cache');
+
 
