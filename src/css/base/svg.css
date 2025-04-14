@@ -59,7 +59,7 @@
 
 .banner .subtitle svg{
   margin: clamp(-10px, -50vw, -70px) auto;
-  width: clamp(250px, 35vw, 600px);
+  width: clamp(250px, 25vw, 600px);
   height: auto;
   display: block;
 }
@@ -76,9 +76,9 @@
 .banner .subtitle svg path{
   fill: transparent;
   stroke: var(--color-yellow-accent);
-  stroke-width: 0.3;
+  stroke-width: 0.2;
   stroke-dasharray: 60;
-  stroke-dashoffset: 60;
+  stroke-dashoffset: 40;
   animation: textAnimationSub 2s ease-in-out 1 forwards;
   animation-delay: 5s;
 }

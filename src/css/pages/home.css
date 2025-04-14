@@ -9,20 +9,22 @@
 
 .products-header {
   display: flex;
+  width: auto;
   top: -120px;
   z-index: 2;
 }
 
 .products-header svg{
   margin: 0 auto;
-  width: clamp(360px, 70vw, 1200px);
+  width: clamp(320px, 60vw, 1000px);
+  height: auto;
   display: block;
 }
 
 .sub-product-header {
   display: flex;
   flex-direction: column;
-  top: -120px;
+  top: -80px;
   justify-content: center;
   text-align: center;
   font-size: clamp(12px, 1.7vw, 40px);
@@ -144,8 +146,13 @@
 
 @media (max-width: 1200px){
 
+    .products-header{
+      top: -12vh;
+    }
+
     .sub-product-header{
-      margin-top: -3.5vh;
+      top: -7vh;
+      margin-bottom: 5vh;
     }
 
     .products-3d {
@@ -181,10 +188,6 @@
 }
 
 @media (max-width: 768px){
-
-  .sub-product-header{
-    margin-top: -7vh;
-  }
 
   .k-content.axion::before{
     filter: blur(1px) brightness(1.1);
