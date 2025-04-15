@@ -104,7 +104,7 @@
     rgba(103, 112, 0, 0.85)
     );
     filter: brightness(0.5);
-    background-size: 600% 600%;
+    background-size: 300% 300%;
     animation: gradientShift 4s ease infinite;
     color: white;
 
@@ -139,12 +139,12 @@
 .k-content.ventas .process .item h3{
     margin-left: 0;
     text-align: center;
-    visibility: hidden;
+    display: none;
 }
 
 .k-content.ventas .process .item:hover{
     cursor: pointer;
-    flex-basis: 20%;
+    flex-basis: 25%;
     transform: translateZ(200px);
     filter: brightness(1.2);
 }

@@ -25,13 +25,13 @@ items.forEach(item => {
   const p = item.querySelector('p');
 
   item.addEventListener('mouseenter', () => {
-    title.style.visibility = 'visible';
-    p.style.visibility = 'visible';
+    title.style.display = 'initial';
+    p.style.display = 'initial';
   })
 
   item.addEventListener('mouseleave', () => {
-    title.style.visibility = 'hidden';
-    p.style.visibility = 'hidden';
+    title.style.display = 'none';
+    p.style.display = 'none';
   })
 
 });
