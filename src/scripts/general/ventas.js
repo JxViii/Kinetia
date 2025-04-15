@@ -2,16 +2,6 @@ const video = document.querySelector('.video-container video');
 
 video.pause();
 
-video.addEventListener("click", () => {
-  if (!bloqueoInicial) return; // Ignora clics antes de que el video esté listo
-
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
-});
-
 video.addEventListener("ended", () => {
     video.currentTime = 0;  
     video.pause();    
@@ -25,13 +15,48 @@ items.forEach(item => {
   const p = item.querySelector('p');
 
   item.addEventListener('mouseenter', () => {
-    title.style.display = 'initial';
-    p.style.display = 'initial';
-  })
+    items.forEach(other => {
+      if (other !== item && other.classList.contains('activo')) {
+        other.classList.remove('activo');
+        other.querySelector('h3').style.display = 'none';
+        other.querySelector('p').style.display = 'none';
+      }
+    });
+      if (!item.classList.contains('activo')) {
+        item.classList.add('hovered');
+        title.style.display = 'initial';
+        p.style.display = 'initial';
+      }
+  });
 
   item.addEventListener('mouseleave', () => {
-    title.style.display = 'none';
-    p.style.display = 'none';
-  })
+    if (!item.classList.contains('activo')) {
+      item.classList.remove('hovered');
+      title.style.display = 'none';
+      p.style.display = 'none';
+    }
+  });
 
+  item.addEventListener('click', () => {
+    const isActive = item.classList.contains('activo');
+
+    if (isActive) {
+      // Si ya está activo, lo desactiva
+      item.classList.remove('activo');
+      title.style.display = 'none';
+      p.style.display = 'none';
+    } else {
+      item.classList.add('activo');
+      title.style.display = 'initial';
+      p.style.display = 'initial';
+      // Desactiva los demás
+      items.forEach(other => {
+        other.classList.remove('hovered');
+        if (other !== item) {
+          other.querySelector('h3').style.display = 'none';
+          other.querySelector('p').style.display = 'none';
+        }
+      });
+    }
+  });
 });

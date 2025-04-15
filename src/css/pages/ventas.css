@@ -1,9 +1,9 @@
 .k-content.ventas{
-    padding: 120px 130px;
+    padding: 14vh 10vw;
 }
 
 .k-content.ventas p{
-    font-size: 1.2rem;
+    font-size: clamp(0.5rem, 1.4vw, 1rem);
     text-align: justify;
     line-height: 1.8;
 }
@@ -15,12 +15,12 @@
 }
 
 .k-content.ventas h1{
-    font-size: 4.5rem;
-    margin: 20px 0 0px 40px;
+    font-size: clamp(3rem, 6.5vw, 5rem);
+    margin: 20px 0 0 0;
 }
 
 .k-content.ventas .intro p{
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1.5rem);
 }
 
 .k-content.ventas .intro img{
@@ -31,32 +31,36 @@
 }
 
 .k-content.ventas .beneficios-container{
-    margin: 250px 0 50px 0;
+    margin: 350px 0 125px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     text-align: center;
-    row-gap: 100px;
+    row-gap: 15vh;
+}
+
+.k-content.ventas .beneficios-container h2{
+    margin-right: 2vw;
+    text-align: right;
 }
 
 .k-content.ventas .beneficios-container .grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 20px;
+    column-gap: 3vw;
 }
 
 .k-content.ventas .beneficios-container .grid .item{
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
 }
 
 .k-content.ventas .beneficios-container .grid .item span{
-    font-size: 8rem;
+    font-size: min(8rem, 8vw);
 }
 
 .k-content.ventas .beneficios-container .grid .item p{
+    font-size: clamp(0.7rem, 2vw, 1.5rem);
     margin: 0 auto;
     text-align: center;
     width: 80%;
@@ -65,43 +69,39 @@
 
 
 .k-content.ventas .process-container{
-    padding: 200px 50px;
+    padding: 70vh 5vw;
+    height: 260px;
     display: flex;
     flex-direction: column;
     row-gap: 50px;
 }
 
 .k-content.ventas h2{
-    font-size: 4rem;
+    font-size: max(5.2vw, 2.5rem);
     text-align: center;
 }
 
 .k-content.ventas h3{
-    font-size: 2rem;
+    font-size: max(1rem,2vw);
 }
 
 
 .k-content.ventas .process{
-    transform-style: preserve-3d;
-    transform: perspective(1500px);
-    --border: var(--color-blue-dark);
+    align-items: stretch;
     display: flex;
     justify-content: center;
-    gap: 30px;
-}
-
-.k-content.ventas .process.blue{
-    --border: var(--color-white);
+    gap: 1.5vw;
 }
 
 .k-content.ventas .process .item{
-    padding: 20px;
+    padding: 1.2vw;
     border-radius: 20px;
+    height: 0;
     background: linear-gradient(
     270deg,
-    rgb(0, 24, 48),
-    rgba(92, 0, 117, 0.85),
-    rgba(103, 112, 0, 0.85)
+    rgb(1, 78, 156),
+    var(--color-blue-dark),
+    rgb(1, 78, 156)
     );
     filter: brightness(0.5);
     background-size: 300% 300%;
@@ -112,28 +112,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 
-    flex: 0 0 14%;
-    transition: flex-basis 0.6s ease, transform 0.6s ease;
+    flex: 0 0 min(170px, 14%);
+    transition: flex-basis 0.6s ease, transform 1s ease, opacity 1s ease;
 }
-
-@keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-
-/* .k-content.ventas .process .item::after{
-    content: "";
-    background: transparent;
-    backdrop-filter: blur(10px) brightness(0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--ventas-card);
-    border-radius: 20px;
-    position: absolute;
-    inset: 0 0 0 0;
-} */
-
 
 .k-content.ventas .process .item p,
 .k-content.ventas .process .item h3{
@@ -144,62 +127,151 @@
 
 .k-content.ventas .process .item:hover{
     cursor: pointer;
-    flex-basis: 25%;
-    transform: translateZ(200px);
+}
+
+.k-content.ventas .process .item.activo,
+.k-content.ventas .process .item.hovered{
+    flex-basis: 22vw;
     filter: brightness(1.2);
+    height: 260px;
 }
 
-.k-content.ventas .process .item:hover + *{
+.k-content.ventas .process .item.activo + *,
+.k-content.ventas .process .item.hovered + *{
     filter: brightness(1);
-    transform: translateZ(100px) rotateY(20deg);
 }
 
-.k-content.ventas .process .item:hover + * + *{
+.k-content.ventas .process .item.activo + * + *,
+.k-content.ventas .process .item.hovered + * + *{
     filter: brightness(0.75);
-    transform: translateZ(50px) rotateY(10deg);
 }
 
-.k-content.ventas .process .item:hover + * + * + *{
+.k-content.ventas .process .item.activo + * + * + *,
+.k-content.ventas .process .item.hovered + * + * + *{
     filter: brightness(0.5);
 }
 
-.k-content.ventas .process .item:has(+ *:hover){
+.k-content.ventas .process .item:has(+ *.activo),
+.k-content.ventas .process .item:has(+ *.hovered){
     filter: brightness(1);
-    transform: translateZ(100px) rotateY(-20deg);
 }
-.k-content.ventas .process .item:has(+ * + *:hover){
+.k-content.ventas .process .item:has(+ * + *.activo),
+.k-content.ventas .process .item:has(+ * + *.hovered){
     filter: brightness(0.75);
-    transform: translateZ(50px) rotateY(-10deg);
 }
-.k-content.ventas .process .item:has(+ * + * + *:hover){
+.k-content.ventas .process .item:has(+ * + * + *.activo),
+.k-content.ventas .process .item:has(+ * + * + *.hovered){
     filter: brightness(0.5);
 }
 
 .k-content.ventas .video-container{
-    width: 80%;
-    padding: 40px 0;
+    width: min(1300px, 100%);
+    padding: 20vw 0;
     display: grid;
-    grid-template-columns: 500px auto;
+    grid-template-columns: 30% auto;
     align-items: center;
     column-gap: 10vw;
     margin: 0 auto;
+}
+
+.k-content.ventas .video-container h2{
+    text-align: left;
 }
 
 .k-content.ventas .video-container .video-text{
     display: flex;
     flex-direction: column;
     text-align: center;
-    row-gap: 4vh;
 }
 
 .k-content.ventas .video-container video{
     border-radius: 20px;
     height: 400px;
-    width: 700px;
+    width: 100%;
     object-fit: cover;
     cursor: pointer;
 }
 
 .k-content.ventas .optimize-container{
     padding-top: 0;
+}
+
+@media (max-width: 1200px){
+
+    .k-content.ventas{
+        padding: 8vh 10vw;
+    }
+
+    .k-content.ventas .intro{
+        display: flex;
+        flex-direction: column;
+        row-gap: 2vh;
+    }
+
+    .k-content.ventas .beneficios-container{
+        margin: 20vh 0 20vh 0;
+        row-gap: 5vh;
+    }
+
+    .k-content.ventas .process-container{
+        padding: 0 5vw;
+    }
+
+    .k-content.ventas .video-container{
+        padding: 20vh 0 0 0;
+    }
+
+    .k-content.ventas .video-container video{
+        height: 70%;
+    }
+
+    .k-content.ventas .video-container .video-text h2{
+        row-gap: 2vh;
+    }
+}
+
+@media (max-width: 768px){
+    .k-content.ventas .process{
+        height: auto;
+        flex-direction: column;
+        gap: 3vh;
+    }
+    
+    .k-content.ventas .process .item{
+        padding: 15px;
+        filter: brightness(0.5);
+        background-size: 300% 300%;
+        animation: gradientShift 4s ease infinite;
+        color: white;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    
+        width: 2vw;
+        flex: 0 0 10%;
+        transition: width 0.6s ease, height 0.6s ease, transform 1s ease, opacity 1s ease;
+    }
+
+    .k-content.ventas .process .item.activo,
+    .k-content.ventas .process .item.hovered{
+        flex-basis: auto;
+        height: 15vh;
+        width: 100%;
+        max-height: 1000px;
+    }
+
+    .k-content.ventas .video-container{
+        padding-top: 50vh;
+        display: flex;
+        flex-direction: column;
+        row-gap: 3vh;
+    }
+
+    .k-content.ventas .video-container h2,
+    .k-content.ventas .video-container p{
+        text-align: center;
+    }
 }

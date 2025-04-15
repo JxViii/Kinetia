@@ -46,9 +46,9 @@
 .products-3d .slider{
   position: absolute;
   top: calc(50% - 300px);
-  left: calc(50% - 100px);
-  width: clamp(100px, 15rem, 300px);
-  height: clamp(150px, 18rem, 350px);
+  left: calc(50% - 200px);
+  width: clamp(200px, 20rem, 400px);
+  height: clamp(170px, 15rem, 350px);
   transform-style: preserve-3d;
   --persp: 1500px;
   animation: spin 25s linear infinite;

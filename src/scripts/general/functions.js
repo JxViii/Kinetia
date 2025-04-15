@@ -168,7 +168,7 @@ function spin() {
   const quantity = parseInt(slider.style.getPropertyValue('--quantity'));
 
   const sliderWidth = slider.offsetWidth;
-  const translateZ = sliderWidth * 2.6;
+  const translateZ = sliderWidth * 1.9;
 
   items.forEach((item, index) => {
     const angle = (360 / quantity) * index;
