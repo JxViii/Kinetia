@@ -17,3 +17,21 @@ video.addEventListener("ended", () => {
     video.pause();    
     video.load();           
 });
+
+const items = document.querySelectorAll('.k-content.ventas .process .item');
+
+items.forEach(item => {
+  const title = item.querySelector('h3');
+  const p = item.querySelector('p');
+
+  item.addEventListener('mouseenter', () => {
+    title.style.visibility = 'visible';
+    p.style.visibility = 'visible';
+  })
+
+  item.addEventListener('mouseleave', () => {
+    title.style.visibility = 'hidden';
+    p.style.visibility = 'hidden';
+  })
+
+});

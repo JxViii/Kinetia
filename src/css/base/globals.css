@@ -1,5 +1,7 @@
 .k-content {
   flex: 1;
+  --ventas-card: var(--color-yellow);
+  --ventas-color: var(--color-blue-dark);
 }
 
 .k-content.axion {
@@ -17,6 +19,8 @@
   background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
   background-blend-mode: luminosity;
   color: white;
+  --ventas-card: var(--color-blue-dark); 
+  --ventas-color: var(--color-yellow);
 }
 
 .maintenance{
