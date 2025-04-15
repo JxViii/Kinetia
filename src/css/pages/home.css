@@ -279,11 +279,17 @@
   z-index: 25;
   height: auto;
   overflow: hidden;
-  margin-top: 20vh;
+  padding-top: 20vh;
 }
 
 .optimize-container.beige{
   background: var(--color-soft-white) url('https://www.transparenttextures.com/patterns/paper.png');
+  --color-button: var(--color-blue-dark);
+  --color-sub: var(--color-blue-medium);
+}
+
+.optimize-container.white{
+  background: var(--color-white);
   --color-button: var(--color-blue-dark);
   --color-sub: var(--color-blue-medium);
 }

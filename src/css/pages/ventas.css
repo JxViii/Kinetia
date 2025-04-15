@@ -1,0 +1,137 @@
+.k-content.ventas{
+    padding: 120px 130px;
+}
+
+.k-content.ventas p{
+    font-size: 1.2rem;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+.k-content.ventas .intro{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8vw;
+}
+
+.k-content.ventas h1{
+    font-size: 3.2rem;
+    margin: 20px 0 0px 40px;
+}
+
+.k-content.ventas .intro p{
+    font-size: 1.5rem;
+}
+
+.k-content.ventas .intro img{
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.k-content.ventas .beneficios-container{
+    margin: 250px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    row-gap: 100px;
+}
+
+.k-content.ventas .beneficios-container .grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+}
+
+.k-content.ventas .beneficios-container .grid .item{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.k-content.ventas .beneficios-container .grid .item span{
+    font-size: 8rem;
+}
+
+.k-content.ventas .beneficios-container .grid .item p{
+    margin: 0 auto;
+    text-align: center;
+    width: 80%;
+    line-height: 1.3;
+}
+
+
+.k-content.ventas .process-container{
+    padding: 200px 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.k-content.ventas h2{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.k-content.ventas h3{
+    font-size: 2rem;
+}
+
+
+.k-content.ventas .process{
+    --border: var(--color-blue-dark);
+    columns: clamp(100px, 30vw ,500px) auto;
+    gap: 70px;
+}
+
+.k-content.ventas .process.blue{
+    --border: var(--color-white);
+}
+
+.k-content.ventas .process .item{
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.k-content.ventas .process .item p{
+    margin-left: 0;
+    text-align: center;
+}
+
+.k-content.ventas .video-container{
+    width: 80%;
+    padding: 40px 0;
+    display: grid;
+    grid-template-columns: 500px auto;
+    align-items: center;
+    column-gap: 10vw;
+    margin: 0 auto;
+}
+
+.k-content.ventas .video-container .video-text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 4vh;
+}
+
+.k-content.ventas .video-container video{
+    border-radius: 20px;
+    height: 400px;
+    width: 700px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.k-content.ventas .optimize-container{
+    padding-top: 0;
+}
