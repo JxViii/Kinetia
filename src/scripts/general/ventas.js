@@ -60,3 +60,62 @@ items.forEach(item => {
     }
   });
 });
+
+let index = 0; // define esto fuera de la función
+
+function slide(direction) {
+  const items = slider.querySelectorAll(".item");
+
+  const max = items.length - 1;
+
+  if (direction === "left" && index > 0) {
+    index--;
+  } else if (direction === "right" && index < max) {
+    index++;
+  }
+
+  const targetItem = items[index];
+  slider.scrollTo({
+    left: targetItem.offsetLeft - slider.offsetLeft,
+    behavior: "smooth"
+  });
+
+  // Forzar update inmediato
+  items.forEach((item, i) => {
+    item.classList.toggle("active", i === index);
+  });
+}
+
+function updateActiveItemOnScroll() {
+  const items = slider.querySelectorAll(".k-content.ventas .beneficios-container .slider-wrapper .slider .item");
+
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  items.forEach((item, index) => {
+    const itemRect = item.getBoundingClientRect();
+    const sliderRect = slider.getBoundingClientRect();
+    const itemCenter = itemRect.left + itemRect.width / 2;
+    const sliderCenter = sliderRect.left + sliderRect.width / 2;
+    const distance = Math.abs(sliderCenter - itemCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  // Quitar todas las clases 'active' y aplicar solo a la más centrada
+  items.forEach((item, idx) => {
+    item.classList.toggle("active", idx === closestIndex);
+  });
+
+  // Actualiza el índice global si usas flechas también
+  index = closestIndex;
+}
+
+const slider = document.getElementById("beneficiosSlider");
+slider.addEventListener("scroll", () => {
+  clearTimeout(slider._scrollTimeout);
+  slider._scrollTimeout = setTimeout(updateActiveItemOnScroll, 10);
+});

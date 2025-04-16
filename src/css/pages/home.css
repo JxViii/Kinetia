@@ -294,6 +294,17 @@
   --color-sub: var(--color-blue-medium);
 }
 
+.optimize-container.transparent{
+  background: transparent;
+  --color-button: var(--color-blue-dark);
+  --color-sub: var(--color-blue-medium);
+}
+
+.optimize-container.transparent.green{
+  --color-button: var(--color-green);
+  --color-sub: var(--color-green);
+}
+
 .optimize-title {
   display: flex;
   flex-direction: column;
@@ -414,7 +425,7 @@
 
 .optimize-call-header {
   color: var(--color-button);
-  font-size: 50px;
+  font-size: 50px !important;
   line-height: 1;
   margin-bottom: 40px;
   width: clamp(300px, 65vw ,1100px)
@@ -424,7 +435,7 @@
 @media (max-width: 1200px) {
 
   .optimize-call-header {
-    font-size: 36px;
+    font-size: 36px !important;
     width: 90%;
     text-align: center;
     padding: 0 20px;

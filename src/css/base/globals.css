@@ -1,7 +1,29 @@
 .k-content {
   flex: 1;
-  --ventas-card: var(--color-yellow);
-  --ventas-color: var(--color-blue-dark);
+}
+
+/* 
+  url("https://www.transparenttextures.com/patterns/always-grey.png"); cuadros diagonales
+  url("https://www.transparenttextures.com/patterns/batthern.png"); cuadros como de losetas
+  url("https://www.transparenttextures.com/patterns/cartographer.png"); mapa de calor
+
+*/
+
+
+.k-content.tiles {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: multiply;
+}
+
+.k-content.tiles::before{
+  content:"";
+  position: absolute;
+  inset: 0 0 0 0;
+  background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+  opacity: 0.5;
+  pointer-events: none; /* 🔥 Esto lo hace no interactivo */
+  z-index: -1; /* Asegura que esté detrás */
 }
 
 .k-content.axion {

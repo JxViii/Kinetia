@@ -10,6 +10,15 @@
   --color-footer: var(--color-white);
 }
 
+.k-socials.transparent{
+  padding: 0;
+}
+
+.k-socials.green{
+  --color-footer: var(--color-green);
+  --color-link-hover: rgb(0, 188, 19);
+}
+
 .k-socials-container{
   color: var(--color-footer);
   display: flex;
@@ -45,6 +54,10 @@
   margin-bottom: 5px;
   font-size: 20px;
   text-decoration: none;
+}
+
+.k-socials-links:hover{
+  color: var(--color-link-hover) !important; /* hover color effect */
 }
 
 .k-socials-section.left{

@@ -1,9 +1,24 @@
 .k-content.ventas{
     padding: 14vh 10vw;
+    --a: rgb(1, 78, 156);
+    --b: var(--color-blue-dark);
+    --slider-x: linear-gradient(
+        270deg,
+        var(--a),
+        var(--b),
+        var(--a)
+    );
+}
+
+.k-content.ventas.green{
+    color: var(--color-green);
+    --a: rgb(14, 119, 24);
+    --b: var(--color-green);
 }
 
 .k-content.ventas p{
-    font-size: clamp(0.5rem, 1.4vw, 1rem);
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.8rem, 1.4vw, 1.2rem);
     text-align: justify;
     line-height: 1.8;
 }
@@ -36,37 +51,117 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    row-gap: 15vh;
+    row-gap: 9vh;
 }
 
 .k-content.ventas .beneficios-container h2{
     margin-right: 2vw;
-    text-align: right;
-}
-
-.k-content.ventas .beneficios-container .grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 3vw;
-}
-
-.k-content.ventas .beneficios-container .grid .item{
-    display: flex;
-    flex-direction: column;
-}
-
-.k-content.ventas .beneficios-container .grid .item span{
-    font-size: min(8rem, 8vw);
-}
-
-.k-content.ventas .beneficios-container .grid .item p{
-    font-size: clamp(0.7rem, 2vw, 1.5rem);
-    margin: 0 auto;
     text-align: center;
-    width: 80%;
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 2rem;
+    width: min(1300px,100%);
+    margin: 0 auto;
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    overflow-x: auto;
+
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item {
+    position: relative;
+    min-width: 10%;
+    flex: 0 0 85%; /* 85% del contenedor visible */
+    scroll-snap-align: center;
+    border-radius: 30px;
+    padding: 2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item::before{
+    content: "";
+    position: absolute;
+    inset: 0 0 0 0;
+    padding: 1vw;
+    border-radius: 100px;
+    background: var(--slider-x);
+    background-size: 300% 300%;
+    animation: gradientShift 4s ease infinite;
+    z-index: -1;
+    
+}
+
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--color-soft-white);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider-btn.left {
+    left: 0
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider-btn.right {
+    right: 0
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item span{
+    display: flex;
+    align-items: center;
+    column-gap: 1vw;
+    font-size: min(8rem, 8vw);
+    font-weight: bold;
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item span span{
+    font-size: min(4rem, 4vw);
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item p{
+    font-size: clamp(0.7rem, 2vw, 1.5rem);
+    margin: 1.5vh auto;
+    text-align: center;
+    width: 70%;
     line-height: 1.3;
 }
 
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item .item-content{
+    transition: transform 0.6s ease, font-size 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0.8);
+}
+
+.k-content.ventas .beneficios-container .slider-wrapper .slider .item.active .item-content{
+    transform: scale(1);
+}
 
 .k-content.ventas .process-container{
     padding: 70vh 5vw;
@@ -97,12 +192,7 @@
     padding: 1.2vw;
     border-radius: 20px;
     height: 0;
-    background: linear-gradient(
-    270deg,
-    rgb(1, 78, 156),
-    var(--color-blue-dark),
-    rgb(1, 78, 156)
-    );
+    background: var(--slider-x);
     filter: brightness(0.5);
     background-size: 300% 300%;
     animation: gradientShift 4s ease infinite;
@@ -133,7 +223,7 @@
 .k-content.ventas .process .item.hovered{
     flex-basis: 22vw;
     filter: brightness(1.2);
-    height: 260px;
+    height: 300px;
 }
 
 .k-content.ventas .process .item.activo + *,
@@ -218,7 +308,7 @@
     }
 
     .k-content.ventas .video-container{
-        padding: 20vh 0 0 0;
+        padding: 30vh 0 30vh 0;
     }
 
     .k-content.ventas .video-container video{
@@ -231,6 +321,33 @@
 }
 
 @media (max-width: 768px){
+
+    .k-content.ventas .beneficios-container .slider-wrapper{
+        padding: 0;
+        overflow:visible;
+    }
+
+    .k-content.ventas .beneficios-container .slider-wrapper .slider .item span{
+        font-size: min(8rem, 8vw);
+    }
+    
+    .k-content.ventas .beneficios-container .slider-wrapper .slider .item p{
+        font-size: clamp(0.9rem, 2vw, 1.5rem);
+        width: 100%;
+    }
+
+    .k-content.ventas .beneficios-container .slider-wrapper .slider-btn.left {
+        left: -20px;
+    }
+    
+    .k-content.ventas .beneficios-container .slider-wrapper .slider-btn.right {
+        right: -20px;
+    }
+
+    .k-content.ventas .process-container{
+        row-gap: 6vh;
+    }
+
     .k-content.ventas .process{
         height: auto;
         flex-direction: column;
@@ -239,16 +356,6 @@
     
     .k-content.ventas .process .item{
         padding: 15px;
-        filter: brightness(0.5);
-        background-size: 300% 300%;
-        animation: gradientShift 4s ease infinite;
-        color: white;
-    
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
     
         width: 2vw;
         flex: 0 0 10%;
@@ -258,9 +365,8 @@
     .k-content.ventas .process .item.activo,
     .k-content.ventas .process .item.hovered{
         flex-basis: auto;
-        height: 15vh;
+        height: 21vh;
         width: 100%;
-        max-height: 1000px;
     }
 
     .k-content.ventas .video-container{
@@ -270,8 +376,4 @@
         row-gap: 3vh;
     }
 
-    .k-content.ventas .video-container h2,
-    .k-content.ventas .video-container p{
-        text-align: center;
-    }
 }
