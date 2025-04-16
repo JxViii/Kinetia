@@ -14,8 +14,9 @@
 
 .k-content.ventas.palet{
     color: var(--color-palet);
-    --a: rgb(127, 133, 214);
+    --a: rgb(165, 170, 234);
     --b: var(--color-palet);
+    --slider-sell-color: var(--color-blue-dark);
 }
 
 .k-content.ventas.cyan{
