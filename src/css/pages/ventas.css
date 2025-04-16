@@ -8,6 +8,20 @@
         var(--b),
         var(--a)
     );
+    --slider-sell-color: white;
+    --brightness: brightness(0.9);
+}
+
+.k-content.ventas.palet{
+    color: var(--color-palet);
+    --a: rgb(127, 133, 214);
+    --b: var(--color-palet);
+}
+
+.k-content.ventas.cyan{
+    color: var(--color-cyan);
+    --a: rgb(18, 134, 145);
+    --b: var(--color-cyan);
 }
 
 .k-content.ventas.green{
@@ -15,6 +29,26 @@
     --a: rgb(14, 119, 24);
     --b: var(--color-green);
 }
+
+.k-content.ventas.orange{
+    color: var(--color-orange);
+    --a: rgb(192, 183, 12);
+    --b: var(--color-orange);
+}
+
+.k-content.ventas.yellow{
+    color: var(--color-sun);
+    --a: rgb(255, 246, 151);
+    --b: var(--color-sun);
+    --slider-sell-color: var(--color-blue-dark);
+}
+
+.k-content.ventas.pink{
+    color: var(--color-pink);
+    --a: rgb(208, 34, 130);
+    --b: var(--color-pink);
+}
+
 
 .k-content.ventas p{
     font-family: 'Poppins', sans-serif;
@@ -90,7 +124,7 @@
     border-radius: 30px;
     padding: 2rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    color: white;
+    color: var(--slider-sell-color);
     overflow: hidden;
     cursor: pointer;
 }
@@ -193,10 +227,10 @@
     border-radius: 20px;
     height: 0;
     background: var(--slider-x);
-    filter: brightness(0.5);
+    filter: var(--brightness);
     background-size: 300% 300%;
     animation: gradientShift 4s ease infinite;
-    color: white;
+    color: var(--slider-sell-color);
 
     display: flex;
     flex-direction: column;
@@ -238,7 +272,15 @@
 
 .k-content.ventas .process .item.activo + * + * + *,
 .k-content.ventas .process .item.hovered + * + * + *{
-    filter: brightness(0.5);
+    filter: brightness(0.6);
+}
+.k-content.ventas .process .item.activo + * + * + * + *,
+.k-content.ventas .process .item.hovered + * + * + * + *,
+.k-content.ventas .process .item.activo + * + * + * + * + *,
+.k-content.ventas .process .item.hovered + * + * + * + * + *,
+.k-content.ventas .process .item.activo + * + * + * + * + * + *,
+.k-content.ventas .process .item.hovered + * + * + * + * + * + *{
+    filter: brightness(0.4);
 }
 
 .k-content.ventas .process .item:has(+ *.activo),
@@ -251,7 +293,15 @@
 }
 .k-content.ventas .process .item:has(+ * + * + *.activo),
 .k-content.ventas .process .item:has(+ * + * + *.hovered){
-    filter: brightness(0.5);
+    filter: brightness(0.6);
+}
+.k-content.ventas .process .item:has(+ * + * + * + *.activo),
+.k-content.ventas .process .item:has(+ * + * + * + *.hovered),
+.k-content.ventas .process .item:has(+ * + * + * + * + *.activo),
+.k-content.ventas .process .item:has(+ * + * + * + * + *.hovered),
+.k-content.ventas .process .item:has(+ * + * + * + * + * + *.activo),
+.k-content.ventas .process .item:has(+ * + * + * + * + * + *.hovered){
+    filter: brightness(0.4);
 }
 
 .k-content.ventas .video-container{
@@ -345,7 +395,7 @@
     }
 
     .k-content.ventas .process-container{
-        row-gap: 6vh;
+        row-gap: 10vh;
     }
 
     .k-content.ventas .process{
@@ -365,7 +415,7 @@
     .k-content.ventas .process .item.activo,
     .k-content.ventas .process .item.hovered{
         flex-basis: auto;
-        height: 21vh;
+        height: 22vh;
         width: 100%;
     }
 

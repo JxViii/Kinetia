@@ -5,6 +5,11 @@
   --color-blue-text: rgb(15, 45, 92);
   --color-link-hover: rgb(0, 153, 204);
   --color-green: rgb(18, 74, 39);
+  --color-orange:rgb(203, 144, 28);
+  --color-pink: rgb(193, 23, 68);
+  --color-sun: rgb(255, 236, 27);
+  --color-cyan: rgb(0, 225, 157);
+  --color-palet: rgb(199, 196, 255);
 
   /* Light Colors */
   --color-white: rgb(255, 255, 255);

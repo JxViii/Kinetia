@@ -305,6 +305,26 @@
   --color-sub: var(--color-green);
 }
 
+.optimize-container.transparent.orange{
+  --color-button: var(--color-orange);
+  --color-sub: var(--color-orange);
+}
+
+.optimize-container.transparent.pink{
+  --color-button: var(--color-pink);
+  --color-sub: var(--color-pink);
+}
+
+.optimize-container.transparent.yellow{
+  --color-button: var(--color-sun);
+  --color-sub: var(--color-sun);
+}
+
+.optimize-container.transparent.palet{
+  --color-button: var(--color-palet);
+  --color-sub: var(--color-palet);
+}
+
 .optimize-title {
   display: flex;
   flex-direction: column;

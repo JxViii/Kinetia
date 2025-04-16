@@ -6,7 +6,6 @@
   url("https://www.transparenttextures.com/patterns/always-grey.png"); cuadros diagonales
   url("https://www.transparenttextures.com/patterns/batthern.png"); cuadros como de losetas
   url("https://www.transparenttextures.com/patterns/cartographer.png"); mapa de calor
-
 */
 
 
@@ -24,6 +23,14 @@
   opacity: 0.5;
   pointer-events: none; /* 🔥 Esto lo hace no interactivo */
   z-index: -1; /* Asegura que esté detrás */
+}
+
+.k-content.tiles.dark.darker {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.k-content.tiles.dark::before{
+  opacity:1;
 }
 
 .k-content.axion {
