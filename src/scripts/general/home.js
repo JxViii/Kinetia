@@ -14,6 +14,13 @@
 
 // Initialize scroll animations for home
 
+const menu = document.querySelector('.dropbtn');
+menu.addEventListener('click', () => {
+  console.log('hi');
+  const maintenance = document.querySelector('.maintenance');
+  (maintenance.classList.contains('visually-hidden')) ? maintenance.classList.remove('visually-hidden') : maintenance.classList.add('visually-hidden');
+})
+
 
 window.addEventListener('resize', spin);
 spin();
