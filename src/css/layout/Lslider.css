@@ -29,7 +29,8 @@
 
 .Lslider .list .item .content h2{
   font-size: clamp(4em, 8vw ,6em);
-  line-height: 0.9;
+  line-height: 1;
+  letter-spacing: 2px;
 }
 
 .Lslider .list .item .content .information{
@@ -37,6 +38,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align:start;
   font-size: 1.45vw;
   font-weight: bold;
 }
