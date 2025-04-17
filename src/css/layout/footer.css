@@ -65,14 +65,14 @@
 
 .k-socials-headers{
   margin-top: 40px;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
   font-size: 24px;
   font-weight: bold;
 }
 
 .k-socials-links{
   color: var(--color-footer);
-  margin-bottom: 5px;
+  margin-bottom: 5vh;
   font-size: 20px;
   text-decoration: none;
 }
@@ -120,9 +120,19 @@
 }
 
 @media (max-width: 1200px){
-
   .k-socials-container{
     margin: 0 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .k-socials-section{
+    grid-column: 1;
+  }
+
+  .k-socials-section.servicios{
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 
   .k-socials-container-bot {
@@ -130,11 +140,22 @@
     align-items: center;
     text-align: center;
     margin: 0 auto;
+    gap: 2vh;
+  }
+
+}
+
+@media (max-width: 768px){
+
+  .k-socials-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   }
 
   .k-socials-headers{
-    font-size: 1.1rem;
-    margin: 6vh auto;
+    font-size: 1.8rem;
+    margin: 5vh auto;
   }
 
   .k-socials-links{

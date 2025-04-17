@@ -28,7 +28,7 @@
 }
 
 .Lslider .list .item .content h2{
-  font-size: clamp(4em, 8vw ,6em);
+  font-size: clamp(4em, 7vw ,6em);
   line-height: 1;
   letter-spacing: 2px;
 }
