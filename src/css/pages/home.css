@@ -165,7 +165,7 @@
     .products-3d .slider {
       height: auto;
       width: 100%;
-      columns: clamp(100px, 30vw ,300px) auto;
+      columns: clamp(100px, 30vw ,300px) 2;
       position: relative;
       inset: 0;
       animation: none;
