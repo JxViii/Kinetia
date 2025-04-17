@@ -2,13 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Panel de Administración</title>
-  <style>
-    html, body { margin: 0; padding: 0; height: 100%; }
-    iframe { width: 100%; height: 100%; border: none; }
-  </style>
+  <title>CMS</title>
+  <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
 </head>
 <body>
-  <iframe src="/admin/cms.html"></iframe>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+    window.addEventListener("load", () => {
+      CMS.init({
+        config: "/admin/config.yml"
+      });
+    });
+  </script>
 </body>
 </html>
