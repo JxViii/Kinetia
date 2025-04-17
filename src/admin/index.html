@@ -1,68 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Panel de Administración</title>
   <style>
-    body { font-family: sans-serif; max-width: 500px; margin: 50px auto; }
-    input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
-    #cms-root { margin-top: 20px; }
+    html, body { margin: 0; padding: 0; height: 100%; }
+    iframe { width: 100%; height: 100%; border: none; }
   </style>
 </head>
 <body>
-  <div id="login-container">
-    <h2>Iniciar sesión</h2>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Contraseña" required />
-      <button type="submit">Entrar</button>
-    </form>
-  </div>
-
-  <!-- CMS root donde se montará Decap -->
-  <div id="cms-root" style="display:none;">
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
-    <script>
-      window.CMS_MANUAL_INIT = true;
-
-      function initCMS() {
-        CMS.init({
-          config: "/admin/config.yml",
-        });
-      }
-
-      if (localStorage.getItem("jwt")) {
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("cms-root").style.display = "block";
-        window.addEventListener("load", initCMS);
-      }
-    </script>
-  </div>
-
-  <script>
-    async function login(email, password) {
-      const res = await fetch("https://cms-auth-backend.onrender.com/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
-        location.reload(); // Refresca para montar el CMS
-      } else {
-        alert("Login incorrecto");
-      }
-    }
-
-    document.getElementById("login-form")?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      await login(email, password);
-    });
-  </script>
+  <iframe src="/admin/cms.html"></iframe>
 </body>
 </html>
