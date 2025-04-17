@@ -5,7 +5,17 @@
     <title>Panel de Administración</title>
   </head>
   <body>
+    <!-- 👇 Redirección si Auth0 te devuelve a /admin/callback -->
+    <script>
+      if (window.location.pathname === "/admin/callback") {
+        window.location.replace("/admin/");
+      }
+    </script>
+
+    <!-- 👇 Importa versión estable y sin bugs -->
     <script src="https://unpkg.com/decap-cms@2.10.1/dist/decap-cms.js"></script>
+
+    <!-- 👇 Asegura que CMS se inicializa solo cuando está cargado -->
     <script>
       window.CMS_MANUAL_INIT = true;
       window.addEventListener("load", () => {
@@ -14,7 +24,7 @@
             config: "/admin/config.yml",
           });
         } else {
-          console.error("CMS is not defined");
+          console.error("CMS no está definido.");
         }
       });
     </script>
