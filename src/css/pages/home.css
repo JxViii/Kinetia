@@ -344,10 +344,9 @@
   margin: 2rem 0;
   padding: 1vh max(30px, 3vw);
   border-radius: 4rem;
-  text-shadow: 0 -1px 0 var(--color-soft-beige);
   transition: var(--transition-slow);
   overflow: hidden;
-  border: 1px solid var(--color-button);
+  border: 3px solid var(--color-button);
 }
 
 .lite{
