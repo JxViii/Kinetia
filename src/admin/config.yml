@@ -2,7 +2,11 @@ backend:
   name: github
   repo: JxViii/Kinetia
   branch: main
-  auth_endpoint: https://kinetia.tech/admin/#
+  auth_type: implicit
+  app_id: VtlX9NklLppVTbfR50DIABK3jWLAUIQg
+  base_url: https://kinetia.tech
+  auth_endpoint: https://dev-7xyqz4s3zucsqv2q.eu.auth0.com/authorize
+
 media_folder: "/public/images"
 public_folder: "/images"
 collections:
