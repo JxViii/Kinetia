@@ -49,46 +49,58 @@
   <!-- CMS script -->
   <script src="https://unpkg.com/decap-cms@^2.0.0/dist/decap-cms.js"></script>
   <script>
-    const CORRECT_PASSWORD = "X5<gYAL6/F]F39l{z5ql"; // Cambia esta clave secreta
-
+    const CORRECT_PASSWORD = "X5<gYAL6/F]F39l{z5ql"; // Cambia la clave si lo deseas
+  
     function validateAccess() {
-      const input = document.getElementById("password").value;
+      const input = document.getElementById("password").value.trim();
       if (input === CORRECT_PASSWORD) {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("cms-container").style.display = "block";
-
-        CMS.init({
-          config: {
-            backend: {
-              name: "github",
-              repo: "JxViii/Kinetia",
-              branch: "main",
-              auth_type: "token",
-              token: "X5<gYAL6/F]F39l{z5ql"
-            },
-            media_folder: "public/images/uploads",
-            public_folder: "/images/uploads",
-            collections: [
-              {
-                name: "blog",
-                label: "Blog",
-                folder: "src/blog",
-                create: true,
-                slug: "{{slug}}",
-                fields: [
-                  { label: "Title", name: "title", widget: "string" },
-                  { label: "Date", name: "date", widget: "datetime" },
-                  { label: "Body", name: "body", widget: "markdown" }
-                ]
-              }
-            ]
-          }
-        });
+  
+        // ESPERA a que la librería esté completamente cargada
+        if (typeof CMS !== "undefined") {
+          CMS.init({
+            config: {
+              backend: {
+                name: "github",
+                repo: "JxViii/Kinetia",
+                branch: "main",
+                auth_type: "token",
+                token: "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"
+              },
+              media_folder: "public/images/uploads",
+              public_folder: "/images/uploads",
+              collections: [
+                {
+                  name: "blog",
+                  label: "Blog",
+                  folder: "src/blog",
+                  create: true,
+                  slug: "{{slug}}",
+                  fields: [
+                    { label: "Title", name: "title", widget: "string" },
+                    { label: "Date", name: "date", widget: "datetime" },
+                    { label: "Body", name: "body", widget: "markdown" }
+                  ]
+                }
+              ]
+            }
+          });
+        } else {
+          console.error("Decap CMS no se ha cargado aún.");
+          alert("Hubo un error cargando el CMS. Intenta refrescar la página.");
+        }
       } else {
         document.getElementById("error").style.display = "block";
       }
     }
+  
+    // IMPORTANTE: escucha el evento 'load' para asegurar que todo está cargado
+    window.addEventListener("load", () => {
+      console.log("Página y scripts cargados");
+    });
   </script>
+  
 
 </body>
 </html>
