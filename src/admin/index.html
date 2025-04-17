@@ -1,69 +1,94 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Panel de Administración</title>
+  <meta charset="UTF-8">
+  <title>Kinetia CMS</title>
   <style>
-    body { font-family: sans-serif; max-width: 400px; margin: 50px auto; }
-    input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
-    #cms-root { display: none; }
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #login-screen input {
+      padding: 10px;
+      margin-top: 10px;
+    }
+    #cms-container {
+      display: none;
+    }
   </style>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
 </head>
 <body>
-  <div id="login-container">
-    <h2>Iniciar sesión</h2>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Contraseña" required />
-      <button type="submit">Entrar</button>
-    </form>
+
+  <!-- Login screen -->
+  <div id="login-screen">
+    <h2>🔒 Acceso restringido</h2>
+    <p>Introduce tu clave para acceder al CMS</p>
+    <input type="password" id="password" placeholder="Clave..." />
+    <button onclick="validateAccess()">Entrar</button>
+    <p id="error" style="color: red; display: none;">Clave incorrecta</p>
   </div>
 
-  <div id="cms-root"></div>
+  <!-- CMS container (hidden by default) -->
+  <div id="cms-container"></div>
 
+  <!-- CMS script -->
+  <script src="https://unpkg.com/decap-cms@^2.0.0/dist/decap-cms.js"></script>
   <script>
-    async function login(email, password) {
-      const res = await fetch("https://cms-auth-backend.onrender.com/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+    const CORRECT_PASSWORD = "admin123"; // Cambia esta clave secreta
 
-      const data = await res.json();
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
-        return true;
+    function validateAccess() {
+      const input = document.getElementById("password").value;
+      if (input === CORRECT_PASSWORD) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("cms-container").style.display = "block";
+
+        CMS.init({
+          config: {
+            backend: {
+              name: "github",
+              repo: "JxViii/Kinetia",
+              branch: "main",
+              auth_type: "token",
+              token: "X5<gYAL6/F]F39l{z5ql"
+            },
+            media_folder: "public/images/uploads",
+            public_folder: "/images/uploads",
+            collections: [
+              {
+                name: "blog",
+                label: "Blog",
+                folder: "src/blog",
+                create: true,
+                slug: "{{slug}}",
+                fields: [
+                  { label: "Title", name: "title", widget: "string" },
+                  { label: "Date", name: "date", widget: "datetime" },
+                  { label: "Body", name: "body", widget: "markdown" }
+                ]
+              }
+            ]
+          }
+        });
       } else {
-        alert("Login incorrecto");
-        return false;
+        document.getElementById("error").style.display = "block";
       }
     }
-
-    function loadCMS() {
-      document.getElementById("login-container").style.display = "none";
-      document.getElementById("cms-root").style.display = "block";
-
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js";
-      script.onload = () => {
-        window.CMS_MANUAL_INIT = true;
-        CMS.init({ config: "/admin/config.yml" });
-      };
-      document.body.appendChild(script);
-    }
-
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const success = await login(email, password);
-      if (success) loadCMS();
-    });
-
-    if (localStorage.getItem("jwt")) {
-      loadCMS();
-    }
   </script>
+
 </body>
 </html>
