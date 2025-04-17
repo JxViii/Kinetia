@@ -2,12 +2,10 @@ backend:
   name: github
   repo: JxViii/Kinetia
   branch: main
-  base_url: https://cms-auth-backend.onrender.com
-  auth_endpoint: /auth
-  site_domain: kinetia.tech
 
 media_folder: "public/images"
 public_folder: "/images"
+
 collections:
   - name: "blog"
     label: "Blog"
@@ -15,8 +13,8 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string"}
-      - { label: "Description", name: "desc", widget: "string"}
-      - { label: "Date", name: "date", widget: "datetime"}
-      - { label: "Image", name: "img", widget: "image"}
-      - { label: "Body", name: "body", widget: "markdown"}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "desc", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "img", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
