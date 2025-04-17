@@ -8,10 +8,19 @@
   </head>
   <body>
     <script>
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        window.location.href = "/admin/login.html";
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
+
+      const SECRET_TOKEN = "kinetiaFTW2025"; // cámbialo
+
+      if (token !== SECRET_TOKEN) {
+        document.body.innerHTML = `
+          <h2 style="font-family:sans-serif; text-align:center; margin-top:5rem;">
+            🔒 Acceso denegado<br>
+            Añade <code>?token=${SECRET_TOKEN}</code> a la URL
+          </h2>`;
       } else {
+        localStorage.setItem("kinetia_token", token); // guarda si recargas
         const script = document.createElement("script");
         script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
         document.body.appendChild(script);
