@@ -2,7 +2,6 @@
 
 <html lang="es">
     <head>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>{{ title }}</title>
     <link rel="icon" href="images/kinetia.png" type="image/jpg">
     <meta charset="UTF-8">
@@ -30,25 +29,16 @@
   </head>
   <body>
     {% include 'header.njk' %}
-    
+
     {% block content %}
-      {{ content | safe }}
+
+        {{ content | safe }}
+
     {% endblock %}
     
     {% include 'button.njk' %}
     {% include 'footer.njk' %}
 
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
     <script src="/scripts/general/setup.js"></script>
   </body>
   </html>
