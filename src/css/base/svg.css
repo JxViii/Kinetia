@@ -77,8 +77,8 @@
   fill: transparent;
   stroke: var(--color-yellow-accent);
   stroke-width: 0.2;
-  stroke-dasharray: 80;
-  stroke-dashoffset: 80;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
   animation: textAnimationSub 2s ease-in-out 1 forwards;
   animation-delay: 5s;
 }

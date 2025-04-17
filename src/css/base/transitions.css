@@ -87,7 +87,7 @@
 
 @keyframes textAnimationSub{
   0%{
-    stroke-dashoffset: 80;
+    stroke-dashoffset: 90;
   }
   100%{
     fill: var(--color-yellow-accent);

@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>CMS</title>
-  <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
 </head>
 <body>
   <script>
+    // Preparamos manual init
     window.CMS_MANUAL_INIT = true;
-    window.addEventListener("load", () => {
+
+    // Cargamos el script correctamente y luego usamos CMS
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js";
+    script.onload = () => {
       CMS.init({
         config: "/admin/config.yml"
       });
-    });
+    };
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
