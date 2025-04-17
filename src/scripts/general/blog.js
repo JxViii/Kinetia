@@ -12,7 +12,7 @@ fetch('blog/blog.json')
     const articles = data.reverse();
 
     function introDisplay(intro) {
-      document.querySelector('.blog-head-photo').src = `images/${intro.img}`;
+      document.querySelector('.blog-head-photo').src = `${intro.img}`;
       document.querySelector('.blog-link').href = intro.redirect;
       document.querySelector('.blog-intro-header').textContent = intro.title;
       document.querySelector('.blog-intro-desc').textContent = intro.desc;
