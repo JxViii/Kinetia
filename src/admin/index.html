@@ -7,6 +7,7 @@
   <style>
     body { font-family: sans-serif; max-width: 400px; margin: 50px auto; }
     input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
+    #cms-root { display: none; }
   </style>
 </head>
 <body>
@@ -19,7 +20,7 @@
     </form>
   </div>
 
-  <div id="cms-root" style="display:none;"></div>
+  <div id="cms-root"></div>
 
   <script>
     async function login(email, password) {
@@ -47,9 +48,7 @@
       script.src = "https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js";
       script.onload = () => {
         window.CMS_MANUAL_INIT = true;
-        CMS.init({
-          config: "/admin/config.yml"
-        });
+        CMS.init({ config: "/admin/config.yml" });
       };
       document.body.appendChild(script);
     }
