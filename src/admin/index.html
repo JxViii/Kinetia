@@ -5,27 +5,13 @@
     <title>Panel de Administración</title>
   </head>
   <body>
-    <!-- 👇 Redirección si Auth0 te devuelve a /admin/callback -->
-    <script>
-      if (window.location.pathname === "/admin/callback") {
-        window.location.replace("/admin/");
-      }
-    </script>
-
-    <!-- 👇 Importa versión estable y sin bugs -->
     <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
-
-    <!-- 👇 Asegura que CMS se inicializa solo cuando está cargado -->
     <script>
       window.CMS_MANUAL_INIT = true;
       window.addEventListener("load", () => {
-        if (typeof CMS !== "undefined") {
-          CMS.init({
-            config: "/admin/config.yml",
-          });
-        } else {
-          console.error("CMS no está definido.");
-        }
+        CMS.init({
+          config: "/admin/config.yml"
+        });
       });
     </script>
   </body>

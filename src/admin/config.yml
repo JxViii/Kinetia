@@ -3,8 +3,7 @@ backend:
   repo: JxViii/Kinetia
   branch: main
   base_url: https://cms-auth-backend.onrender.com
-  auth_endpoint: /auth
-  site_domain: kinetia.tech
+  auth_endpoint: /login
 
 media_folder: "public/images"
 public_folder: "/images"
