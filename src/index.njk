@@ -5,7 +5,6 @@ footerColor: 'white'
 buttonColor: 'blue'
 ---
     <!-- SEO -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <h1 class="visually-hidden">Kinetia: Automatización, IA y creación de contenido inteligente</h1>
     <p class="visually-hidden">
       Kinetia ofrece soluciones de automatización de procesos, inteligencia artificial aplicada y creación de contenido eficiente para empresas que buscan optimizar su productividad y destacar online.
@@ -135,16 +134,5 @@ buttonColor: 'blue'
         
         <!-- CALL TO ACTION -->
     <script src="scripts/general/dropdown.js"></script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
-    
     <script src="scripts/general/home.js"></script>
     <script src="scripts/general/Lslider.js"></script>
