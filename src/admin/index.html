@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <title>Panel de Administración</title>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       window.CMS_MANUAL_INIT = true;
-      CMS.init({
-        config: "/admin/config.yml"
+      window.addEventListener("load", () => {
+        if (typeof CMS !== "undefined") {
+          CMS.init({
+            config: "/admin/config.yml",
+          });
+        } else {
+          console.error("CMS is not defined");
+        }
       });
     </script>
   </body>
