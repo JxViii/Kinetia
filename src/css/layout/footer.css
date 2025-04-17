@@ -6,8 +6,9 @@
   --color-footer: var(--color-blue-dark);
 }
 
-.white{
+.k-socials.white{
   --color-footer: var(--color-white);
+  --color-link-hover: rgb(230, 197, 255);
 }
 
 .k-socials.transparent{

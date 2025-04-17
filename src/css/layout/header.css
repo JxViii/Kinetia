@@ -80,7 +80,12 @@ header{
   overflow: hidden;
 }
 
-.dropdown-content a {
+.dropdown-content.sub{
+  top: 328px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-content a, .dropdown-content button {
   color: var(--color-white);
   padding: 20px 30px;         /* Bigger padding for bigger items */
   text-decoration: none;
@@ -94,7 +99,7 @@ header{
   background-color: brown;
 } */
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,  .dropdown-content button:hover{
   color: var(--color-blue-dark);
   background-color: rgba(255,255,255,0.6);
 }
@@ -103,6 +108,46 @@ header{
   opacity: 1;
   transform: translateX(0) translateY(0);
 }
+
+/* Submenú oculto por defecto */
+.submenu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
+
+/* Mostrar cuando tiene clase activa */
+.dropdown-sub.active .submenu {
+  display: block;
+}
+
+.submenu a {
+  display: block;
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.submenu a:hover {
+  background-color: #eee;
+}
+
+.submenu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: start;
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
 
 @media (max-width: 768px){
   header{
@@ -127,7 +172,11 @@ header{
     top: 50px;
   }
 
-  .dropdown-content a {
+  .dropdown-content.sub{
+    top: 252px;
+  }
+
+  .dropdown-content a, .dropdown-content button {
     padding: 15px 20px;         /* Bigger padding for bigger items */
     font-size: 16px;            /* Make text bigger */
   }
