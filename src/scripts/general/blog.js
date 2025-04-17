@@ -12,7 +12,7 @@ fetch('blog/blog.json')
     const articles = data.reverse();
 
     function introDisplay(intro) {
-      document.querySelector('.blog-head-photo').src = `${intro.img}`;
+      document.querySelector('.blog-head-photo').src = intro.img;
       document.querySelector('.blog-link').href = intro.redirect;
       document.querySelector('.blog-intro-header').textContent = intro.title;
       document.querySelector('.blog-intro-desc').textContent = intro.desc;
@@ -44,7 +44,7 @@ fetch('blog/blog.json')
         const artDiv = document.createElement('div');
         artDiv.classList.add('blog-articles-container');
         artDiv.innerHTML = `
-          <img src="images/${img}" class="blog-photo">
+          <img src="${img}" class="blog-photo">
           <div class="blog-container-header">
             <a href="${redirect}" class="blog-link">Blog</a>
             ${article.title}
@@ -75,7 +75,7 @@ fetch('blog/blog.json')
         const artDiv = document.createElement('div');
         artDiv.classList.add('blog-articles-container');
         artDiv.innerHTML = `
-          <img src="images/${img}" class="blog-photo">
+          <img src="${img}" class="blog-photo">
           <div class="blog-container-header">
             <a href="${redirect}" class="blog-link">Blog</a>
             ${article.title}
