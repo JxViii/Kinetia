@@ -8,7 +8,7 @@ desc: En la era digital, los chatbots se han convertido en una herramienta
   ingresos en cualquier tipo de negocio? La respuesta es sí, y aquí te
   explicamos cómo.
 date: 2025-02-26
-img: 01-article.jpg
+img: /images/01-article.jpg
 layout: article.njk
 ---
 
