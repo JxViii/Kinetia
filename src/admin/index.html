@@ -7,6 +7,15 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        window.location.href = "/admin/login.html";
+      } else {
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+        document.body.appendChild(script);
+      }
+    </script>
   </body>
 </html>
