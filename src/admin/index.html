@@ -7,6 +7,11 @@
   <script>
     window.CMS_MANUAL_INIT = true;
   </script>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
   <style>
     body {
       font-family: sans-serif;
@@ -61,7 +66,6 @@
 
   <div id="cms-container"></div>
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
     const CORRECT_PASSWORD = "admin123"; // cámbiala si quieres
 
@@ -70,6 +74,7 @@
         if (typeof CMS !== "undefined") {
           clearInterval(interval);
           CMS.init(config);
+          console.log("CMS listo")
         }
       }, 100);
     }
@@ -107,7 +112,6 @@
             }
           ]
         };
-
         waitForCMSAndInit(config);
       } else {
         document.getElementById("error").style.display = "block";
