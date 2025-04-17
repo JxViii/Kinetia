@@ -1,23 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>CMS</title>
+  <meta charset="UTF-8" />
+  <title>Panel de Administración</title>
+  <style>
+    body { font-family: sans-serif; max-width: 400px; margin: 50px auto; }
+    input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
+  </style>
 </head>
 <body>
-  <script>
-    // Preparamos manual init
-    window.CMS_MANUAL_INIT = true;
+  <div id="login-container">
+    <h2>Iniciar sesión</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
 
-    // Cargamos el script correctamente y luego usamos CMS
-    const script = document.createElement("script");
-    script.src = "https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js";
-    script.onload = () => {
-      CMS.init({
-        config: "/admin/config.yml"
+  <div id="cms-root" style="display:none;"></div>
+
+  <script>
+    async function login(email, password) {
+      const res = await fetch("https://cms-auth-backend.onrender.com/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
-    };
-    document.body.appendChild(script);
+
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem("jwt", data.token);
+        return true;
+      } else {
+        alert("Login incorrecto");
+        return false;
+      }
+    }
+
+    function loadCMS() {
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("cms-root").style.display = "block";
+
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js";
+      script.onload = () => {
+        window.CMS_MANUAL_INIT = true;
+        CMS.init({
+          config: "/admin/config.yml"
+        });
+      };
+      document.body.appendChild(script);
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const success = await login(email, password);
+      if (success) loadCMS();
+    });
+
+    if (localStorage.getItem("jwt")) {
+      loadCMS();
+    }
   </script>
 </body>
 </html>
