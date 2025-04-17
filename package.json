@@ -13,6 +13,9 @@
   "description": "",
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "gray-matter": "^4.0.3"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "gray-matter": "^4.0.3",
+    "simple-oauth2": "^5.1.0"
   }
 }

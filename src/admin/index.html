@@ -1,75 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <title>Kinetia CMS Login</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background: #0d0d0d;
-        color: white;
-      }
-      #login-box {
-        background: #1a1a1a;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #000;
-        text-align: center;
-      }
-      input {
-        width: 100%;
-        padding: 0.6rem;
-        margin: 1rem 0;
-        border-radius: 5px;
-        border: none;
-        font-size: 1rem;
-      }
-      button {
-        padding: 0.6rem 1.5rem;
-        font-size: 1rem;
-        background: #3f3fff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      button:hover {
-        background: #2a2aff;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Panel de Administración</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
-    <div id="login-box">
-      <h2>🔐 Acceso al panel</h2>
-      <input type="password" id="token" placeholder="Introduce la clave secreta" />
-      <button onclick="checkToken()">Entrar</button>
-    </div>
-
     <script>
-      const SECRET_TOKEN = "X5<gYAL6/F]F39l{z5ql"; // cámbiala si quieres
-
-      function checkToken() {
-        const input = document.getElementById("token").value.trim();
-        if (input === SECRET_TOKEN) {
-          localStorage.setItem("kinetia_token", input);
-          location.reload(); // recarga y carga el CMS
-        } else {
-          alert("❌ Clave incorrecta");
-        }
-      }
-
-      // Si ya está logueado, carga el CMS
-      const saved = localStorage.getItem("kinetia_token");
-      if (saved === SECRET_TOKEN) {
-        document.body.innerHTML = ""; // limpia el login
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
-        document.body.appendChild(script);
-      }
+      window.CMS_MANUAL_INIT = true;
+      CMS.init({
+        config: "/admin/config.yml"
+      });
     </script>
   </body>
 </html>
