@@ -1,123 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Panel CMS - Kinetia</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>
-    window.CMS_MANUAL_INIT = true;
-  </script>
-  <script>
-    window.CMS_MANUAL_INIT = true;
-  </script>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #111;
-      color: white;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #login-screen {
-      text-align: center;
-    }
-
-    input {
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      margin-top: 10px;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #error {
-      color: red;
-      margin-top: 10px;
-    }
-
-    #cms-container {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="login-screen">
-    <h2>🔒 Acceso restringido</h2>
-    <p>Introduce tu clave para acceder al CMS</p>
-    <input type="password" id="password" placeholder="Clave..." />
-    <br />
-    <button onclick="validateAccess()">Entrar</button>
-    <p id="error" style="display: none;">Clave incorrecta</p>
-  </div>
-
-  <div id="cms-container"></div>
-
-  <script>
-    const CORRECT_PASSWORD = "admin123"; // cámbiala si quieres
-
-    function waitForCMSAndInit(config) {
-      const interval = setInterval(() => {
-        if (typeof CMS !== "undefined") {
-          clearInterval(interval);
-          CMS.init(config);
-          console.log("CMS listo")
-        }
-      }, 100);
-    }
-
-    function validateAccess() {
-      const input = document.getElementById("password").value.trim();
-      if (input === CORRECT_PASSWORD) {
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("cms-container").style.display = "block";
-
-        const config = {
-          backend: {
-            name: "github",
-            repo: "JxViii/Kinetia",
-            branch: "main",
-            auth_type: "token",
-            token: "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"
-          },
-          media_folder: "public/images",
-          public_folder: "/images",
-          collections: [
-            {
-              name: "blog",
-              label: "Blog",
-              folder: "src/blog",
-              create: true,
-              slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
-              fields: [
-                { label: "Title", name: "title", widget: "string" },
-                { label: "Description", name: "desc", widget: "string" },
-                { label: "Date", name: "date", widget: "datetime" },
-                { label: "Image", name: "img", widget: "image" },
-                { label: "Body", name: "body", widget: "markdown" }
-              ]
-            }
-          ]
-        };
-        waitForCMSAndInit(config);
-      } else {
-        document.getElementById("error").style.display = "block";
-      }
-    }
-  </script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel Kinetia - CMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Decap CMS script desde CDN -->
+    <script src="https://unpkg.com/decap-cms@^2.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <!-- Nada más hace falta, el CMS se carga automáticamente -->
+  </body>
 </html>
