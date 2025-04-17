@@ -2,6 +2,7 @@ backend:
   name: github
   repo: JxViii/Kinetia
   branch: main
+  login: false
 
 media_folder: "/public/images"
 public_folder: "/images"
