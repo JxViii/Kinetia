@@ -1,106 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Kinetia CMS</title>
+  <title>Panel CMS - Kinetia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
   <style>
     body {
       font-family: sans-serif;
-      background: #111;
+      background-color: #111;
       color: white;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
     }
+
     #login-screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
-    #login-screen input {
+
+    input {
       padding: 10px;
+      font-size: 16px;
+      border: none;
       margin-top: 10px;
     }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+    }
+
     #cms-container {
       display: none;
     }
   </style>
-  <script>
-    window.CMS_MANUAL_INIT = true;
-  </script>
 </head>
 <body>
 
-  <!-- Login screen -->
   <div id="login-screen">
     <h2>🔒 Acceso restringido</h2>
     <p>Introduce tu clave para acceder al CMS</p>
     <input type="password" id="password" placeholder="Clave..." />
+    <br />
     <button onclick="validateAccess()">Entrar</button>
-    <p id="error" style="color: red; display: none;">Clave incorrecta</p>
+    <p id="error" style="display: none;">Clave incorrecta</p>
   </div>
 
-  <!-- CMS container (hidden by default) -->
   <div id="cms-container"></div>
 
-  <!-- CMS script -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^2.0.0/dist/decap-cms.js"></script>
   <script>
-    const CORRECT_PASSWORD = "X5<gYAL6/F]F39l{z5ql"; // Cambia la clave si lo deseas
-  
+    const CORRECT_PASSWORD = "admin123"; // cámbiala si quieres
+
+    function waitForCMSAndInit(config) {
+      const interval = setInterval(() => {
+        if (typeof CMS !== "undefined") {
+          clearInterval(interval);
+          CMS.init(config);
+        }
+      }, 100);
+    }
+
     function validateAccess() {
       const input = document.getElementById("password").value.trim();
       if (input === CORRECT_PASSWORD) {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("cms-container").style.display = "block";
-  
-        // ESPERA a que la librería esté completamente cargada
-        if (typeof CMS !== "undefined") {
-          CMS.init({
-            config: {
-              backend: {
-                name: "github",
-                repo: "JxViii/Kinetia",
-                branch: "main",
-                auth_type: "token",
-                token: "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"
-              },
-              media_folder: "public/images/uploads",
-              public_folder: "/images/uploads",
-              collections: [
-                {
-                  name: "blog",
-                  label: "Blog",
-                  folder: "src/blog",
-                  create: true,
-                  slug: "{{slug}}",
-                  fields: [
-                    { label: "Title", name: "title", widget: "string" },
-                    { label: "Date", name: "date", widget: "datetime" },
-                    { label: "Body", name: "body", widget: "markdown" }
-                  ]
-                }
+
+        const config = {
+          backend: {
+            name: "github",
+            repo: "JxViii/Kinetia",
+            branch: "main",
+            auth_type: "token",
+            token: "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"
+          },
+          media_folder: "public/images",
+          public_folder: "/images",
+          collections: [
+            {
+              name: "blog",
+              label: "Blog",
+              folder: "src/blog",
+              create: true,
+              slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
+              fields: [
+                { label: "Title", name: "title", widget: "string" },
+                { label: "Description", name: "desc", widget: "string" },
+                { label: "Date", name: "date", widget: "datetime" },
+                { label: "Image", name: "img", widget: "image" },
+                { label: "Body", name: "body", widget: "markdown" }
               ]
             }
-          });
-        } else {
-          console.error("Decap CMS no se ha cargado aún.");
-          alert("Hubo un error cargando el CMS. Intenta refrescar la página.");
-        }
+          ]
+        };
+
+        waitForCMSAndInit(config);
       } else {
         document.getElementById("error").style.display = "block";
       }
     }
-  
-    // IMPORTANTE: escucha el evento 'load' para asegurar que todo está cargado
-    window.addEventListener("load", () => {
-      console.log("Página y scripts cargados");
-    });
   </script>
-  
 
 </body>
 </html>
