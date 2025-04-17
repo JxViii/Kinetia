@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>Panel de Administración</title>
   <style>
-    body { font-family: sans-serif; max-width: 400px; margin: 50px auto; }
+    body { font-family: sans-serif; max-width: 500px; margin: 50px auto; }
     input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
     #cms-root { margin-top: 20px; }
   </style>
@@ -20,7 +20,25 @@
     </form>
   </div>
 
-  <div id="cms-root" style="display:none;"></div>
+  <!-- CMS root donde se montará Decap -->
+  <div id="cms-root" style="display:none;">
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
+    <script>
+      window.CMS_MANUAL_INIT = true;
+
+      function initCMS() {
+        CMS.init({
+          config: "/admin/config.yml",
+        });
+      }
+
+      if (localStorage.getItem("jwt")) {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("cms-root").style.display = "block";
+        window.addEventListener("load", initCMS);
+      }
+    </script>
+  </div>
 
   <script>
     async function login(email, password) {
@@ -33,52 +51,18 @@
       const data = await res.json();
       if (data.token) {
         localStorage.setItem("jwt", data.token);
-        return true;
+        location.reload(); // Refresca para montar el CMS
       } else {
         alert("Login incorrecto");
-        return false;
       }
-    }
-
-    function loadCMS() {
-      document.getElementById("login-container").style.display = "none";
-      document.getElementById("cms-root").style.display = "block";
-
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
-      script.onload = () => {
-        const token = localStorage.getItem("jwt");
-
-        window.CMS_MANUAL_INIT = true;
-
-        CMS.init({
-          config: "/admin/config.yml",
-          load_config_file: true,
-          backend: {
-            name: "github",
-            repo: "JxViii/Kinetia",
-            branch: "main",
-            base_url: "https://cms-auth-backend.onrender.com",
-            auth_endpoint: "/login",
-          },
-        });
-      };
-
-      document.body.appendChild(script);
     }
 
     document.getElementById("login-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      const success = await login(email, password);
-      if (success) loadCMS();
+      await login(email, password);
     });
-
-    // Si ya estás logueado, entra directo
-    if (localStorage.getItem("jwt")) {
-      loadCMS();
-    }
   </script>
 </body>
 </html>
