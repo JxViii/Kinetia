@@ -233,8 +233,8 @@
     animation: gradientShift 4s ease infinite;
     color: var(--slider-sell-color);
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 15% 1fr;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -243,11 +243,17 @@
     transition: flex-basis 0.6s ease, transform 1s ease, opacity 1s ease;
 }
 
+.k-content.ventas .process .item p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .k-content.ventas .process .item p,
 .k-content.ventas .process .item h3{
     margin-left: 0;
-    text-align: center;
     display: none;
+    text-align: center;
 }
 
 .k-content.ventas .process .item:hover{
@@ -403,6 +409,22 @@
         height: auto;
         flex-direction: column;
         gap: 3vh;
+        transform: rotateZ(90deg);
+        animation: showProcess 4s ease-in-out 1 forwards;
+        animation-play-state: paused;
+        animation-delay: 1s;
+    }
+
+    @keyframes showProcess{
+        0%{
+            transform: rotateZ(90deg);
+        }
+        50%{
+            transform: rotateZ(180deg);
+        }
+        100%{
+            transform: rotateZ(360deg);
+        }
     }
     
     .k-content.ventas .process .item{
@@ -416,12 +438,12 @@
     .k-content.ventas .process .item.activo,
     .k-content.ventas .process .item.hovered{
         flex-basis: auto;
-        height: 22vh;
+        height: 45vw;
         width: 100%;
     }
 
     .k-content.ventas .video-container{
-        padding-top: 50vh;
+        padding-top: 55vh;
         display: flex;
         flex-direction: column;
         row-gap: 3vh;
