@@ -136,7 +136,7 @@ h1, h2, h3 {
 
 .AIslider{
   margin: 30px auto;
-  width: clamp(500px, 90%, 1300px);
+  width: clamp(500px, 90%, 1400px);
   height: var(--h);
   overflow: hidden;
   mask-image: linear-gradient(
@@ -145,6 +145,7 @@ h1, h2, h3 {
     #000 20% 80%,
     transparent
   );
+  filter: grayscale(0);
 }
 
 .AIslider .list{
@@ -158,18 +159,19 @@ h1, h2, h3 {
   height: var(--h);
   width: var(--w);
   position: absolute;
+  filter: contrast(1) saturate(1.5);
 }
 
 .AIslider .list.logo .item{
   left: max(100%,calc(110px * var(--N)));
   animation: autoRunL 10s linear infinite;
-  animation-delay: calc( (10s / var(--N)) * (var(--pos) - 1));
+  animation-delay: calc( (10s / var(--N)) * (var(--pos) - 1) * -1);
 }
 
 .AIslider .list.icons .item{
   left: calc(var(--w) * -1);
   animation: autoRunR 10s linear infinite;
-  animation-delay: calc( (10s / var(--N)) * (var(--pos) - 1));
+  animation-delay: calc( (10s / var(--N)) * (var(--pos) - 1) * -1);
 }
 
 .AIslider .list .item img{
@@ -197,7 +199,6 @@ h1, h2, h3 {
 
 .AIslider:hover .item{
   animation-play-state: paused !important;
-  filter: grayscale(1);
   cursor:pointer;
 }
 
