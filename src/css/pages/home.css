@@ -181,20 +181,41 @@
     .products-3d .slider {
       height: auto;
       width: 100%;
-      columns: clamp(100px, 30vw ,300px) 2;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(4, minmax(50px,1fr));
       position: relative;
       inset: 0;
       animation: none;
       perspective: none;
       transform: none;
+
+      container-type: inline-size;
+
+      @container (width >= calc(50px * 2 + 1rem)) {
+        .item {
+          grid-column-end: span 2;
+        }
+      }
+
+      @container (width >= calc(50px * 4 + 3rem)) {
+        .item:last-child:nth-child(odd) {
+          grid-column-start: 2;
+        }
+      }
     }
 
     .products-3d .slider .item {
-      margin-bottom: 1rem;
       height: auto;
       width: 100%;
       position: relative;
       transform: none !important;
+    }
+
+    .products-3d .slider .item:last-child {
+      column-span: all;
+      display: block;
+      margin: 0 auto;
     }
 
     .products-3d .slider .item img:hover{
