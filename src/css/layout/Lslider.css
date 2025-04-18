@@ -23,12 +23,12 @@
   grid-template-columns: repeat(2, 30vw);
   column-gap: 100px;
   font-family: 'Poppins', sans-serif;
-  text-shadow: 0px 5px 2px black;
+  text-shadow: 0px 5px 5px black;
   z-index: 100;
 }
 
 .Lslider .list .item .content h2{
-  font-size: clamp(4em, 7vw ,6em);
+  font-size: clamp(4em, 4.7vw ,5.5em);
   line-height: 1;
   letter-spacing: 2px;
 }
@@ -156,7 +156,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 35vh;
+  bottom: 50vh;
   width: var(--width-df);
   display: flex;
   padding: 0 5vw;
@@ -247,7 +247,7 @@
   }
 
   .arrows{
-    bottom: clamp(75px, 5vh, 200px);
+    bottom: clamp(120px, 20vh, 200px);
   }
 
   .arrows button{
