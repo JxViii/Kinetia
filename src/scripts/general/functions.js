@@ -228,47 +228,69 @@ function showFocus() {
       focusTitle.textContent = img.dataset.title;
       focusDesc.textContent = img.dataset.desc;
       focusLink.href = link;
+
       if (link === '#call') {
         focusLink.innerHTML = `<i class="fa-solid fa-phone"></i>`;
         focusLink.classList.remove('demo');
-      }
-      else{
+      } else {
         focusLink.innerHTML = 'Ver Producto';
         focusLink.classList.add('demo');
       }
 
       focusView.classList.remove('hidden');
 
+      // Cambiar el fondo al color promedio de la imagen
       focusImg.onload = () => {
         try {
           const [r, g, b] = getAverageColor(focusImg);
-          const adjusted = `rgba(${r}, ${g}, ${b}, 0.25)`; // fondo suave
+          const adjusted = `rgba(${r}, ${g}, ${b}, 0.25)`;
           focusContent.style.backgroundColor = adjusted;
         } catch (err) {
           console.warn("No se pudo obtener el color:", err);
         }
       };
 
+      // Pausar animación
       slider.style.animationPlayState = 'paused';
+
+      // Agregar estado al historial
+      history.pushState({ focusOpen: true }, '', '#focus');
     });
   });
 
+  // Click fuera del contenido para cerrar
   focusView.addEventListener('click', (e) => {
     if (e.target === focusView) {
       closeFocus();
     }
   });
 
+  // Tecla ESC para cerrar
   document.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
       closeFocus();
     }
   });
+
+  // Detectar retroceso del historial
+  window.addEventListener('popstate', (e) => {
+    if (e.state?.focusOpen) {
+      closeFocus(true); // true indica que vino del historial
+    }
+  });
 }
 
-function closeFocus() {
+function closeFocus(fromPopState = false) {
   focusView.classList.add('hidden');
   slider.style.animationPlayState = 'running';
+
+  // Si no fue el usuario quien hizo "Atrás", hacemos retroceso
+  if (!fromPopState && window.location.hash === '#focus') {
+    history.back();
+  }
+
+  // Opcional: limpiar el hash si ya no lo necesitas
+  history.replaceState(null, '', location.pathname);
 }
 
 // Show articles

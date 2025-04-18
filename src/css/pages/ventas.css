@@ -411,9 +411,9 @@
         flex-direction: column;
         gap: 3vh;
         transform: rotateZ(90deg);
-        animation: showProcess 4s ease-in-out 1 forwards;
+        animation: showProcess 3.5s ease-in-out 1 forwards;
         animation-play-state: paused;
-        animation-delay: 1s;
+        animation-delay: 0.5s;
     }
 
     @keyframes showProcess{
