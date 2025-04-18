@@ -142,7 +142,7 @@ h1, h2, h3 {
   mask-image: linear-gradient(
     to right,
     transparent,
-    #000 20% 80%,
+    #000 20% 90%,
     transparent
   );
   filter: grayscale(0);
@@ -197,14 +197,14 @@ h1, h2, h3 {
   }
 }
 
-.AIslider:hover .item{
+/* .AIslider:hover .item{
   animation-play-state: paused !important;
   cursor:pointer;
-}
+} */
 
-.AIslider .item:hover{
+/* .AIslider .item:hover{
   filter:grayscale(0);
-}
+} */
 
 
 @media (max-width: 1200px){
