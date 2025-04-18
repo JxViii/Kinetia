@@ -157,14 +157,18 @@ header section{
   -webkit-backdrop-filter: blur(2px) saturate(150%);
 
   opacity: 0;
+  pointer-events: none;
   transform: translateX(100%);
-  transition: var(--transition-fast-fade);
+  transition: all .4s ease;
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 .dropdown-content.sub{
+  transform: scaleY(0);
   top: 328px;
   background-color: rgba(0, 0, 0, 0.5);
+  transform-origin: top;
 }
 
 .dropdown-content a, .dropdown-content button {
@@ -186,9 +190,15 @@ header section{
   background-color: rgba(255,255,255,0.6);
 }
 
-.dropdown-content.show {
+.dropdown-content.sub.show{
   opacity: 1;
-  transform: translateX(0) translateY(0);
+  transform: scaleY(1);
+}
+
+.dropdown-content.show {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Submenú oculto por defecto */
