@@ -238,59 +238,48 @@ function showFocus() {
       }
 
       focusView.classList.remove('hidden');
+      slider.style.animationPlayState = 'paused';
 
-      // Cambiar el fondo al color promedio de la imagen
+      // Poner hash en URL (esto activa el historial)
+      if (window.location.hash !== '#focus') {
+        history.pushState(null, '', '#focus');
+      }
+
       focusImg.onload = () => {
         try {
           const [r, g, b] = getAverageColor(focusImg);
-          const adjusted = `rgba(${r}, ${g}, ${b}, 0.25)`;
-          focusContent.style.backgroundColor = adjusted;
+          focusContent.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.25)`;
         } catch (err) {
           console.warn("No se pudo obtener el color:", err);
         }
       };
-
-      // Pausar animación
-      slider.style.animationPlayState = 'paused';
-
-      // Agregar estado al historial
-      history.pushState({ focusOpen: true }, '', '#focus');
     });
   });
 
-  // Click fuera del contenido para cerrar
   focusView.addEventListener('click', (e) => {
     if (e.target === focusView) {
-      closeFocus();
+      history.back(); // Esto activará el popstate
     }
   });
 
-  // Tecla ESC para cerrar
   document.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
-      closeFocus();
+      history.back(); // También delegamos al historial
     }
   });
 
-  // Detectar retroceso del historial
-  window.addEventListener('popstate', (e) => {
-    if (e.state?.focusOpen) {
-      closeFocus(true); // true indica que vino del historial
+  window.addEventListener('popstate', () => {
+    // Si ya NO estamos en #focus, cerramos el foco
+    if (window.location.hash !== '#focus') {
+      closeFocus();
     }
   });
 }
 
-function closeFocus(fromPopState = false) {
+
+function closeFocus() {
   focusView.classList.add('hidden');
   slider.style.animationPlayState = 'running';
-
-  // Si no fue el usuario quien hizo "Atrás", hacemos retroceso
-  if (!fromPopState && window.location.hash === '#focus') {
-    history.back();
-  }
-
-  // Opcional: limpiar el hash si ya no lo necesitas
-  history.replaceState(null, '', location.pathname);
 }
 
 // Show articles
