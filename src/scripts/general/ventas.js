@@ -123,22 +123,27 @@ slider.addEventListener("scroll", () => {
 
 // Función para activar la animación cuando se ve el elemento
 function activarAnimacionProceso() {
-  const elemento = document.querySelector('.k-content.ventas .process');
+  const elemento = document.querySelectorAll('.k-content.ventas .process .item');
   if (!elemento) return;
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         // Activamos la animación
-        elemento.style.animationPlayState = 'running';
-        observer.unobserve(entry.target); // Solo una vez
+        elemento.forEach( (el) => {
+          el.style.animationPlayState = 'running';
+          observer.unobserve(entry.target); // Solo una vez
+          setTimeout( () => {
+            el.style.animation = 'gradientShift 4s ease infinite';
+          }, 4300);
+        });
       }
     });
   }, {
     threshold: 0.3 // Puedes ajustar este valor
   });
 
-  observer.observe(elemento);
+  observer.observe(elemento[0]);
 }
 
 // Ejecutar cuando el DOM esté listo
