@@ -61,7 +61,7 @@
   text-align: center;
   justify-content: center;
   font-weight: bold;
-  z-index: 10000;
+  z-index: 9998;
 }
 
 @media (max-width: 768px){

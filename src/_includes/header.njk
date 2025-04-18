@@ -3,15 +3,26 @@
     <header class="visible-header">
         <div class="left-k-header">
           <a class="head-title beb" href="/">
-            <img alt="" class="head-logo" src="/images/kinetia.png" loading="lazy"> Kinetia
+            <img alt="" class="head-logo" src="/images/kinetia.png" loading="lazy"> <span>Kinetia</span>
           </a>
-        </div> 
-        <div class="right-k-header">
+        </div>
+
+        <section>
+          <nav class="main-nav beb">
+            <a href="/">Inicio</a>
+            <a href="/sobre-nosotros/">Sobre Nosotros</a>
+            <a href="/blog/">Blog</a>
+            <a href="#newsletter" class="newsletter">Newsletter</a>
+          </nav>
+
           <div class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">☰</button>
           </div>
-        </div>
+        </section>
+        
+
     </header>
+
     <div id="dropdownContent" class="dropdown-content">
       <a href="/">Inicio</a>
       <a href="/sobre-nosotros/">Sobre Nosotros</a>
@@ -28,4 +39,18 @@
       <a href="/agente-de-atencion-al-cliente/">Agente de atención al cliente</a>
       <a href="/servicios-personalizados/">Servicios Personalizados</a>
     </div>
+    <div id="newsletterModal" class="newsletter-modal hidden pop">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeNewsletterModal()">×</button>
+        <h2>Suscríbete a nuestra newsletter<span>_</span></h2>
+        <p>Recibe novedades sobre IA y automatización en tu bandeja.</p>
+        <form id="newsletter-form">
+          <input type="email" id="email" placeholder="Tu correo electrónico" required />
+          <div class="button" type="submit"><span>Suscribirme</span>
+          </div>
+          <p id="newsletter-message"></p>
+        </form>
+      </div>
+    </div>
+    
       <!-- END HEADER -->
