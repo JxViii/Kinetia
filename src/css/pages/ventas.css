@@ -264,7 +264,8 @@
 .k-content.ventas .process .item.hovered{
     flex-basis: 22vw;
     filter: brightness(1.2);
-    height: 300px;
+    height: auto;
+    max-height: 300px;
 }
 
 .k-content.ventas .process .item.activo + *,
@@ -430,20 +431,21 @@
     .k-content.ventas .process .item{
         padding: 15px;
     
-        width: 2vw;
-        flex: 0 0 10%;
+        width: 1vw;
+        flex: 0 0 1%;
         transition: width 0.6s ease, height 0.6s ease, transform 1s ease, opacity 1s ease;
     }
 
     .k-content.ventas .process .item.activo,
     .k-content.ventas .process .item.hovered{
         flex-basis: auto;
-        height: 45vw;
+        height: auto;
+        max-height: 200px;
         width: 100%;
     }
 
     .k-content.ventas .video-container{
-        padding-top: 55vh;
+        padding-top: 60vh;
         display: flex;
         flex-direction: column;
         row-gap: 3vh;
