@@ -151,7 +151,7 @@
 /* buttons */
 
 .arrows{
-  z-index:11;
+  z-index:301;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -182,14 +182,34 @@
   bottom: 0;
   left: calc(50% - 210px);
   transform: translateX(-50%);
-  width: min(900px, 100vw);
+  width: 47%;
   background-image: url('../../images/phone.png');
-  height:67%;
+  max-height: 1000px;
+  height: 67%;
   background-size: cover ;
   background-position: top;
   pointer-events: none;
   z-index: 300;
 }
+ 
+/* .Lslider .list::after {
+  content: "";
+  display: block;
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+.Lslider .list::after {
+  content: url('../../images/phone.png');
+  position: absolute;
+  bottom: 20%;
+  left: calc(50% - 210px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 300;
+} */
+
 
 .Lslider.showModel .list::after{
   animation: showModel 1.5s ease-in-out 1 forwards;
