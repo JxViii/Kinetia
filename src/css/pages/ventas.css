@@ -81,7 +81,7 @@
 }
 
 .k-content.ventas .beneficios-container{
-    margin: 350px 0 125px 0;
+    margin: 350px 0 0 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -199,7 +199,7 @@
 }
 
 .k-content.ventas .process-container{
-    padding: 70vh 5vw;
+    padding: 45vh 5vw;
     height: 260px;
     display: flex;
     flex-direction: column;
