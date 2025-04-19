@@ -134,6 +134,7 @@ header section{
   border: none;
   cursor: pointer;
   padding: 19px 25px;
+  margin-bottom: 5px;
 
   transition: transform .25s ease;
 }
@@ -281,13 +282,19 @@ header section{
   align-items: center;      /* centra verticalmente */
   padding: 2rem;
   text-align: center;
+  margin: 0 20px;
+}
+
+.modal-content .form{
+  padding: 1rem;
+  width: 50%;
 }
 
 .modal-content input[type="email"] {
   width: 80%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid var(--color-blue-dark);
+  border: none;
   background-color: rgba(255,255,255,0.7);
   border-radius: 6px;
   font-size: 1rem;
@@ -301,11 +308,10 @@ header section{
   font-size: 1rem;
   background: var(--color-blue-dark);
   color: white;
-  padding: 5px 15px;
-  border: 2px solid var(--color-blue-dark);
+  padding: 7px 17px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.5s ease;
   overflow: hidden;
 }
 
@@ -314,10 +320,12 @@ header section{
   text-align: center;
 }
 
-.modal-content .button[type="submit"]:hover {
-  background: rgba(255,255,255,0.7);
-  color:var(--color-blue-dark);
+.modal-content .button[type="submit"]:hover,
+.modal-content .button[type="submit"]:focus {
+  background: rgba(220, 0, 62, 0.7);
+  color:var(--color-white);
   font-weight: bold;
+  box-shadow: 0px 5px 20px #000000;
 }
 
 .modal-content .button[type="submit"]:hover > span{
@@ -364,8 +372,9 @@ header section{
 }
 
 #newsletter-message {
-  margin-top: 10px;
-  font-size: 0.9rem;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
   color: green;
 }
 
@@ -377,8 +386,17 @@ header section{
 
 @media (max-width: 1200px){
 
-  .main-nav {
+  .main-nav a:not(.newsletter){
     display: none;
+  }
+
+  .main-nav {
+    margin-right: 0rem;
+  }
+
+  a.newsletter{
+    font-size: 1.1rem;
+    padding: 0;
   }
 }
 
@@ -412,6 +430,11 @@ header section{
   .dropdown-content a, .dropdown-content button {
     padding: 15px 20px;
     font-size: 16px;
+  }
+
+  .modal-content .form{
+    padding: 1rem;
+    width: 100%;
   }
 
   .modal-content .gallery{

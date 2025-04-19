@@ -41,7 +41,7 @@
 /* url('https://www.transparenttextures.com/patterns/paper.png') */
 
 .k-content.beige {
-  background: var(--color-soft-white);
+  background: url('https://www.transparenttextures.com/patterns/paper.png'), var(--color-soft-white);
   color: rgb(10,25,49);
 }
 

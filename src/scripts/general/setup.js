@@ -29,6 +29,7 @@ function openNewsletterModal() {
 // Cerrar modal
 function closeNewsletterModal() {
   modal.classList.add("hidden");
+  message.textContent = '';
 
   // Elimina #newsletter de la URL sin recargar
   if (window.location.hash === "#newsletter") {

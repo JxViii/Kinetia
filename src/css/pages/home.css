@@ -101,7 +101,6 @@
   cursor: pointer;
 }
 
-
 /* Icono de pulsar */
 
 .products-3d .slider .item::after{
@@ -251,7 +250,9 @@
 }
 
 #focus-desc{
-  font-size: clamp(15px, 1.5vw, 20px);
+  /* font-size: clamp(15px, 1.5vw, 20px); */
+  font-size: 1.1rem;
+  line-height: 1.5;
   margin: 12px auto;
   width: 90%;
 }
@@ -260,12 +261,12 @@
   width: max(50vw, 300px + 30vw);
   height: auto;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 1.5vw;
+  padding: 1rem;
   border-radius: 20px;
   color: white;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  margin: 20px;
 }
 
 .focus-content img {
