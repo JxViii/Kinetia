@@ -233,7 +233,7 @@
 @media all and (max-width: 767px){
 
   .Lslider{
-    height: 105dvh;
+    height: 110dvh;
   }
 
   .Lslider .list .item .content{
@@ -247,7 +247,7 @@
   }
 
   .Lslider .list .item .content .information{
-    /* font-size: 0.8rem; */
+    font-size: 1.11rem;
     line-height: 1.7;
     text-align: right;
     padding-left: 30%;

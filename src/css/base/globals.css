@@ -38,8 +38,10 @@
   background-image: url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
 }
 
+/* url('https://www.transparenttextures.com/patterns/paper.png') */
+
 .k-content.beige {
-  background: var(--color-soft-white) url('https://www.transparenttextures.com/patterns/paper.png');
+  background: var(--color-soft-white);
   color: rgb(10,25,49);
 }
 
