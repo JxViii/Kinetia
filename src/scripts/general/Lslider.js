@@ -32,3 +32,21 @@ const setDiameter = () => {
 setDiameter();
 
 window.addEventListener('resize', setDiameter);
+
+const slider_ = document.querySelector('.Lslider');
+
+console.log(slider_);
+
+const observer = new IntersectionObserver( (entries) => {
+  entries.forEach( (entry) => {
+    if (entry.isIntersecting){
+      slider_.classList.add('showModel');
+    }
+    else{
+      slider_.classList.remove('showModel');
+    }
+  });
+
+}, { threshold : 0.3 });
+
+observer.observe(slider_);

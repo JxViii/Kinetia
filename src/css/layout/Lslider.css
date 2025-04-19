@@ -2,7 +2,7 @@
   margin-top: -20vh;
   color: white;
   width: 100%;
-  height: 150dvh;
+  height: 140dvh;
   overflow: hidden;
   position: relative;
 }
@@ -17,18 +17,18 @@
 
 .Lslider .list .item .content{
   position: absolute;
-  top: 25%;
+  top: 15%;
   width: max-content;
   display: grid;
-  grid-template-columns: repeat(2, 30vw);
-  column-gap: 100px;
+  grid-template-columns: repeat(2, 22vw);
+  column-gap: 10vw;
   font-family: 'Poppins', sans-serif;
-  text-shadow: 0px 5px 5px black;
+  text-shadow: 0px 5px 30px black;
   z-index: 100;
 }
 
 .Lslider .list .item .content h2{
-  font-size: clamp(4em, 4.7vw ,5.5em);
+  font-size: clamp(4em, 5.5vw ,7em);
   line-height: 1;
   letter-spacing: 2px;
 }
@@ -36,10 +36,9 @@
 .Lslider .list .item .content .information{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align:start;
-  font-size: 1.45vw;
+  font-size: 1.5rem;
+  line-height: 2;
   font-weight: bold;
 }
 
@@ -64,7 +63,7 @@
   content:'';
   border-radius: 50%;
   background-image: 
-    linear-gradient( to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    linear-gradient( to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     var(--url);
   top: 50%;
   left: 50%;
@@ -156,7 +155,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 50vh;
+  bottom: 40vh;
   width: var(--width-df);
   display: flex;
   padding: 0 5vw;
@@ -177,31 +176,34 @@
 
 /* model */
 
-/* .Lslider .list::after{
+.Lslider .list::after{
   position: absolute;
   content:'';
   bottom: 0;
-  left: 50%;
+  left: calc(50% - 210px);
   transform: translateX(-50%);
   width: min(900px, 100vw);
   background-image: url('../../images/phone.png');
-  height:80%;
+  height:67%;
   background-size: cover ;
   background-position: top;
   pointer-events: none;
   z-index: 300;
+}
+
+.Lslider.showModel .list::after{
   animation: showModel 1.5s ease-in-out 1 forwards;
-} */
+}
 
 .gradient{
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 500px; /* height of the fade effect */
+  height: 300px; /* height of the fade effect */
   background: linear-gradient(to bottom, rgba(10,49,90,0) 0%, var(--color-blue-dark) 100%);
   pointer-events: none;
-  z-index: 10;
+  z-index: 301;
 }
 
 
@@ -219,7 +221,12 @@
   }
 
   .Lslider .list .item .content .information{
-    font-size: 2vw;
+    font-size: 1.2rem;
+  }
+
+  
+  .Lslider .list::after{
+    background-image: none;
   }
 }
 
@@ -240,7 +247,7 @@
   }
 
   .Lslider .list .item .content .information{
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     line-height: 1.7;
     text-align: right;
     padding-left: 30%;
@@ -257,10 +264,6 @@
   .gradient{
     height: 200px;
   }
-
-  /* .Lslider .list::after{
-    background-image: none;
-  } */
 
 }
 
