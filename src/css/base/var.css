@@ -33,7 +33,7 @@
   --text-shadow-light: rgba(255, 255, 255, 0.2);
   --divider-light: rgba(255, 255, 255, 1);
   --purple-button: linear-gradient(135deg, #4f46e5, #3b82f6);
-  --yellow-button: linear-gradient(135deg, #fffa6d, #e2ca40);
+  --yellow-button: linear-gradient(135deg, white, #fffb88, #f2d42c);
 
   /* values */
   --width-df: min(1200px, 90vw);

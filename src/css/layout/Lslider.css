@@ -234,6 +234,11 @@
 }
 
 @media all and (max-width: 1500px){
+
+  .Lslider{
+    height: 105dvh;
+  }
+
   .Lslider .list .item .content{
     grid-template-columns: repeat(2, 30vw);
     gap: 150px;
@@ -246,7 +251,8 @@
 
   
   .Lslider .list::after{
-    background-image: none;
+    height: 65%;
+    width: 950px;
   }
 }
 
@@ -258,7 +264,7 @@
 
   .Lslider .list .item .content{
     grid-template-columns: 80vw;
-    gap: 80px;
+    gap: 2rem;
     top: 70px;
   }
 
@@ -285,5 +291,19 @@
     height: 200px;
   }
 
+  .Lslider .list::after{
+    left: 20px;
+    height: 55%;
+    width: 620px;
+  }
+
+}
+
+@media (max-height: 667px){
+  .Lslider .list::after{
+    left: 10px;
+    height: 50%;
+    width: 400px;
+  }
 }
 
