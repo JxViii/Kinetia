@@ -243,7 +243,7 @@
   transition: var(--transition-slow);
   position: relative;
   display: block;
-  will-change: transform, opacity;
+  /* will-change: transform, opacity; */
 }
 
 .scroll-from-top    { --animation-val: translateY(-50px); }

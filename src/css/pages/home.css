@@ -14,9 +14,9 @@
   width: 100%;
   height: 120px; /* height of the fade effect */
   /* background: linear-gradient(to bottom, transparent 0%, rgb(0,0,0,0.12) 100%),
-              url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
+              url('/images/textures/axiom.png');
   background-blend-mode: multiply; */
-  background: url('https://www.transparenttextures.com/patterns/axiom-pattern.png'), rgba(0,0,0,0.12);
+  background: url('/images/textures/axiom.png'), rgba(0,0,0,0.12);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 85%);
   mask-image: linear-gradient(to bottom, transparent, black 85%);
   pointer-events: none;
@@ -237,7 +237,7 @@
 #focus-view {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
@@ -311,7 +311,7 @@
 /* OPTIMIZE SECTION */
 
 .optimize-container {
-  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  background: rgb(10, 25, 49) url('/images/textures/startdust.png');
   background-blend-mode: luminosity;
   --color-button: var(--color-white);
   --color-sub: var(--color-yellow-accent);
@@ -322,7 +322,7 @@
 }
 
 .optimize-container.beige{
-  background: var(--color-soft-white) url('https://www.transparenttextures.com/patterns/paper.png');
+  background: var(--color-soft-white) url('/images/textures/paper.png');
   --color-button: var(--color-blue-dark);
   --color-sub: var(--color-blue-medium);
 }

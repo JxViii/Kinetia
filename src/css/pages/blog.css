@@ -32,7 +32,7 @@
 .blog-intro-grid-text{
   grid-column: 2;
   display: grid;
-  align-items: left;
+  /* align-items: left; */
   grid-template-rows: 1fr 400px 1fr;
   animation: fade-in-right 2s;
 }
@@ -65,6 +65,7 @@
 .blog-head-photo{
   height: 100%;
   width: 100%;
+  aspect-ratio: 3/2;
   object-fit: cover;
   border-radius: 20px;
   animation: fade-in-left 2s;
@@ -194,6 +195,7 @@
   grid-row: 1;
   height: 100%;
   width: 100%;
+  aspect-ratio: 3/2;
   object-fit: cover;
 }
 

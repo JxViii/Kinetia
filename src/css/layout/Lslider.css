@@ -28,7 +28,7 @@
 }
 
 .Lslider .list .item .content h2{
-  font-size: clamp(4em, 5.5vw ,7em);
+  font-size: clamp(4rem, 5vw ,6rem);
   line-height: 1;
   letter-spacing: 2px;
 }
@@ -141,11 +141,11 @@
 }
 
 .Lslider .list .item.active ~ .item .image::before{
-  transform: translate(-50% -50%) rotate(120deg);
+  transform: translate(-50%, -50%) rotate(120deg);
 }
 
 .Lslider .list .item.active ~ .item .image::after{
-  transform: translate(-50% -50%) rotate(180deg);
+  transform: translate(-50%, -50%) rotate(170deg);
 }
 
 /* buttons */
@@ -182,7 +182,7 @@
   bottom: 0;
   left: calc(50% - 210px);
   transform: translateX(-50%);
-  width: 47%;
+  width: 43%;
   background-image: url('../../images/phone.png');
   max-height: 1000px;
   height: 67%;

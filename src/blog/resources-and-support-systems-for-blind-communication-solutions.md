@@ -1,6 +1,5 @@
 ---
-title: "Accesibilidad en la Telefonía: Empoderando la Comunicación para Personas
-  con Discapacidad Visual"
+title: "Accesibilidad en la Telefonía: Empoderando la Comunicación"
 desc: Este artículo explora cómo la telefonía accesible transforma las
   comunicaciones para las personas con discapacidad visual, permitiéndoles
   interactuar con confianza y facilidad en un mundo digital.

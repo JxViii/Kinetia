@@ -1,5 +1,5 @@
 .k-content.ventas{
-    padding: 14vh 10vw;
+    padding: 20vh 10vw 10vh 10vw;
     --a: rgb(1, 78, 156);
     --b: var(--color-blue-dark);
     --slider-x: linear-gradient(
@@ -64,13 +64,19 @@
     column-gap: 8vw;
 }
 
-.k-content.ventas h1{
+.k-content.ventas .intro .text{
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.k-content.ventas .intro .text h1{
     font-size: clamp(3rem, 6.5vw, 5rem);
     margin: 20px 0 0 0;
 }
 
-.k-content.ventas .intro p{
+.k-content.ventas .intro .text p{
     font-size: clamp(0.9rem, 2vw, 1.5rem);
+    place-self: center;
 }
 
 .k-content.ventas .intro img{
@@ -98,7 +104,7 @@
     position: relative;
     overflow: hidden;
     padding: 1rem 2rem;
-    width: min(1300px,100%);
+    width: min(1200px,100%);
     margin: 0 auto;
 }
 
@@ -127,7 +133,6 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     color: var(--slider-sell-color);
     overflow: hidden;
-    cursor: pointer;
 }
 
 .k-content.ventas .beneficios-container .slider-wrapper .slider .item::before{
@@ -253,14 +258,14 @@
 
     flex: 0 0 min(170px, 14%);
     transition: flex-basis 0.6s ease, transform 1s ease, opacity 1s ease, brightness 1s ease;
+    z-index: 2;
 }
 
-.k-content.ventas .process .item:after{
+.k-content.ventas .process .item:before{
     position: absolute;
     content: "";
     inset: 0 0 0 0;
-    background: url("https://www.transparenttextures.com/patterns/white-diamond.png");
-    filter: contrast(2);
+    background: url("/images/textures/diamond.png");
 }
 
 .k-content.ventas .process .item p{

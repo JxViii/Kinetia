@@ -311,9 +311,10 @@ form button[type="submit"] {
   );
   color: white;
   padding: 7px 70px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.5s ease;
+  transition: background 0.5s ease, box-shadow .4s ease;
   overflow: hidden;
 }
 
