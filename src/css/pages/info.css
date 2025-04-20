@@ -81,8 +81,8 @@ h1, h2, h3 {
   position: relative;
   overflow: hidden;
   padding: 50px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.85rem;
+  letter-spacing: 1.5px;
   margin: 0 auto;
   width: 70%;
   transition: var(--transition-default);
@@ -118,7 +118,6 @@ h1, h2, h3 {
   font-size: 68px;
   letter-spacing: 1.3px;
   padding-bottom: 40px;
-  font-weight: bold;
 }
 
 .info-desc{
@@ -272,7 +271,7 @@ h1, h2, h3 {
 
   .goal-middle{
     padding: 5vw 10vw;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     width: max(35vw,100%);
   }
 
@@ -290,12 +289,12 @@ h1, h2, h3 {
   }
 
   .info-header {
-    font-size: 2rem;
+    font-size: 3rem;
     padding-bottom: 20px;
   }
 
   h1.info-header{
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   .info-desc {
