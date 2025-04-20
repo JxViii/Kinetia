@@ -248,7 +248,7 @@ function showFocus() {
       focusImg.onload = () => {
         try {
           const [r, g, b] = getAverageColor(focusImg);
-          focusContent.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.25)`;
+          focusContent.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.35)`;
         } catch (err) {
           console.warn("No se pudo obtener el color:", err);
         }

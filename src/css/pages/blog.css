@@ -2,14 +2,13 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 100px 140px;
+  padding: 90px 140px;
 }
 
 .blog-title{
-  letter-spacing: 4px;
-  font-size: 90px;
-  font-weight: bolder;
-  margin-bottom: 40px;
+  letter-spacing: 8px;
+  font-size: 6rem;
+  margin-bottom: 10px;
 }
 
 .blog-subtitle{
@@ -22,7 +21,7 @@
 .blog-intro-grid{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 60px 0px;
+  padding: 30px 0px;
   column-gap: 70px;
 }
 
@@ -87,7 +86,7 @@
 }
 
 .blog-intro-header{
-  font-size: 48px;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 40px;
 }
@@ -281,23 +280,29 @@ form input[type="email"] {
   .blog-intro{
     text-align: center;
     align-items: center;
-    padding: 80px 2.5rem;
+    padding: 120px 2.5rem;
   }
 
   .blog-title{
-    font-size: 48px;
+    font-size: 4rem;
   }
 
   .blog-subtitle{
     width: 95%;
     padding: 0;
+    font-size: 1.3rem;
+  }
+
+  .blog-intro-grid{
+    padding-top: 40px;
   }
 
   .blog-intro-grid, .blog-intro-grid-text, .blog-articles-title{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 30px;
   }
 
   .blog-articles-grid{
@@ -317,13 +322,15 @@ form input[type="email"] {
   
 
   .blog-intro-header{
-    font-size: 32px;
+    font-size: 1.5rem;
     margin-bottom: 25px;
+    width: 80%;
+    place-self: center;
   }
 
   .blog-intro-desc{
-    font-size: 18px;
-    width: 90%;
+    font-size: 1rem;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 10px;
   }
@@ -349,7 +356,9 @@ form input[type="email"] {
   }
 
   .blog-container-header{
-    font-size: 28px;
+    font-size: 1.5rem;
+    width: 80%;
+    place-self: center;
   }
 
   .articles-bar{
@@ -364,6 +373,10 @@ form input[type="email"] {
     margin: 0 auto;
   }
 
+  .blog-button, .blog-reset, .articles-bar button{
+    font-size: 1rem;
+  }
+
   .spam-newsletter h2{
     line-height: 1.3;
   }
@@ -375,6 +388,13 @@ form input[type="email"] {
   .spam-newsletter .modal-content .form{
     padding: 0;
     width: 90%;
+  }
+
+  .blog-head-photo, .blog-photo{
+    height: auto;
+    width: 70vw;
+    align-self:flex-end;
+    place-self: center;
   }
 
 }

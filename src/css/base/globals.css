@@ -1,5 +1,6 @@
 .k-content {
   flex: 1;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* 
@@ -48,7 +49,7 @@
 }
 
 .k-content.blue {
-  background: rgb(10, 25, 49) url('/images/textures/stardust.png');
+  background: rgb(10, 25, 49) url('/images/textures/startdust.png');
   background-blend-mode: luminosity;
   color: white;
   --ventas-card: var(--color-blue-dark); 
