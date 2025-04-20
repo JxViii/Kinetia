@@ -268,7 +268,7 @@ header section{
     var(--color-soft-white) 20%, 
     var(--color-orange-hover),
     var(--color-orange)
-    ), url("https://www.transparenttextures.com/patterns/batthern.png");
+    ), url("/images/textures/losetas.png");
   background-blend-mode: multiply;
   max-width:1300px;
   width: auto;

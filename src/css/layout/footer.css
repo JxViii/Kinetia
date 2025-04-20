@@ -182,6 +182,10 @@
     grid-row: 1 / span 2;
   }
 
+  .k-socials-section.reach a span{
+    font-size: 1rem;
+  }
+
   .k-socials-container-bot {
     flex-direction: column;
     align-items: center;

@@ -6,6 +6,8 @@
   url("https://www.transparenttextures.com/patterns/always-grey.png"); cuadros diagonales
   url("https://www.transparenttextures.com/patterns/batthern.png"); cuadros como de losetas
   url("https://www.transparenttextures.com/patterns/cartographer.png"); mapa de calor
+  url("https://www.transparenttextures.com/patterns/hexellence.png"); geometria sutil
+  url("https://www.transparenttextures.com/patterns/purty-wood.png"); madera
 */
 
 .k-content.tiles {
@@ -18,7 +20,7 @@
   content:"";
   position: absolute;
   inset: 0 0 0 0;
-  background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+  background-image: url("/images/textures/carto.png");
   opacity: 0.5;
   pointer-events: none; /* 🔥 Esto lo hace no interactivo */
   z-index: -1; /* Asegura que esté detrás */
@@ -35,18 +37,18 @@
 .k-content.axion {
   background-color: rgba(0, 0, 0, 0.14);
   background-blend-mode: multiply;
-  background-image: url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
+  background-image: url('/images/textures/axiom.png');
 }
 
 /* url('https://www.transparenttextures.com/patterns/paper.png') */
 
 .k-content.beige {
-  background: url('https://www.transparenttextures.com/patterns/paper.png'), var(--color-soft-white);
+  background: url('/images/textures/paper.png'), var(--color-soft-white);
   color: rgb(10,25,49);
 }
 
 .k-content.blue {
-  background: rgb(10, 25, 49) url('https://www.transparenttextures.com/patterns/stardust.png');
+  background: rgb(10, 25, 49) url('/images/textures/stardust.png');
   background-blend-mode: luminosity;
   color: white;
   --ventas-card: var(--color-blue-dark); 
