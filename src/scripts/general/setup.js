@@ -68,12 +68,35 @@ window.addEventListener("keydown", (e) => {
 });
 
 // Envío del formulario
-form?.addEventListener("submit", function (e) {
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
   const email = document.getElementById("email").value;
-  console.log("Correo enviado:", email);
-  message.textContent = "¡Gracias por suscribirte!";
-  form.reset();
+
+  try {
+    const response = await fetch("https://api.mailerlite.com/api/v2/subscribers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-MailerLite-ApiKey": "TU_API_KEY"
+      },
+      body: JSON.stringify({
+        email: email,
+        resubscribe: true,
+        groups: ["TU_ID_DE_LISTA"]
+      })
+    });
+
+    if (response.ok) {
+      message.textContent = "¡Gracias por suscribirte!";
+      form.reset();
+    } else {
+      const data = await response.json();
+      message.textContent = `Error: ${data.error.message || "No se pudo procesar"}`;
+    }
+  } catch (error) {
+    message.textContent = "Hubo un error. Intenta más tarde.";
+    console.error("Error al enviar el correo:", error);
+  }
 });
 
 // Clic en botón de cerrar

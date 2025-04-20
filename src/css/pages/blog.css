@@ -262,14 +262,14 @@ form input[type="email"] {
   width: 80%;
 }
 
-.spam-newsletter .button[type="submit"] {
+.spam-newsletter button[type="submit"] {
   background: var(--yellow-button);
   background-size: 300% 300%;
   animation: gradientShift 5s linear infinite;
   color: var(--color-blue-dark);
 }
 
-.spam-newsletter form .button[type="submit"] span{
+.spam-newsletter form button[type="submit"] span{
   text-align: center;
   font-weight: bold;
 }

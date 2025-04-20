@@ -298,7 +298,7 @@ form input[type="email"] {
   font-size: 1rem;
 }
 
-form .button[type="submit"] {
+form button[type="submit"] {
   width: 120px;
   margin: 20px auto 0 auto;
   display: flex;
@@ -317,12 +317,12 @@ form .button[type="submit"] {
   overflow: hidden;
 }
 
-form .button[type="submit"] span{
+form button[type="submit"] span{
   padding: 10px 30px;
   text-align: center;
 }
 
-form .button[type="submit"]:hover {
+form button[type="submit"]:hover {
   background: linear-gradient(135deg,
     rgba(220, 0, 62, 1),
     rgba(255, 46, 105, 1),
@@ -333,7 +333,7 @@ form .button[type="submit"]:hover {
   box-shadow: 0px 5px 20px #000000;
 }
 
-form .button[type="submit"]:hover > span{
+form button[type="submit"]:hover > span{
   animation: turn-up .7s ease;
 }
 
