@@ -73,19 +73,18 @@ form.addEventListener("submit", async function (e) {
   const email = document.getElementById("email").value;
 
   try {
-    const response = await fetch("https://api.mailerlite.com/api/v2/subscribers", {
+    // Cambiar la URL al Webhook de n8n
+    const response = await fetch("https://kikitochikito.app.n8n.cloud/webhook-test/53886cdf-99b8-474e-80a0-2e9aac576372", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-MailerLite-ApiKey": "TU_API_KEY"
       },
       body: JSON.stringify({
-        email: email,
-        resubscribe: true,
-        groups: ["TU_ID_DE_LISTA"]
+        email: email,  // Aquí enviamos el correo electrónico
       })
     });
 
+    // Comprobar la respuesta del Webhook
     if (response.ok) {
       message.textContent = "¡Gracias por suscribirte!";
       form.reset();
@@ -98,6 +97,7 @@ form.addEventListener("submit", async function (e) {
     console.error("Error al enviar el correo:", error);
   }
 });
+
 
 // Clic en botón de cerrar
 function toggleNewsletterModal() {
