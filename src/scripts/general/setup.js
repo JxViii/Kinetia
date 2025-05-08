@@ -74,7 +74,7 @@ form.addEventListener("submit", async function (e) {
 
   try {
     // Cambiar la URL al Webhook de n8n
-    const response = await fetch("https://kikitochikito.app.n8n.cloud/webhook-test/53886cdf-99b8-474e-80a0-2e9aac576372", {
+    const response = await fetch("https://kikitochikito.app.n8n.cloud/webhook/53886cdf-99b8-474e-80a0-2e9aac576372", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
