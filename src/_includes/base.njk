@@ -59,99 +59,122 @@
   </body>
   </html>
 
-  <style>
+<style>
+  /* Botón flotante del chat */
+  #chat-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    z-index: 9998;
+    transition: transform 0.2s ease;
+  }
+
+  #chat-toggle:hover {
+    transform: scale(1.05);
+  }
+
+  /* Ventana del chat */
   #chat-widget {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    font-family: sans-serif;
+    bottom: 90px;
+    right: 24px;
+    width: 340px;
+    max-height: 500px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
     z-index: 9999;
     overflow: hidden;
   }
 
   #chat-header {
-    background-color: #0072ff;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
+    background: linear-gradient(90deg, #000000, #2b2b2b);
+    color: #f1c40f;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 16px;
   }
 
   #chat-body {
-    max-height: 200px;
+    padding: 12px 16px;
+    flex: 1;
     overflow-y: auto;
-    padding: 10px;
     font-size: 14px;
+    color: #333;
   }
 
   #chat-input {
     display: flex;
     border-top: 1px solid #ddd;
+    background-color: #fff;
   }
 
   #chat-input input {
     flex: 1;
+    padding: 10px 12px;
     border: none;
-    padding: 10px;
     font-size: 14px;
+    outline: none;
   }
 
   #chat-input button {
-    background-color: #0072ff;
-    color: white;
+    background-color: #f1c40f;
     border: none;
     padding: 0 16px;
     cursor: pointer;
-  }
-
-  #chat-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #0072ff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-    font-size: 26px;
-    z-index: 9998;
-    cursor: pointer;
+    font-weight: bold;
+    color: #000;
+    font-size: 16px;
   }
 </style>
 
+<!-- Botón flotante -->
 <button id="chat-toggle">💬</button>
 
-<div id="chat-widget" style="display: none;">
+<!-- Ventana de chat -->
+<div id="chat-widget">
   <div id="chat-header">Asistente IA</div>
   <div id="chat-body">
     <div><strong>Kinetia:</strong> ¡Hola! ¿En qué puedo ayudarte hoy?</div>
   </div>
   <div id="chat-input">
-    <input type="text" id="chat-message" placeholder="Escribe tu mensaje..." />
+    <input type="text" id="chat-message" placeholder="Escribe un mensaje..." />
     <button onclick="sendMessage()">➤</button>
   </div>
 </div>
 
+<!-- Lógica del asistente -->
 <script>
-  const webhookUrl = "https://TUDOMINIO.OOO/webhook"; // ⬅️ Cambia esto por el webhook real
+  const webhookUrl = "https://TUDOMINIO/webhook"; // ⚠️ Reemplaza con tu URL de webhook n8n real
 
-  document.getElementById("chat-toggle").addEventListener("click", () => {
-    const widget = document.getElementById("chat-widget");
-    widget.style.display = widget.style.display === "none" ? "block" : "none";
+  const toggleBtn = document.getElementById("chat-toggle");
+  const widget = document.getElementById("chat-widget");
+  const body = document.getElementById("chat-body");
+  const input = document.getElementById("chat-message");
+
+  toggleBtn.addEventListener("click", () => {
+    widget.style.display = widget.style.display === "none" ? "flex" : "none";
   });
 
   async function sendMessage() {
-    const input = document.getElementById("chat-message");
     const message = input.value.trim();
     if (!message) return;
 
-    const chatBody = document.getElementById("chat-body");
-    chatBody.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+    body.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
     input.value = "";
+    body.scrollTop = body.scrollHeight;
 
     try {
       const res = await fetch(webhookUrl, {
@@ -161,11 +184,12 @@
       });
 
       const data = await res.json();
-      const respuesta = data.reply || "🤖 Lo siento, no he podido procesar tu mensaje.";
-      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ${respuesta}</div>`;
-      chatBody.scrollTop = chatBody.scrollHeight;
-    } catch (err) {
-      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ❌ Error al contactar con el servidor.</div>`;
+      const respuesta = data.reply || "🤖 Lo siento, no entendí tu mensaje.";
+      body.innerHTML += `<div><strong>Kinetia:</strong> ${respuesta}</div>`;
+      body.scrollTop = body.scrollHeight;
+    } catch {
+      body.innerHTML += `<div><strong>Kinetia:</strong> ❌ No se pudo contactar con el servidor.</div>`;
     }
   }
 </script>
+
