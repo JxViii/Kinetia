@@ -59,122 +59,147 @@
   </body>
   </html>
 
+<!-- Estilos del nuevo widget -->
 <style>
-  /* Botón flotante del chat */
-  #chat-toggle {
+  :root {
+    --kinetia-yellow: #f1c40f;
+    --kinetia-dark: #111;
+    --kinetia-bg: #fff;
+    --kinetia-shadow: rgba(0, 0, 0, 0.1);
+  }
+
+  #kinetia-chat-button {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 56px;
-    height: 56px;
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
+    width: 64px;
+    height: 64px;
+    background-color: var(--kinetia-bg);
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-size: 24px;
-    color: #333;
+    box-shadow: 0 4px 12px var(--kinetia-shadow);
+    border: 1px solid #ddd;
     cursor: pointer;
     z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.2s ease;
   }
 
-  #chat-toggle:hover {
+  #kinetia-chat-button:hover {
     transform: scale(1.05);
   }
 
-  /* Ventana del chat */
-  #chat-widget {
+  #kinetia-chat-button svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--kinetia-dark);
+  }
+
+  #kinetia-chat-widget {
     position: fixed;
-    bottom: 90px;
+    bottom: 100px;
     right: 24px;
-    width: 340px;
-    max-height: 500px;
-    background-color: #f9f9f9;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 380px;
+    max-height: 580px;
+    background-color: var(--kinetia-bg);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px var(--kinetia-shadow);
     display: none;
     flex-direction: column;
     font-family: 'Segoe UI', sans-serif;
     z-index: 9999;
     overflow: hidden;
+    border: 1px solid #ddd;
   }
 
-  #chat-header {
-    background: linear-gradient(90deg, #000000, #2b2b2b);
-    color: #f1c40f;
-    padding: 12px 16px;
+  #kinetia-chat-header {
+    background: var(--kinetia-dark);
+    color: var(--kinetia-yellow);
+    padding: 16px;
+    font-size: 17px;
     font-weight: 600;
-    font-size: 16px;
   }
 
-  #chat-body {
-    padding: 12px 16px;
+  #kinetia-chat-body {
+    padding: 16px;
     flex: 1;
     overflow-y: auto;
-    font-size: 14px;
+    font-size: 15px;
     color: #333;
+    background: #fdfdfd;
   }
 
-  #chat-input {
+  #kinetia-chat-body div {
+    margin-bottom: 10px;
+  }
+
+  #kinetia-chat-input {
     display: flex;
-    border-top: 1px solid #ddd;
-    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid #eee;
+    background: var(--kinetia-bg);
   }
 
-  #chat-input input {
+  #kinetia-chat-input input {
     flex: 1;
     padding: 10px 12px;
-    border: none;
-    font-size: 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     outline: none;
   }
 
-  #chat-input button {
-    background-color: #f1c40f;
-    border: none;
-    padding: 0 16px;
-    cursor: pointer;
-    font-weight: bold;
+  #kinetia-chat-input button {
+    margin-left: 8px;
+    padding: 0 18px;
+    background-color: var(--kinetia-yellow);
     color: #000;
-    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
   }
 </style>
 
 <!-- Botón flotante -->
-<button id="chat-toggle">💬</button>
+<div id="kinetia-chat-button">
+  <svg viewBox="0 0 24 24">
+    <path d="M12 3C6.48 3 2 6.94 2 11.5c0 2.11 1.05 4.02 2.75 5.5L4 21l4.12-1.67C9.38 19.77 10.67 20 12 20c5.52 0 10-3.94 10-8.5S17.52 3 12 3z"/>
+  </svg>
+</div>
 
-<!-- Ventana de chat -->
-<div id="chat-widget">
-  <div id="chat-header">Asistente IA</div>
-  <div id="chat-body">
+<!-- Ventana del chat -->
+<div id="kinetia-chat-widget">
+  <div id="kinetia-chat-header">Asistente IA</div>
+  <div id="kinetia-chat-body">
     <div><strong>Kinetia:</strong> ¡Hola! ¿En qué puedo ayudarte hoy?</div>
   </div>
-  <div id="chat-input">
-    <input type="text" id="chat-message" placeholder="Escribe un mensaje..." />
-    <button onclick="sendMessage()">➤</button>
+  <div id="kinetia-chat-input">
+    <input type="text" id="kinetia-chat-message" placeholder="Escribe tu mensaje..." />
+    <button onclick="sendKinetiaMessage()">Enviar</button>
   </div>
 </div>
 
-<!-- Lógica del asistente -->
+<!-- Script de funcionalidad -->
 <script>
-  const webhookUrl = "https://TUDOMINIO/webhook"; // ⚠️ Reemplaza con tu URL de webhook n8n real
+  const chatWidget = document.getElementById("kinetia-chat-widget");
+  const chatButton = document.getElementById("kinetia-chat-button");
+  const chatBody = document.getElementById("kinetia-chat-body");
+  const input = document.getElementById("kinetia-chat-message");
+  const webhookUrl = "https://TUDOMINIO/webhook"; // ⚠️ Reemplaza esto con tu webhook real
 
-  const toggleBtn = document.getElementById("chat-toggle");
-  const widget = document.getElementById("chat-widget");
-  const body = document.getElementById("chat-body");
-  const input = document.getElementById("chat-message");
-
-  toggleBtn.addEventListener("click", () => {
-    widget.style.display = widget.style.display === "none" ? "flex" : "none";
+  chatButton.addEventListener("click", () => {
+    chatWidget.style.display = chatWidget.style.display === "none" ? "flex" : "none";
   });
 
-  async function sendMessage() {
+  async function sendKinetiaMessage() {
     const message = input.value.trim();
     if (!message) return;
 
-    body.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+    chatBody.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
     input.value = "";
-    body.scrollTop = body.scrollHeight;
+    chatBody.scrollTop = chatBody.scrollHeight;
 
     try {
       const res = await fetch(webhookUrl, {
@@ -184,12 +209,11 @@
       });
 
       const data = await res.json();
-      const respuesta = data.reply || "🤖 Lo siento, no entendí tu mensaje.";
-      body.innerHTML += `<div><strong>Kinetia:</strong> ${respuesta}</div>`;
-      body.scrollTop = body.scrollHeight;
-    } catch {
-      body.innerHTML += `<div><strong>Kinetia:</strong> ❌ No se pudo contactar con el servidor.</div>`;
+      const respuesta = data.reply || "🤖 Lo siento, no pude entenderte.";
+      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ${respuesta}</div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    } catch (err) {
+      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ❌ Error al conectar con el servidor.</div>`;
     }
   }
 </script>
-
