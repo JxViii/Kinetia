@@ -73,20 +73,20 @@
             right: 30px;
             width: 65px;
             height: 65px;
-            background-color:#f77c18;
+            background-color: #f77c18;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(247, 124, 24, 0.4);
             transition: all 0.3s ease;
             z-index: 999;
         }
 
         .kinetia-chat-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 25px rgba(247, 124, 24, 0.7);
         }
 
         .kinetia-chat-icon {
@@ -104,7 +104,7 @@
             height: 500px;
             background-color: #222;
             border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(247, 124, 24, 0.1), 0 0 15px rgba(247, 124, 24, 0.2);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -115,6 +115,12 @@
 
         .kinetia-chat-window.active {
             display: flex;
+            animation: chatWindowOpen 0.4s ease forwards;
+        }
+
+        @keyframes chatWindowOpen {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         /* Header del chat */
@@ -126,6 +132,25 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid #f77c18;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de borde neón */
+        .kinetia-chat-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f77c18, transparent);
+            animation: neonBorder 3s linear infinite;
+        }
+
+        @keyframes neonBorder {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .kinetia-chat-title {
@@ -144,6 +169,7 @@
             font-size: 18px;
             font-weight: 500;
             color: #f77c18;
+            text-shadow: 0 0 5px rgba(247, 124, 24, 0.3);
         }
 
         .kinetia-chat-close {
@@ -156,6 +182,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            text-shadow: 0 0 5px rgba(247, 124, 24, 0.3);
+        }
+
+        /* Área de seguimiento del ratón */
+        .kinetia-mouse-tracker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        /* Partículas para el efecto del ratón */
+        .kinetia-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(247, 124, 24, 0.8) 0%, rgba(247, 124, 24, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%);
         }
 
         /* Contenido del chat */
@@ -164,6 +213,28 @@
             padding: 20px;
             overflow-y: auto;
             background-color: #2a2a2a;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(247, 124, 24, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(247, 124, 24, 0.03) 0%, transparent 50%);
+        }
+
+        /* Estilizar la barra de desplazamiento */
+        .kinetia-chat-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .kinetia-chat-body::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        .kinetia-chat-body::-webkit-scrollbar-thumb {
+            background: #f77c18;
+            border-radius: 10px;
+        }
+
+        .kinetia-chat-body::-webkit-scrollbar-thumb:hover {
+            background: #ff8c28;
         }
 
         .kinetia-chat-message {
@@ -182,7 +253,8 @@
             border-top-left-radius: 0;
             align-self: flex-start;
             margin-right: auto;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border-left: 2px solid #f77c18;
         }
 
         .kinetia-chat-message.user {
@@ -192,6 +264,12 @@
             align-self: flex-end;
             margin-left: auto;
             font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Efecto de glow en hover */
+        .kinetia-chat-message.user:hover {
+            box-shadow: 0 0 15px rgba(247, 124, 24, 0.4);
         }
 
         /* Área para escribir mensajes */
@@ -200,6 +278,17 @@
             border-top: 1px solid #333;
             display: flex;
             background-color: #1a1a1a;
+            position: relative;
+        }
+
+        .kinetia-chat-input-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(247, 124, 24, 0.3), transparent);
         }
 
         .kinetia-chat-input {
@@ -214,6 +303,12 @@
             min-height: 24px;
             background-color: #333;
             color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .kinetia-chat-input:focus {
+            border-color: #f77c18;
+            box-shadow: 0 0 0 1px rgba(247, 124, 24, 0.3);
         }
 
         .kinetia-chat-input::placeholder {
@@ -233,11 +328,33 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .kinetia-chat-send:hover {
-            background-color: #e6c500;
+            background-color: #ff8c28;
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(247, 124, 24, 0.4);
+        }
+
+        /* Efecto pulsante en el botón de enviar */
+        .kinetia-chat-send::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 1.5s ease-out infinite;
+        }
+
+        @keyframes ripple {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
         }
 
         .kinetia-chat-messages {
@@ -247,9 +364,9 @@
 
         /* Animación para el botón de chat */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 124, 24, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(247, 124, 24, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 124, 24, 0); }
         }
 
         .pulse {
@@ -272,9 +389,10 @@
             font-size: 12px;
             font-weight: bold;
             display: none;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
         }
 
-        /* Indicador de escritura */
+        /* Indicador de escritura con efecto neón */
         .typing-indicator {
             display: flex;
             align-items: center;
@@ -282,17 +400,31 @@
 
         .typing-indicator::after {
             content: '';
+            display: inline-block;
             width: 4px;
             height: 4px;
-            margin-left: 4px;
+            margin-left: 2px;
             background-color: #f77c18;
             border-radius: 50%;
-            animation: typing 1.5s infinite;
+            box-shadow: 0 0 8px #f77c18, 0 0 16px #f77c18;
+            animation: blink 1.5s infinite;
         }
 
-        @keyframes typing {
-            0%, 60%, 100% { opacity: 0; }
-            30% { opacity: 1; }
+        .typing-indicator::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            margin-left: 6px;
+            background-color: #f77c18;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #f77c18, 0 0 16px #f77c18;
+            animation: blink 1.5s infinite 0.5s;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
 
         /* Estilos responsivos */
@@ -314,7 +446,6 @@
 </head>
 <body>
 
-    <!-- Botón del chatbot -->
     <div class="kinetia-chat-button pulse" id="kinetiaChatButton">
         <span class="kinetia-chat-notification" id="kinetiaChatNotification">1</span>
         <svg class="kinetia-chat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -324,11 +455,12 @@
 
     <!-- Ventana del chatbot -->
     <div class="kinetia-chat-window" id="kinetiaChatWindow">
+        <div class="kinetia-mouse-tracker" id="kinetiaMouseTracker"></div>
         <div class="kinetia-chat-header">
             <div class="kinetia-chat-title">
                 <svg class="kinetia-chat-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#f7d618" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <path fill="#f7d618" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                    <path fill="#f77c18" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <path fill="#f77c18" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
                 </svg>
                 <h3>Asistente Kinetia</h3>
             </div>
@@ -363,7 +495,7 @@
             const chatNotification = document.getElementById('kinetiaChatNotification');
             
             // URL del webhook - REEMPLAZAR CON TU URL REAL DE N8N
-            const webhookUrl = 'https://n8n.kinetia.tech/webhook-test/29deeeba-e560-4d69-acbd-6f4115d576fa';
+            const webhookUrl = 'https://tu-instancia-n8n.com/webhook/kinetia-chatbot';
             
             // Mostrar/ocultar ventana de chat
             chatButton.addEventListener('click', function() {
@@ -515,6 +647,84 @@
                     chatNotification.style.display = 'flex';
                 }
             }, 20000); // 20 segundos
+            
+            // Efecto de seguimiento del ratón
+            const mouseTracker = document.getElementById('kinetiaMouseTracker');
+            
+            if (mouseTracker) {
+                let particles = [];
+                
+                // Función para crear una partícula
+                function createParticle(x, y) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('kinetia-particle');
+                    particle.style.width = Math.random() * 10 + 5 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    mouseTracker.appendChild(particle);
+                    
+                    // Animar la partícula
+                    gsap.to(particle, {
+                        opacity: 0.7,
+                        duration: 0.2,
+                        onComplete: () => {
+                            gsap.to(particle, {
+                                opacity: 0,
+                                duration: 0.8,
+                                onComplete: () => {
+                                    if (particle.parentNode) {
+                                        particle.parentNode.removeChild(particle);
+                                    }
+                                    const index = particles.indexOf(particle);
+                                    if (index > -1) {
+                                        particles.splice(index, 1);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    
+                    particles.push(particle);
+                    
+                    // Limitar el número de partículas para evitar problemas de rendimiento
+                    if (particles.length > 50) {
+                        const oldParticle = particles.shift();
+                        if (oldParticle.parentNode) {
+                            oldParticle.parentNode.removeChild(oldParticle);
+                        }
+                    }
+                }
+                
+                // Polyfill para gsap si no está disponible
+                if (typeof gsap === 'undefined') {
+                    window.gsap = {
+                        to: function(element, options) {
+                            const { opacity, duration, onComplete } = options;
+                            
+                            element.style.transition = `opacity ${duration}s ease`;
+                            element.style.opacity = opacity;
+                            
+                            setTimeout(() => {
+                                if (onComplete) onComplete();
+                            }, duration * 1000);
+                        }
+                    };
+                }
+                
+                // Escuchar movimiento del ratón solo dentro de la ventana de chat
+                chatWindow.addEventListener('mousemove', function(e) {
+                    // Obtener posición relativa dentro del chatWindow
+                    const rect = chatWindow.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Limitar la creación de partículas por rendimiento (cada 2 píxeles)
+                    if (Math.random() > 0.6) { // Solo crear partícula 40% de las veces para rendimiento
+                        createParticle(x, y);
+                    }
+                });
+            }
         });
     </script>
 </body>
