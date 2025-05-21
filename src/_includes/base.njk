@@ -40,5 +40,21 @@
     {% include 'footer.njk' %}
 
     <script src="/scripts/general/setup.js"></script>
+
+    <script>
+      function loadScript(a){
+        var b = document.getElementsByTagName("head")[0],
+            c = document.createElement("script");
+        c.type = "text/javascript";
+        c.src = "https://tracker.metricool.com/resources/be.js";
+        c.onreadystatechange = a;
+        c.onload = a;
+        b.appendChild(c);
+      }
+      loadScript(function(){
+        beTracker.t({hash:"108ffc91db984e982d0f1abfd84c3856"});
+      });
+    </script>
+
   </body>
   </html>
