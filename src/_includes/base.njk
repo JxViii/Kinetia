@@ -79,37 +79,38 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             z-index: 999;
         }
 
         .kinetia-chat-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
         }
 
         .kinetia-chat-icon {
             width: 30px;
             height: 30px;
-            fill: #333;
+            fill: #222;
         }
 
-        /* Estilos para la ventana del chat */
+        /* Estilos para la ventana del chat - Modo oscuro */
         .kinetia-chat-window {
             position: fixed;
             bottom: 110px;
             right: 30px;
             width: 380px;
             height: 500px;
-            background-color: #fff;
+            background-color: #222;
             border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
             display: none;
             flex-direction: column;
             overflow: hidden;
             z-index: 998;
             transition: all 0.3s ease;
+            border: 1px solid #333;
         }
 
         .kinetia-chat-window.active {
@@ -118,7 +119,7 @@
 
         /* Header del chat */
         .kinetia-chat-header {
-            background-color: #2d2d2d;
+            background-color: #1a1a1a;
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -142,13 +143,14 @@
             margin: 0;
             font-size: 18px;
             font-weight: 500;
+            color: #f7d618;
         }
 
         .kinetia-chat-close {
             background: none;
             border: none;
-            color: white;
-            font-size: 20px;
+            color: #f7d618;
+            font-size: 22px;
             cursor: pointer;
             padding: 0;
             display: flex;
@@ -161,7 +163,7 @@
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
-            background-color: #f5f5f5;
+            background-color: #2a2a2a;
         }
 
         .kinetia-chat-message {
@@ -175,44 +177,52 @@
         }
 
         .kinetia-chat-message.bot {
-            background-color: #e6e6e6;
-            color: #333;
+            background-color: #3a3a3a;
+            color: #e0e0e0;
             border-top-left-radius: 0;
             align-self: flex-start;
             margin-right: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .kinetia-chat-message.user {
             background-color: #f7d618;
-            color: #333;
+            color: #222;
             border-top-right-radius: 0;
             align-self: flex-end;
             margin-left: auto;
+            font-weight: 500;
         }
 
         /* Área para escribir mensajes */
         .kinetia-chat-input-area {
             padding: 15px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #333;
             display: flex;
-            background-color: white;
+            background-color: #1a1a1a;
         }
 
         .kinetia-chat-input {
             flex-grow: 1;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 25px;
             outline: none;
             font-size: 15px;
             resize: none;
             max-height: 100px;
             min-height: 24px;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        .kinetia-chat-input::placeholder {
+            color: #888;
         }
 
         .kinetia-chat-send {
             background-color: #f7d618;
-            color: #333;
+            color: #222;
             border: none;
             border-radius: 50%;
             width: 40px;
@@ -227,6 +237,7 @@
 
         .kinetia-chat-send:hover {
             background-color: #e6c500;
+            transform: scale(1.05);
         }
 
         .kinetia-chat-messages {
@@ -261,6 +272,27 @@
             font-size: 12px;
             font-weight: bold;
             display: none;
+        }
+
+        /* Indicador de escritura */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+        }
+
+        .typing-indicator::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            margin-left: 4px;
+            background-color: #f7d618;
+            border-radius: 50%;
+            animation: typing 1.5s infinite;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0; }
+            30% { opacity: 1; }
         }
 
         /* Estilos responsivos */
@@ -313,7 +345,7 @@
             <input type="text" class="kinetia-chat-input" id="kinetiaChatInput" placeholder="Escribe tu mensaje aquí..." />
             <button class="kinetia-chat-send" id="kinetiaChatSend">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="#333"/>
+                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="#222"/>
                 </svg>
             </button>
         </div>
@@ -330,7 +362,8 @@
             const chatMessages = document.getElementById('kinetiaChatMessages');
             const chatNotification = document.getElementById('kinetiaChatNotification');
             
-            let webhookUrl = 'https://n8n.kinetia.tech/webhook-test/29deeeba-e560-4d69-acbd-6f4115d576fa'; // Reemplaza con tu URL de webhook
+            // URL del webhook - REEMPLAZAR CON TU URL REAL DE N8N
+            const webhookUrl = 'https://n8n.kinetia.tech/webhook-test/29deeeba-e560-4d69-acbd-6f4115d576fa';
             
             // Mostrar/ocultar ventana de chat
             chatButton.addEventListener('click', function() {
@@ -351,53 +384,81 @@
                     // Agregar mensaje del usuario al chat
                     addMessage(message, 'user');
                     
+                    // Limpiar campo de entrada
+                    chatInput.value = '';
+                    
+                    // Mostrar indicador de escritura
+                    addTypingIndicator();
+                    
+                    // Preparar datos para enviar al webhook
+                    const requestData = {
+                        message: message,
+                        userId: generateUserId(),
+                        timestamp: new Date().toISOString(),
+                        source: 'kinetia-website'
+                    };
+                    
+                    console.log('Enviando datos al webhook:', requestData);
+                    
                     // Enviar mensaje al webhook de n8n
                     fetch(webhookUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({
-                            message: message,
-                            userId: generateUserId(),
-                            timestamp: new Date().toISOString()
-                        })
+                        body: JSON.stringify(requestData)
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        console.log('Respuesta recibida:', response);
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor: ' + response.status);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
+                        console.log('Datos recibidos:', data);
+                        // Remover indicador de escritura
+                        removeTypingIndicator();
+                        
                         // Procesar respuesta del bot
                         if (data && data.response) {
-                            setTimeout(() => {
-                                addMessage(data.response, 'bot');
-                            }, 500);
+                            addMessage(data.response, 'bot');
+                        } else if (data && data.message) {
+                            addMessage(data.message, 'bot');
                         } else {
-                            setTimeout(() => {
-                                addMessage('Lo siento, parece que hay un problema con mi conexión. Por favor, intenta más tarde.', 'bot');
-                            }, 500);
+                            addMessage('He recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo pronto.', 'bot');
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        setTimeout(() => {
-                            addMessage('Lo siento, parece que hay un problema con mi conexión. Por favor, intenta más tarde.', 'bot');
-                        }, 500);
+                        console.error('Error en la conexión:', error);
+                        removeTypingIndicator();
+                        
+                        // Mensaje alternativo en caso de error
+                        addMessage('Lo siento, estamos experimentando problemas de conexión. Por favor, intenta contactarnos por email o teléfono.', 'bot');
+                        
+                        // Intentar enviar notificación de error
+                        try {
+                            fetch(webhookUrl + '/error', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    error: error.toString(),
+                                    userId: generateUserId(),
+                                    timestamp: new Date().toISOString()
+                                })
+                            }).catch(() => {});
+                        } catch (e) {
+                            console.error('Error al enviar notificación de error:', e);
+                        }
                     });
-                    
-                    // Limpiar campo de entrada
-                    chatInput.value = '';
-                    
-                    // Mientras esperamos respuesta, mostrar indicador de escritura
-                    addTypingIndicator();
                 }
             }
             
             // Función para añadir mensajes al chat
             function addMessage(content, sender) {
-                // Si hay un indicador de escritura, eliminarlo
-                const typingIndicator = document.querySelector('.typing-indicator');
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
+                removeTypingIndicator();
                 
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('kinetia-chat-message', sender);
@@ -411,12 +472,22 @@
             
             // Función para mostrar indicador de escritura
             function addTypingIndicator() {
+                removeTypingIndicator(); // Eliminar indicador existente si lo hay
+                
                 const indicator = document.createElement('div');
                 indicator.classList.add('kinetia-chat-message', 'bot', 'typing-indicator');
                 indicator.textContent = 'Escribiendo...';
                 
                 chatMessages.appendChild(indicator);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Función para eliminar el indicador de escritura
+            function removeTypingIndicator() {
+                const typingIndicator = document.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
             }
             
             // Generar ID único para el usuario
@@ -437,54 +508,13 @@
                 }
             });
             
-            // Código para simular una notificación después de cierto tiempo
+            // Mostrar notificación después de cierto tiempo
             setTimeout(function() {
                 if (!chatWindow.classList.contains('active')) {
                     chatButton.classList.add('pulse');
                     chatNotification.style.display = 'flex';
                 }
-            }, 15000);
-            
-            // Solo para fines de demostración - esto normalmente se eliminaría en producción
-            // Simulando respuesta del bot sin webhook (solo para testing)
-            window.testMode = true; // Cambiar a false para usar el webhook real
-            
-            if (window.testMode) {
-                const originalSendMessage = sendMessage;
-                
-                sendMessage = function() {
-                    const message = chatInput.value.trim();
-                    if (message) {
-                        // Agregar mensaje del usuario al chat
-                        addMessage(message, 'user');
-                        
-                        // Simular respuesta del bot
-                        setTimeout(() => {
-                            // Remover indicador de escritura
-                            const typingIndicator = document.querySelector('.typing-indicator');
-                            if (typingIndicator) {
-                                typingIndicator.remove();
-                            }
-                            
-                            let botResponse = "Gracias por tu mensaje. Nuestro equipo está en proceso de integrar las respuestas automáticas. ¿Deseas que te contactemos para más información?";
-                            
-                            if (message.toLowerCase().includes('servicio') || message.toLowerCase().includes('precio')) {
-                                botResponse = "Para información sobre nuestros servicios y precios, por favor proporciona tu correo electrónico y te enviaremos nuestro catálogo actualizado.";
-                            } else if (message.toLowerCase().includes('contacto') || message.toLowerCase().includes('ubicación')) {
-                                botResponse = "Puedes encontrarnos en nuestra oficina principal o enviar un correo a info@kinetia.com. ¿Deseas más detalles?";
-                            }
-                            
-                            addMessage(botResponse, 'bot');
-                        }, 1000);
-                        
-                        // Limpiar campo de entrada
-                        chatInput.value = '';
-                        
-                        // Mostrar indicador de escritura
-                        addTypingIndicator();
-                    }
-                };
-            }
+            }, 20000); // 20 segundos
         });
     </script>
 </body>
