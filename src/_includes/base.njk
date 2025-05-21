@@ -58,3 +58,114 @@
 
   </body>
   </html>
+
+  <style>
+  #chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-family: sans-serif;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  #chat-header {
+    background-color: #0072ff;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  #chat-body {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+
+  #chat-input input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #chat-input button {
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    padding: 0 16px;
+    cursor: pointer;
+  }
+
+  #chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 26px;
+    z-index: 9998;
+    cursor: pointer;
+  }
+</style>
+
+<button id="chat-toggle">💬</button>
+
+<div id="chat-widget" style="display: none;">
+  <div id="chat-header">Asistente IA</div>
+  <div id="chat-body">
+    <div><strong>Kinetia:</strong> ¡Hola! ¿En qué puedo ayudarte hoy?</div>
+  </div>
+  <div id="chat-input">
+    <input type="text" id="chat-message" placeholder="Escribe tu mensaje..." />
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script>
+  const webhookUrl = "https://TUDOMINIO.OOO/webhook"; // ⬅️ Cambia esto por el webhook real
+
+  document.getElementById("chat-toggle").addEventListener("click", () => {
+    const widget = document.getElementById("chat-widget");
+    widget.style.display = widget.style.display === "none" ? "block" : "none";
+  });
+
+  async function sendMessage() {
+    const input = document.getElementById("chat-message");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBody = document.getElementById("chat-body");
+    chatBody.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+    input.value = "";
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: message })
+      });
+
+      const data = await res.json();
+      const respuesta = data.reply || "🤖 Lo siento, no he podido procesar tu mensaje.";
+      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ${respuesta}</div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    } catch (err) {
+      chatBody.innerHTML += `<div><strong>Kinetia:</strong> ❌ Error al contactar con el servidor.</div>`;
+    }
+  }
+</script>
