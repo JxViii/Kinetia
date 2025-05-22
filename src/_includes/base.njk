@@ -83,6 +83,8 @@
             transition: all 0.3s ease;
             z-index: 999;
             overflow: hidden;
+            border: none;
+            outline: none;
         }
 
         /* Efecto de ondas concéntricas en el botón */
@@ -141,9 +143,10 @@
             flex-direction: column;
             overflow: hidden;
             z-index: 998;
-            transition: all 0.3s ease;
             border: 1px solid #333;
-            position: relative;
+            transform-origin: bottom right;
+            opacity: 0;
+            transform: scale(0) translateY(50px);
         }
 
         /* Partículas flotantes de fondo */
@@ -175,14 +178,122 @@
             100% { transform: translateY(0px) translateX(0px); }
         }
 
-        .kinetia-chat-window.active {
+        /* NUEVA ANIMACIÓN ESPECTACULAR DE APERTURA */
+        .kinetia-chat-window.opening {
             display: flex;
-            animation: chatWindowOpen 0.4s ease forwards;
+            animation: spectacularOpen 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
-        @keyframes chatWindowOpen {
-            0% { opacity: 0; transform: translateY(20px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes spectacularOpen {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(50px) rotate(-10deg);
+                filter: blur(10px);
+            }
+            20% {
+                opacity: 0.3;
+                transform: scale(0.3) translateY(30px) rotate(-5deg);
+                filter: blur(5px);
+            }
+            40% {
+                opacity: 0.6;
+                transform: scale(0.7) translateY(10px) rotate(2deg);
+                filter: blur(2px);
+            }
+            60% {
+                opacity: 0.8;
+                transform: scale(1.1) translateY(-5px) rotate(-1deg);
+                filter: blur(0px);
+            }
+            80% {
+                opacity: 0.95;
+                transform: scale(0.98) translateY(2px) rotate(0.5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0px) rotate(0deg);
+                filter: blur(0px);
+            }
+        }
+
+        /* ANIMACIÓN DE CIERRE */
+        .kinetia-chat-window.closing {
+            animation: spectacularClose 0.6s ease-in forwards;
+        }
+
+        @keyframes spectacularClose {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0px) rotate(0deg);
+                filter: blur(0px);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8) translateY(10px) rotate(5deg);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) translateY(50px) rotate(-10deg);
+                filter: blur(10px);
+            }
+        }
+
+        /* EFECTOS DE PARTÍCULAS MÁGICAS AL ABRIR */
+        .magic-particles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .magic-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #f77c18;
+            border-radius: 50%;
+            animation: magicParticleFloat 1.5s ease-out forwards;
+            box-shadow: 0 0 10px #f77c18, 0 0 20px #f77c18, 0 0 30px #f77c18;
+        }
+
+        @keyframes magicParticleFloat {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5) rotate(360deg);
+            }
+        }
+
+        /* ONDAS DE ENERGÍA */
+        .energy-wave {
+            position: fixed;
+            border: 2px solid rgba(247, 124, 24, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 997;
+            animation: energyWaveExpand 1.2s ease-out forwards;
+        }
+
+        @keyframes energyWaveExpand {
+            0% {
+                width: 65px;
+                height: 65px;
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(247, 124, 24, 0.8);
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+                box-shadow: 0 0 100px rgba(247, 124, 24, 0.2);
+            }
         }
 
         /* Header del chat */
@@ -609,30 +720,6 @@
             }
         }
 
-        /* Efecto de ondas en el fondo cuando se abre el chat */
-        .wave-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            border: 2px solid rgba(247, 124, 24, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            animation: waveExpand 1s ease-out;
-        }
-
-        @keyframes waveExpand {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(10);
-                opacity: 0;
-            }
-        }
-
         /* Estilos responsivos */
         @media (max-width: 480px) {
             .kinetia-chat-window {
@@ -702,403 +789,54 @@
             // URL del webhook - REEMPLAZAR CON TU URL REAL DE N8N
             const webhookUrl = 'https://n8n.kinetia.tech/webhook/9cfc5452-bddc-45de-b93b-1fd6687db9bc';
             
-            // Función para scroll suave al final
+            // Variable para controlar si el chat ya fue abierto
+            let chatOpenedBefore = false;
+            
+            // Función para scroll suave al final SOLO del área del chat
             function scrollToBottom() {
-                chatBody.scrollTo({
-                    top: chatBody.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }
-            
-            // Función para crear efecto de explosión de estrellas
-            function createStarExplosion(x, y) {
-                const explosion = document.createElement('div');
-                explosion.className = 'star-explosion';
-                explosion.style.left = x + 'px';
-                explosion.style.top = y + 'px';
-                
-                for (let i = 0; i < 8; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    const angle = (i * 45) * Math.PI / 180;
-                    const distance = 30 + Math.random() * 20;
-                    star.style.left = Math.cos(angle) * distance + 'px';
-                    star.style.top = Math.sin(angle) * distance + 'px';
-                    star.style.animationDelay = Math.random() * 0.3 + 's';
-                    explosion.appendChild(star);
-                }
-                
-                document.body.appendChild(explosion);
-                setTimeout(() => {
-                    document.body.removeChild(explosion);
-                }, 1000);
-            }
-            
-            // Función para crear efecto de ondas
-            function createWaveEffect() {
-                const wave = document.createElement('div');
-                wave.className = 'wave-effect';
-                chatWindow.appendChild(wave);
-                setTimeout(() => {
-                    if (chatWindow.contains(wave)) {
-                        chatWindow.removeChild(wave);
-                    }
-                }, 1000);
-            }
-            
-            // Mostrar mensaje de bienvenida al abrir el chat
-            chatButton.addEventListener('click', function() {
-                const wasActive = chatWindow.classList.contains('active');
-                chatWindow.classList.toggle('active');
-                chatButton.classList.remove('pulse');
-                chatNotification.style.display = 'none';
-                
-                if (!wasActive) {
-                    createWaveEffect();
-                    // Si se está abriendo el chat por primera vez y no hay mensajes
-                    if (chatMessages.children.length === 0) {
-                        setTimeout(() => {
-                            addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
-                        }, 500);
-                    }
-                }
-                
-                chatInput.focus();
-            });
-            
-            chatClose.addEventListener('click', function() {
-                chatWindow.classList.remove('active');
-            });
-            
-            // Función para enviar mensaje
-            function sendMessage() {
-                const message = chatInput.value.trim();
-                if (message) {
-                    // Crear efecto de explosión de estrellas en el botón de envío
-                    const rect = chatSend.getBoundingClientRect();
-                    createStarExplosion(rect.left + rect.width/2, rect.top + rect.height/2);
-                    
-                    // Agregar mensaje del usuario al chat
-                    addMessage(message, 'user');
-                    
-                    // Limpiar campo de entrada
-                    chatInput.value = '';
-                    
-                    // Scroll inmediato al enviar mensaje del usuario
-                    setTimeout(scrollToBottom, 50);
-                    
-                    // Mostrar indicador de escritura
-                    addTypingIndicator();
-                    
-                    // Preparar datos para enviar al webhook
-                    const requestData = {
-                        message: message,
-                        userId: generateUserId(),
-                        timestamp: new Date().toISOString(),
-                        source: 'kinetia-website'
-                    };
-                    
-                    console.log('Enviando datos al webhook:', requestData);
-                    console.log('URL del webhook:', webhookUrl);
-                    
-                    // Enviar mensaje al webhook de n8n
-                    fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(requestData)
-                    })
-                    .then(response => {
-                        console.log('Estado de respuesta:', response.status);
-                        console.log('Headers de respuesta:', response.headers);
-                        
-                        if (!response.ok) {
-                            throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
-                        }
-                        
-                        // Verificar si la respuesta tiene contenido
-                        const contentType = response.headers.get('content-type');
-                        if (contentType && contentType.includes('application/json')) {
-                            return response.json();
-                        } else {
-                            // Si no es JSON, obtener como texto
-                            return response.text().then(text => {
-                                console.log('Respuesta como texto:', text);
-                                return { response: text || 'Mensaje recibido correctamente.' };
-                            });
-                        }
-                    })
-                    .then(data => {
-                        console.log('Datos procesados recibidos:', data);
-                        removeTypingIndicator();
-                        
-                        // Buscar la respuesta en diferentes campos posibles
-                        let botResponse = null;
-                        
-                        if (data.response) {
-                            botResponse = data.response;
-                        } else if (data.message) {
-                            botResponse = data.message;
-                        } else if (data.reply) {
-                            botResponse = data.reply;
-                        } else if (data.answer) {
-                            botResponse = data.answer;
-                        } else if (data.text) {
-                            botResponse = data.text;
-                        } else if (typeof data === 'string') {
-                            botResponse = data;
-                        } else {
-                            // Si es un objeto, intentar obtener el primer valor string
-                            const values = Object.values(data);
-                            botResponse = values.find(val => typeof val === 'string') || 'Respuesta recibida de n8n.';
-                        }
-                        
-                        addMessage(botResponse, 'bot');
-                        // Scroll automático después de recibir respuesta del bot
-                        setTimeout(scrollToBottom, 100);
-                    })
-                    .catch(error => {
-                        console.error('Error detallado:', error);
-                        removeTypingIndicator();
-                        
-                        // Mensaje de error más informativo
-                        let errorMessage = 'Lo siento, no puedo conectarme con el servidor en este momento. ';
-                        
-                        if (error.message.includes('Failed to fetch')) {
-                            errorMessage += 'Por favor, verifica que la URL del webhook sea correcta y que n8n esté ejecutándose.';
-                        } else if (error.message.includes('404')) {
-                            errorMessage += 'El endpoint del webhook no se encontró. Verifica la URL en n8n.';
-                        } else if (error.message.includes('500')) {
-                            errorMessage += 'Hay un error en el flujo de n8n. Revisa los logs del workflow.';
-                        } else {
-                            errorMessage += 'Error: ' + error.message;
-                        }
-                        
-                        addMessage(errorMessage, 'bot');
-                        // Scroll automático después de mostrar error
-                        setTimeout(scrollToBottom, 100);
+                if (chatBody) {
+                    chatBody.scrollTo({
+                        top: chatBody.scrollHeight,
+                        behavior: 'smooth'
                     });
                 }
             }
             
-            // Función para añadir mensajes al chat
-            function addMessage(content, sender) {
-                removeTypingIndicator();
+            // Función para crear partículas mágicas
+            function createMagicParticles(centerX, centerY) {
+                const container = document.createElement('div');
+                container.className = 'magic-particles';
+                container.style.left = centerX + 'px';
+                container.style.top = centerY + 'px';
                 
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('kinetia-chat-message', sender);
-                messageElement.textContent = content;
-                
-                chatMessages.appendChild(messageElement);
-                
-                // Scroll al final del chat con un pequeño delay para la animación
-                setTimeout(scrollToBottom, 100);
-            }
-            
-            // Función para mostrar indicador de escritura
-            function addTypingIndicator() {
-                removeTypingIndicator(); // Eliminar indicador existente si lo hay
-                
-                const indicator = document.createElement('div');
-                indicator.classList.add('kinetia-chat-message', 'bot', 'typing-indicator');
-                indicator.textContent = 'Escribiendo...';
-                
-                chatMessages.appendChild(indicator);
-                setTimeout(scrollToBottom, 50);
-            }
-            
-            // Función para eliminar el indicador de escritura
-            function removeTypingIndicator() {
-                const typingIndicator = document.querySelector('.typing-indicator');
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
-            }
-            
-            // Generar ID único para el usuario
-            function generateUserId() {
-                if (!localStorage.getItem('kinetiaChatUserId')) {
-                    localStorage.setItem('kinetiaChatUserId', 'user_' + Date.now());
-                }
-                return localStorage.getItem('kinetiaChatUserId');
-            }
-            
-            // Event listeners para enviar mensajes
-            chatSend.addEventListener('click', sendMessage);
-            
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-            
-            // Efecto de partículas al escribir
-            chatInput.addEventListener('input', function() {
-                if (this.value.length > 0) {
-                    this.style.boxShadow = '0 0 0 1px rgba(247, 124, 24, 0.3), 0 0 20px rgba(247, 124, 24, 0.1), inset 0 0 10px rgba(247, 124, 24, 0.05)';
-                } else {
-                    this.style.boxShadow = '';
-                }
-            });
-            
-            // Mostrar notificación después de cierto tiempo
-            setTimeout(function() {
-                if (!chatWindow.classList.contains('active')) {
-                    chatButton.classList.add('pulse');
-                    chatNotification.style.display = 'flex';
-                }
-            }, 20000); // 20 segundos
-            
-            // Efecto de seguimiento del ratón - Línea continua
-            const mouseTracker = document.getElementById('kinetiaMouseTracker');
-            
-            if (mouseTracker) {
-                let trailElements = [];
-                let lastX = 0;
-                let lastY = 0;
-                let isMoving = false;
-                
-                // Función para crear un elemento de rastro
-                function createTrailElement(x, y) {
-                    const trail = document.createElement('div');
-                    trail.classList.add('kinetia-mouse-trail');
-                    trail.style.left = x + 'px';
-                    trail.style.top = y + 'px';
-                    mouseTracker.appendChild(trail);
+                // Crear múltiples partículas
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'magic-particle';
                     
-                    // Animar desvanecimiento
-                    setTimeout(() => {
-                        if (trail.parentNode) {
-                            trail.style.transition = 'opacity 0.8s ease-out';
-                            trail.style.opacity = '0';
-                            setTimeout(() => {
-                                if (trail.parentNode) {
-                                    trail.parentNode.removeChild(trail);
-                                }
-                                const index = trailElements.indexOf(trail);
-                                if (index > -1) {
-                                    trailElements.splice(index, 1);
-                                }
-                            }, 800);
-                        }
-                    }, 100);
+                    // Posición aleatoria en círculo
+                    const angle = (i / 20) * Math.PI * 2;
+                    const distance = 30 + Math.random() * 50;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
                     
-                    trailElements.push(trail);
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.animationDelay = (Math.random() * 0.5) + 's';
+                    particle.style.animationDuration = (1 + Math.random()) + 's';
                     
-                    // Limitar elementos para rendimiento
-                    if (trailElements.length > 100) {
-                        const oldTrail = trailElements.shift();
-                        if (oldTrail.parentNode) {
-                            oldTrail.parentNode.removeChild(oldTrail);
-                        }
-                    }
+                    container.appendChild(particle);
                 }
                 
-                // Función para crear línea continua entre dos puntos
-                function createContinuousTrail(x1, y1, x2, y2) {
-                    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-                    const steps = Math.max(1, Math.floor(distance / 3)); // Un punto cada 3 píxeles
-                    
-                    for (let i = 0; i <= steps; i++) {
-                        const ratio = i / steps;
-                        const x = x1 + (x2 - x1) * ratio;
-                        const y = y1 + (y2 - y1) * ratio;
-                        createTrailElement(x, y);
-                    }
-                }
+                document.body.appendChild(container);
                 
-                // Escuchar movimiento del ratón
-                chatWindow.addEventListener('mousemove', function(e) {
-                    const rect = chatWindow.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    if (isMoving && (Math.abs(x - lastX) > 2 || Math.abs(y - lastY) > 2)) {
-                        createContinuousTrail(lastX, lastY, x, y);
-                    } else if (!isMoving) {
-                        createTrailElement(x, y);
-                        isMoving = true;
-                    }
-                    
-                    lastX = x;
-                    lastY = y;
-                });
-                
-                // Resetear cuando el ratón sale de la ventana
-                chatWindow.addEventListener('mouseleave', function() {
-                    isMoving = false;
-                });
-            }
-            
-            // Efecto de respiración en el botón cuando está inactivo
-            let breathingInterval;
-            function startBreathingEffect() {
-                breathingInterval = setInterval(() => {
-                    if (!chatWindow.classList.contains('active')) {
-                        chatButton.style.transform = 'scale(1.05)';
-                        setTimeout(() => {
-                            chatButton.style.transform = 'scale(1)';
-                        }, 1000);
-                    }
-                }, 4000);
-            }
-            
-            function stopBreathingEffect() {
-                clearInterval(breathingInterval);
-            }
-            
-            // Iniciar efecto de respiración
-            startBreathingEffect();
-            
-            // Detener respiración cuando el chat está activo
-            chatButton.addEventListener('click', stopBreathingEffect);
-            chatClose.addEventListener('click', startBreathingEffect);
-            
-            // Efecto de partículas al hacer hover en mensajes
-            chatMessages.addEventListener('mouseover', function(e) {
-                if (e.target.classList.contains('kinetia-chat-message')) {
-                    e.target.style.filter = 'brightness(1.1)';
-                }
-            });
-            
-            chatMessages.addEventListener('mouseout', function(e) {
-                if (e.target.classList.contains('kinetia-chat-message')) {
-                    e.target.style.filter = 'brightness(1)';
-                }
-            });
-            
-            // Efecto de shake al enviar mensaje vacío
-            function shakeInput() {
-                chatInput.style.animation = 'shake 0.5s ease-in-out';
+                // Remover después de la animación
                 setTimeout(() => {
-                    chatInput.style.animation = '';
-                }, 500);
+                    if (document.body.contains(container)) {
+                        document.body.removeChild(container);
+                    }
+                }, 2000);
             }
-            
-            // Añadir CSS para el shake
-            const shakeStyle = document.createElement('style');
-            shakeStyle.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-5px); }
-                    75% { transform: translateX(5px); }
-                }
-            `;
-            document.head.appendChild(shakeStyle);
-            
-            // Modificar la función sendMessage para incluir el shake
-            const originalSendMessage = sendMessage;
-            sendMessage = function() {
-                const message = chatInput.value.trim();
-                if (!message) {
-                    shakeInput();
-                    return;
-                }
-                originalSendMessage();
-            };
         });
     </script>
 </body>
