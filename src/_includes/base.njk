@@ -178,65 +178,44 @@
             100% { transform: translateY(0px) translateX(0px); }
         }
 
-        /* NUEVA ANIMACIÓN ESPECTACULAR DE APERTURA */
+        /* ANIMACIÓN SIMPLE Y EFECTIVA DE APERTURA */
         .kinetia-chat-window.opening {
             display: flex;
-            animation: spectacularOpen 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation: simpleOpen 0.8s ease-out forwards;
         }
 
-        @keyframes spectacularOpen {
+        @keyframes simpleOpen {
             0% {
                 opacity: 0;
-                transform: scale(0) translateY(50px) rotate(-10deg);
-                filter: blur(10px);
-            }
-            20% {
-                opacity: 0.3;
-                transform: scale(0.3) translateY(30px) rotate(-5deg);
-                filter: blur(5px);
-            }
-            40% {
-                opacity: 0.6;
-                transform: scale(0.7) translateY(10px) rotate(2deg);
-                filter: blur(2px);
-            }
-            60% {
-                opacity: 0.8;
-                transform: scale(1.1) translateY(-5px) rotate(-1deg);
-                filter: blur(0px);
-            }
-            80% {
-                opacity: 0.95;
-                transform: scale(0.98) translateY(2px) rotate(0.5deg);
+                transform: scale(0.3) translateY(20px);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) translateY(0px) rotate(0deg);
-                filter: blur(0px);
+                transform: scale(1) translateY(0px);
             }
         }
 
         /* ANIMACIÓN DE CIERRE */
         .kinetia-chat-window.closing {
-            animation: spectacularClose 0.6s ease-in forwards;
+            animation: simpleClose 0.4s ease-in forwards;
         }
 
-        @keyframes spectacularClose {
+        @keyframes simpleClose {
             0% {
                 opacity: 1;
-                transform: scale(1) translateY(0px) rotate(0deg);
-                filter: blur(0px);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8) translateY(10px) rotate(5deg);
-                filter: blur(2px);
+                transform: scale(1) translateY(0px);
             }
             100% {
                 opacity: 0;
-                transform: scale(0) translateY(50px) rotate(-10deg);
-                filter: blur(10px);
+                transform: scale(0.3) translateY(20px);
             }
+        }
+
+        /* CHAT ABIERTO - Estado estático */
+        .kinetia-chat-window.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1) translateY(0px);
         }
 
         /* EFECTOS DE PARTÍCULAS MÁGICAS AL ABRIR */
@@ -802,30 +781,51 @@
                 }
             }
             
-            // Función para crear partículas mágicas
-            function createMagicParticles(centerX, centerY) {
+            // Función para crear partículas simples y efectivas
+            function createSimpleParticles(centerX, centerY, isClosing = false) {
                 const container = document.createElement('div');
-                container.className = 'magic-particles';
+                container.style.position = 'fixed';
                 container.style.left = centerX + 'px';
                 container.style.top = centerY + 'px';
+                container.style.pointerEvents = 'none';
+                container.style.zIndex = '1001';
                 
-                // Crear múltiples partículas
-                for (let i = 0; i < 20; i++) {
+                // Crear 12 partículas
+                for (let i = 0; i < 12; i++) {
                     const particle = document.createElement('div');
-                    particle.className = 'magic-particle';
+                    particle.style.position = 'absolute';
+                    particle.style.width = '6px';
+                    particle.style.height = '6px';
+                    particle.style.backgroundColor = '#f77c18';
+                    particle.style.borderRadius = '50%';
+                    particle.style.boxShadow = '0 0 10px #f77c18';
                     
-                    // Posición aleatoria en círculo
-                    const angle = (i / 20) * Math.PI * 2;
-                    const distance = 30 + Math.random() * 50;
-                    const x = Math.cos(angle) * distance;
-                    const y = Math.sin(angle) * distance;
+                    // Dirección de las partículas
+                    const angle = (i / 12) * Math.PI * 2;
+                    const distance = isClosing ? 60 : 80;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
                     
-                    particle.style.left = x + 'px';
-                    particle.style.top = y + 'px';
-                    particle.style.animationDelay = (Math.random() * 0.5) + 's';
-                    particle.style.animationDuration = (1 + Math.random()) + 's';
+                    particle.style.left = '0px';
+                    particle.style.top = '0px';
                     
                     container.appendChild(particle);
+                    
+                    // Animar partícula
+                    particle.animate([
+                        {
+                            transform: 'translate(0px, 0px) scale(0)',
+                            opacity: 1
+                        },
+                        {
+                            transform: `translate(${endX}px, ${endY}px) scale(1)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: isClosing ? 400 : 600,
+                        easing: 'ease-out',
+                        delay: i * 30
+                    });
                 }
                 
                 document.body.appendChild(container);
@@ -835,53 +835,10 @@
                     if (document.body.contains(container)) {
                         document.body.removeChild(container);
                     }
-                }, 2000);
+                }, isClosing ? 800 : 1000);
             }
             
-            // Función para crear ondas de energía
-            function createEnergyWaves(centerX, centerY) {
-                for (let i = 0; i < 3; i++) {
-                    const wave = document.createElement('div');
-                    wave.className = 'energy-wave';
-                    wave.style.left = (centerX - 32.5) + 'px';
-                    wave.style.top = (centerY - 32.5) + 'px';
-                    wave.style.animationDelay = (i * 0.2) + 's';
-                    
-                    document.body.appendChild(wave);
-                    
-                    setTimeout(() => {
-                        if (document.body.contains(wave)) {
-                            document.body.removeChild(wave);
-                        }
-                    }, 1500);
-                }
-            }
-            
-            // Función para crear efecto de explosión de estrellas
-            function createStarExplosion(x, y) {
-                const explosion = document.createElement('div');
-                explosion.className = 'star-explosion';
-                explosion.style.left = x + 'px';
-                explosion.style.top = y + 'px';
-                
-                for (let i = 0; i < 8; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    const angle = (i * 45) * Math.PI / 180;
-                    const distance = 30 + Math.random() * 20;
-                    star.style.left = Math.cos(angle) * distance + 'px';
-                    star.style.top = Math.sin(angle) * distance + 'px';
-                    star.style.animationDelay = Math.random() * 0.3 + 's';
-                    explosion.appendChild(star);
-                }
-                
-                document.body.appendChild(explosion);
-                setTimeout(() => {
-                    document.body.removeChild(explosion);
-                }, 1000);
-            }
-            
-            // EVENTO PRINCIPAL - Abrir/cerrar chat con animación espectacular
+            // EVENTO PRINCIPAL - Abrir/cerrar chat
             chatButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -890,63 +847,117 @@
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
                 
-                if (chatWindow.classList.contains('opening') || chatWindow.style.display === 'flex') {
+                if (chatWindow.classList.contains('active')) {
                     // Cerrar chat
-                    chatWindow.classList.remove('opening');
+                    createSimpleParticles(centerX, centerY, true);
+                    
+                    chatWindow.classList.remove('active');
                     chatWindow.classList.add('closing');
                     
                     setTimeout(() => {
                         chatWindow.style.display = 'none';
                         chatWindow.classList.remove('closing');
-                    }, 600);
+                    }, 400);
                 } else {
-                    // Abrir chat con efectos espectaculares
+                    // Abrir chat
                     chatButton.classList.remove('pulse');
                     chatNotification.style.display = 'none';
                     
-                    // Crear efectos visuales
-                    createMagicParticles(centerX, centerY);
-                    createEnergyWaves(centerX, centerY);
+                    // Crear partículas
+                    createSimpleParticles(centerX, centerY, false);
                     
-                    // Mostrar ventana con animación
+                    // Mostrar ventana
                     chatWindow.style.display = 'flex';
                     chatWindow.classList.add('opening');
                     
-                    // Remover clase de animación después
+                    // Una vez terminada la animación, mantener activo
                     setTimeout(() => {
                         chatWindow.classList.remove('opening');
-                    }, 1200);
+                        chatWindow.classList.add('active');
+                    }, 800);
                     
                     // Mensaje de bienvenida solo la primera vez
                     if (!chatOpenedBefore) {
                         setTimeout(() => {
                             addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
-                        }, 800);
+                        }, 900);
                         chatOpenedBefore = true;
                     }
                     
-                    // Focus en input después de abrir
+                    // Focus en input
                     setTimeout(() => {
                         chatInput.focus();
-                    }, 1200);
+                    }, 800);
                 }
             });
             
-            // Cerrar chat
+            // Cerrar chat con el botón X
             chatClose.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                chatWindow.classList.remove('opening');
+                const rect = chatButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                createSimpleParticles(centerX, centerY, true);
+                
+                chatWindow.classList.remove('active');
                 chatWindow.classList.add('closing');
                 
                 setTimeout(() => {
                     chatWindow.style.display = 'none';
                     chatWindow.classList.remove('closing');
-                }, 600);
+                }, 400);
             });
             
-            // Función para enviar mensaje
+            // Función para crear efecto de explosión de estrellas al enviar mensaje
+            function createStarExplosion(x, y) {
+                const explosion = document.createElement('div');
+                explosion.style.position = 'fixed';
+                explosion.style.left = x + 'px';
+                explosion.style.top = y + 'px';
+                explosion.style.pointerEvents = 'none';
+                explosion.style.zIndex = '1000';
+                
+                for (let i = 0; i < 8; i++) {
+                    const star = document.createElement('div');
+                    star.style.position = 'absolute';
+                    star.style.width = '4px';
+                    star.style.height = '4px';
+                    star.style.backgroundColor = '#f77c18';
+                    star.style.clipPath = 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)';
+                    
+                    const angle = (i * 45) * Math.PI / 180;
+                    const distance = 30 + Math.random() * 20;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    star.style.left = '0px';
+                    star.style.top = '0px';
+                    
+                    explosion.appendChild(star);
+                    
+                    star.animate([
+                        {
+                            transform: 'scale(0) rotate(0deg)',
+                            opacity: 1
+                        },
+                        {
+                            transform: `translate(${endX}px, ${endY}px) scale(1) rotate(360deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 1000,
+                        easing: 'ease-out'
+                    });
+                }
+                
+                document.body.appendChild(explosion);
+                setTimeout(() => {
+                    document.body.removeChild(explosion);
+                }, 1000);
+            }
             function sendMessage() {
                 const message = chatInput.value.trim();
                 if (message) {
@@ -1122,98 +1133,17 @@
             
             // Mostrar notificación después de cierto tiempo
             setTimeout(function() {
-                if (chatWindow.style.display !== 'flex') {
+                if (!chatWindow.classList.contains('active')) {
                     chatButton.classList.add('pulse');
                     chatNotification.style.display = 'flex';
                 }
             }, 20000); // 20 segundos
             
-            // Efecto de seguimiento del ratón - Línea continua
-            const mouseTracker = document.getElementById('kinetiaMouseTracker');
-            
-            if (mouseTracker) {
-                let trailElements = [];
-                let lastX = 0;
-                let lastY = 0;
-                let isMoving = false;
-                
-                // Función para crear un elemento de rastro
-                function createTrailElement(x, y) {
-                    const trail = document.createElement('div');
-                    trail.classList.add('kinetia-mouse-trail');
-                    trail.style.left = x + 'px';
-                    trail.style.top = y + 'px';
-                    mouseTracker.appendChild(trail);
-                    
-                    // Animar desvanecimiento
-                    setTimeout(() => {
-                        if (trail.parentNode) {
-                            trail.style.transition = 'opacity 0.8s ease-out';
-                            trail.style.opacity = '0';
-                            setTimeout(() => {
-                                if (trail.parentNode) {
-                                    trail.parentNode.removeChild(trail);
-                                }
-                                const index = trailElements.indexOf(trail);
-                                if (index > -1) {
-                                    trailElements.splice(index, 1);
-                                }
-                            }, 800);
-                        }
-                    }, 100);
-                    
-                    trailElements.push(trail);
-                    
-                    // Limitar elementos para rendimiento
-                    if (trailElements.length > 100) {
-                        const oldTrail = trailElements.shift();
-                        if (oldTrail.parentNode) {
-                            oldTrail.parentNode.removeChild(oldTrail);
-                        }
-                    }
-                }
-                
-                // Función para crear línea continua entre dos puntos
-                function createContinuousTrail(x1, y1, x2, y2) {
-                    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-                    const steps = Math.max(1, Math.floor(distance / 3)); // Un punto cada 3 píxeles
-                    
-                    for (let i = 0; i <= steps; i++) {
-                        const ratio = i / steps;
-                        const x = x1 + (x2 - x1) * ratio;
-                        const y = y1 + (y2 - y1) * ratio;
-                        createTrailElement(x, y);
-                    }
-                }
-                
-                // Escuchar movimiento del ratón
-                chatWindow.addEventListener('mousemove', function(e) {
-                    const rect = chatWindow.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    if (isMoving && (Math.abs(x - lastX) > 2 || Math.abs(y - lastY) > 2)) {
-                        createContinuousTrail(lastX, lastY, x, y);
-                    } else if (!isMoving) {
-                        createTrailElement(x, y);
-                        isMoving = true;
-                    }
-                    
-                    lastX = x;
-                    lastY = y;
-                });
-                
-                // Resetear cuando el ratón sale de la ventana
-                chatWindow.addEventListener('mouseleave', function() {
-                    isMoving = false;
-                });
-            }
-            
             // Efecto de respiración en el botón cuando está inactivo
             let breathingInterval;
             function startBreathingEffect() {
                 breathingInterval = setInterval(() => {
-                    if (chatWindow.style.display !== 'flex') {
+                    if (!chatWindow.classList.contains('active')) {
                         chatButton.style.transform = 'scale(1.05)';
                         setTimeout(() => {
                             chatButton.style.transform = 'scale(1)';
