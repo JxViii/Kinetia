@@ -837,6 +837,444 @@
                     }
                 }, 2000);
             }
+            
+            // Función para crear ondas de energía
+            function createEnergyWaves(centerX, centerY) {
+                for (let i = 0; i < 3; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'energy-wave';
+                    wave.style.left = (centerX - 32.5) + 'px';
+                    wave.style.top = (centerY - 32.5) + 'px';
+                    wave.style.animationDelay = (i * 0.2) + 's';
+                    
+                    document.body.appendChild(wave);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(wave)) {
+                            document.body.removeChild(wave);
+                        }
+                    }, 1500);
+                }
+            }
+            
+            // Función para crear efecto de explosión de estrellas
+            function createStarExplosion(x, y) {
+                const explosion = document.createElement('div');
+                explosion.className = 'star-explosion';
+                explosion.style.left = x + 'px';
+                explosion.style.top = y + 'px';
+                
+                for (let i = 0; i < 8; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    const angle = (i * 45) * Math.PI / 180;
+                    const distance = 30 + Math.random() * 20;
+                    star.style.left = Math.cos(angle) * distance + 'px';
+                    star.style.top = Math.sin(angle) * distance + 'px';
+                    star.style.animationDelay = Math.random() * 0.3 + 's';
+                    explosion.appendChild(star);
+                }
+                
+                document.body.appendChild(explosion);
+                setTimeout(() => {
+                    document.body.removeChild(explosion);
+                }, 1000);
+            }
+            
+            // EVENTO PRINCIPAL - Abrir/cerrar chat con animación espectacular
+            chatButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const rect = this.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                if (chatWindow.classList.contains('opening') || chatWindow.style.display === 'flex') {
+                    // Cerrar chat
+                    chatWindow.classList.remove('opening');
+                    chatWindow.classList.add('closing');
+                    
+                    setTimeout(() => {
+                        chatWindow.style.display = 'none';
+                        chatWindow.classList.remove('closing');
+                    }, 600);
+                } else {
+                    // Abrir chat con efectos espectaculares
+                    chatButton.classList.remove('pulse');
+                    chatNotification.style.display = 'none';
+                    
+                    // Crear efectos visuales
+                    createMagicParticles(centerX, centerY);
+                    createEnergyWaves(centerX, centerY);
+                    
+                    // Mostrar ventana con animación
+                    chatWindow.style.display = 'flex';
+                    chatWindow.classList.add('opening');
+                    
+                    // Remover clase de animación después
+                    setTimeout(() => {
+                        chatWindow.classList.remove('opening');
+                    }, 1200);
+                    
+                    // Mensaje de bienvenida solo la primera vez
+                    if (!chatOpenedBefore) {
+                        setTimeout(() => {
+                            addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
+                        }, 800);
+                        chatOpenedBefore = true;
+                    }
+                    
+                    // Focus en input después de abrir
+                    setTimeout(() => {
+                        chatInput.focus();
+                    }, 1200);
+                }
+            });
+            
+            // Cerrar chat
+            chatClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                chatWindow.classList.remove('opening');
+                chatWindow.classList.add('closing');
+                
+                setTimeout(() => {
+                    chatWindow.style.display = 'none';
+                    chatWindow.classList.remove('closing');
+                }, 600);
+            });
+            
+            // Función para enviar mensaje
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Crear efecto de explosión de estrellas en el botón de envío
+                    const rect = chatSend.getBoundingClientRect();
+                    createStarExplosion(rect.left + rect.width/2, rect.top + rect.height/2);
+                    
+                    // Agregar mensaje del usuario al chat
+                    addMessage(message, 'user');
+                    
+                    // Limpiar campo de entrada
+                    chatInput.value = '';
+                    
+                    // Scroll inmediato al enviar mensaje del usuario
+                    setTimeout(scrollToBottom, 50);
+                    
+                    // Mostrar indicador de escritura
+                    addTypingIndicator();
+                    
+                    // Preparar datos para enviar al webhook
+                    const requestData = {
+                        message: message,
+                        userId: generateUserId(),
+                        timestamp: new Date().toISOString(),
+                        source: 'kinetia-website'
+                    };
+                    
+                    console.log('Enviando datos al webhook:', requestData);
+                    console.log('URL del webhook:', webhookUrl);
+                    
+                    // Enviar mensaje al webhook de n8n
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)
+                    })
+                    .then(response => {
+                        console.log('Estado de respuesta:', response.status);
+                        console.log('Headers de respuesta:', response.headers);
+                        
+                        if (!response.ok) {
+                            throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
+                        }
+                        
+                        // Verificar si la respuesta tiene contenido
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            return response.json();
+                        } else {
+                            // Si no es JSON, obtener como texto
+                            return response.text().then(text => {
+                                console.log('Respuesta como texto:', text);
+                                return { response: text || 'Mensaje recibido correctamente.' };
+                            });
+                        }
+                    })
+                    .then(data => {
+                        console.log('Datos procesados recibidos:', data);
+                        removeTypingIndicator();
+                        
+                        // Buscar la respuesta en diferentes campos posibles
+                        let botResponse = null;
+                        
+                        if (data.response) {
+                            botResponse = data.response;
+                        } else if (data.message) {
+                            botResponse = data.message;
+                        } else if (data.reply) {
+                            botResponse = data.reply;
+                        } else if (data.answer) {
+                            botResponse = data.answer;
+                        } else if (data.text) {
+                            botResponse = data.text;
+                        } else if (typeof data === 'string') {
+                            botResponse = data;
+                        } else {
+                            // Si es un objeto, intentar obtener el primer valor string
+                            const values = Object.values(data);
+                            botResponse = values.find(val => typeof val === 'string') || 'Respuesta recibida de n8n.';
+                        }
+                        
+                        addMessage(botResponse, 'bot');
+                        // Scroll automático después de recibir respuesta del bot
+                        setTimeout(scrollToBottom, 100);
+                    })
+                    .catch(error => {
+                        console.error('Error detallado:', error);
+                        removeTypingIndicator();
+                        
+                        // Mensaje de error más informativo
+                        let errorMessage = 'Lo siento, no puedo conectarme con el servidor en este momento. ';
+                        
+                        if (error.message.includes('Failed to fetch')) {
+                            errorMessage += 'Por favor, verifica que la URL del webhook sea correcta y que n8n esté ejecutándose.';
+                        } else if (error.message.includes('404')) {
+                            errorMessage += 'El endpoint del webhook no se encontró. Verifica la URL en n8n.';
+                        } else if (error.message.includes('500')) {
+                            errorMessage += 'Hay un error en el flujo de n8n. Revisa los logs del workflow.';
+                        } else {
+                            errorMessage += 'Error: ' + error.message;
+                        }
+                        
+                        addMessage(errorMessage, 'bot');
+                        // Scroll automático después de mostrar error
+                        setTimeout(scrollToBottom, 100);
+                    });
+                }
+            }
+            
+            // Función para añadir mensajes al chat
+            function addMessage(content, sender) {
+                removeTypingIndicator();
+                
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('kinetia-chat-message', sender);
+                messageElement.textContent = content;
+                
+                chatMessages.appendChild(messageElement);
+                
+                // Scroll al final del chat con un pequeño delay para la animación
+                setTimeout(scrollToBottom, 100);
+            }
+            
+            // Función para mostrar indicador de escritura
+            function addTypingIndicator() {
+                removeTypingIndicator(); // Eliminar indicador existente si lo hay
+                
+                const indicator = document.createElement('div');
+                indicator.classList.add('kinetia-chat-message', 'bot', 'typing-indicator');
+                indicator.textContent = 'Escribiendo...';
+                
+                chatMessages.appendChild(indicator);
+                setTimeout(scrollToBottom, 50);
+            }
+            
+            // Función para eliminar el indicador de escritura
+            function removeTypingIndicator() {
+                const typingIndicator = document.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // Generar ID único para el usuario
+            function generateUserId() {
+                if (!localStorage.getItem('kinetiaChatUserId')) {
+                    localStorage.setItem('kinetiaChatUserId', 'user_' + Date.now());
+                }
+                return localStorage.getItem('kinetiaChatUserId');
+            }
+            
+            // Event listeners para enviar mensajes
+            chatSend.addEventListener('click', sendMessage);
+            
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Efecto de partículas al escribir
+            chatInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    this.style.boxShadow = '0 0 0 1px rgba(247, 124, 24, 0.3), 0 0 20px rgba(247, 124, 24, 0.1), inset 0 0 10px rgba(247, 124, 24, 0.05)';
+                } else {
+                    this.style.boxShadow = '';
+                }
+            });
+            
+            // Mostrar notificación después de cierto tiempo
+            setTimeout(function() {
+                if (chatWindow.style.display !== 'flex') {
+                    chatButton.classList.add('pulse');
+                    chatNotification.style.display = 'flex';
+                }
+            }, 20000); // 20 segundos
+            
+            // Efecto de seguimiento del ratón - Línea continua
+            const mouseTracker = document.getElementById('kinetiaMouseTracker');
+            
+            if (mouseTracker) {
+                let trailElements = [];
+                let lastX = 0;
+                let lastY = 0;
+                let isMoving = false;
+                
+                // Función para crear un elemento de rastro
+                function createTrailElement(x, y) {
+                    const trail = document.createElement('div');
+                    trail.classList.add('kinetia-mouse-trail');
+                    trail.style.left = x + 'px';
+                    trail.style.top = y + 'px';
+                    mouseTracker.appendChild(trail);
+                    
+                    // Animar desvanecimiento
+                    setTimeout(() => {
+                        if (trail.parentNode) {
+                            trail.style.transition = 'opacity 0.8s ease-out';
+                            trail.style.opacity = '0';
+                            setTimeout(() => {
+                                if (trail.parentNode) {
+                                    trail.parentNode.removeChild(trail);
+                                }
+                                const index = trailElements.indexOf(trail);
+                                if (index > -1) {
+                                    trailElements.splice(index, 1);
+                                }
+                            }, 800);
+                        }
+                    }, 100);
+                    
+                    trailElements.push(trail);
+                    
+                    // Limitar elementos para rendimiento
+                    if (trailElements.length > 100) {
+                        const oldTrail = trailElements.shift();
+                        if (oldTrail.parentNode) {
+                            oldTrail.parentNode.removeChild(oldTrail);
+                        }
+                    }
+                }
+                
+                // Función para crear línea continua entre dos puntos
+                function createContinuousTrail(x1, y1, x2, y2) {
+                    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                    const steps = Math.max(1, Math.floor(distance / 3)); // Un punto cada 3 píxeles
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        const ratio = i / steps;
+                        const x = x1 + (x2 - x1) * ratio;
+                        const y = y1 + (y2 - y1) * ratio;
+                        createTrailElement(x, y);
+                    }
+                }
+                
+                // Escuchar movimiento del ratón
+                chatWindow.addEventListener('mousemove', function(e) {
+                    const rect = chatWindow.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    if (isMoving && (Math.abs(x - lastX) > 2 || Math.abs(y - lastY) > 2)) {
+                        createContinuousTrail(lastX, lastY, x, y);
+                    } else if (!isMoving) {
+                        createTrailElement(x, y);
+                        isMoving = true;
+                    }
+                    
+                    lastX = x;
+                    lastY = y;
+                });
+                
+                // Resetear cuando el ratón sale de la ventana
+                chatWindow.addEventListener('mouseleave', function() {
+                    isMoving = false;
+                });
+            }
+            
+            // Efecto de respiración en el botón cuando está inactivo
+            let breathingInterval;
+            function startBreathingEffect() {
+                breathingInterval = setInterval(() => {
+                    if (chatWindow.style.display !== 'flex') {
+                        chatButton.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            chatButton.style.transform = 'scale(1)';
+                        }, 1000);
+                    }
+                }, 4000);
+            }
+            
+            function stopBreathingEffect() {
+                clearInterval(breathingInterval);
+            }
+            
+            // Iniciar efecto de respiración
+            startBreathingEffect();
+            
+            // Detener respiración cuando el chat está activo
+            chatButton.addEventListener('click', stopBreathingEffect);
+            chatClose.addEventListener('click', startBreathingEffect);
+            
+            // Efecto de partículas al hacer hover en mensajes
+            chatMessages.addEventListener('mouseover', function(e) {
+                if (e.target.classList.contains('kinetia-chat-message')) {
+                    e.target.style.filter = 'brightness(1.1)';
+                }
+            });
+            
+            chatMessages.addEventListener('mouseout', function(e) {
+                if (e.target.classList.contains('kinetia-chat-message')) {
+                    e.target.style.filter = 'brightness(1)';
+                }
+            });
+            
+            // Efecto de shake al enviar mensaje vacío
+            function shakeInput() {
+                chatInput.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    chatInput.style.animation = '';
+                }, 500);
+            }
+            
+            // Añadir CSS para el shake
+            const shakeStyle = document.createElement('style');
+            shakeStyle.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(shakeStyle);
+            
+            // Modificar la función sendMessage para incluir el shake
+            const originalSendMessage = sendMessage;
+            sendMessage = function() {
+                const message = chatInput.value.trim();
+                if (!message) {
+                    shakeInput();
+                    return;
+                }
+                originalSendMessage();
+            };
         });
     </script>
 </body>
