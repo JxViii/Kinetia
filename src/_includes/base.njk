@@ -82,6 +82,37 @@
             box-shadow: 0 4px 12px rgba(247, 124, 24, 0.4);
             transition: all 0.3s ease;
             z-index: 999;
+            overflow: hidden;
+        }
+
+        /* Efecto de ondas concéntricas en el botón */
+        .kinetia-chat-button::before,
+        .kinetia-chat-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(247, 124, 24, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            animation: concentricWaves 3s ease-out infinite;
+        }
+
+        .kinetia-chat-button::after {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes concentricWaves {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 0;
+            }
         }
 
         .kinetia-chat-button:hover {
@@ -93,6 +124,7 @@
             width: 30px;
             height: 30px;
             fill: #222;
+            z-index: 1;
         }
 
         /* Estilos para la ventana del chat - Modo oscuro */
@@ -111,6 +143,36 @@
             z-index: 998;
             transition: all 0.3s ease;
             border: 1px solid #333;
+            position: relative;
+        }
+
+        /* Partículas flotantes de fondo */
+        .kinetia-chat-window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, rgba(247, 124, 24, 0.3), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(247, 124, 24, 0.2), transparent),
+                radial-gradient(2px 2px at 90px 40px, rgba(247, 124, 24, 0.1), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(247, 124, 24, 0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(247, 124, 24, 0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: floatingParticles 20s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatingParticles {
+            0% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(-5px) translateX(-5px); }
+            75% { transform: translateY(-15px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
         }
 
         .kinetia-chat-window.active {
@@ -119,8 +181,8 @@
         }
 
         @keyframes chatWindowOpen {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         /* Header del chat */
@@ -134,6 +196,7 @@
             border-bottom: 2px solid #f77c18;
             position: relative;
             overflow: hidden;
+            z-index: 2;
         }
 
         /* Efecto de borde neón */
@@ -162,6 +225,12 @@
         .kinetia-chat-logo {
             width: 28px;
             height: 28px;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(247, 124, 24, 0.5)); }
+            100% { filter: drop-shadow(0 0 15px rgba(247, 124, 24, 0.8)); }
         }
 
         .kinetia-chat-title h3 {
@@ -183,6 +252,13 @@
             align-items: center;
             justify-content: center;
             text-shadow: 0 0 5px rgba(247, 124, 24, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .kinetia-chat-close:hover {
+            transform: rotate(90deg);
+            color: #ff4444;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
         }
 
         /* Área de seguimiento del ratón - Línea continua */
@@ -217,6 +293,8 @@
             background-image: 
                 radial-gradient(circle at 20% 30%, rgba(247, 124, 24, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(247, 124, 24, 0.03) 0%, transparent 50%);
+            z-index: 2;
+            scroll-behavior: smooth;
         }
 
         /* Estilizar la barra de desplazamiento */
@@ -231,10 +309,12 @@
         .kinetia-chat-body::-webkit-scrollbar-thumb {
             background: #f77c18;
             border-radius: 10px;
+            box-shadow: 0 0 5px rgba(247, 124, 24, 0.5);
         }
 
         .kinetia-chat-body::-webkit-scrollbar-thumb:hover {
             background: #ff8c28;
+            box-shadow: 0 0 10px rgba(247, 124, 24, 0.7);
         }
 
         .kinetia-chat-message {
@@ -245,6 +325,20 @@
             position: relative;
             font-size: 15px;
             line-height: 1.4;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: messageSlideIn 0.5s ease forwards;
+        }
+
+        @keyframes messageSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .kinetia-chat-message.bot {
@@ -255,6 +349,26 @@
             margin-right: auto;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             border-left: 2px solid #f77c18;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo en mensajes del bot */
+        .kinetia-chat-message.bot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 124, 24, 0.1), transparent);
+            animation: messageShine 3s ease-in-out infinite;
+        }
+
+        @keyframes messageShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .kinetia-chat-message.user {
@@ -265,11 +379,41 @@
             margin-left: auto;
             font-weight: 500;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         /* Efecto de glow en hover */
         .kinetia-chat-message.user:hover {
             box-shadow: 0 0 15px rgba(247, 124, 24, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* Efecto de ondas en mensaje del usuario */
+        .kinetia-chat-message.user::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: userMessageRipple 0.6s ease-out;
+        }
+
+        @keyframes userMessageRipple {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
         }
 
         /* Área para escribir mensajes */
@@ -279,6 +423,7 @@
             display: flex;
             background-color: #1a1a1a;
             position: relative;
+            z-index: 2;
         }
 
         .kinetia-chat-input-area::before {
@@ -304,11 +449,13 @@
             background-color: #333;
             color: #e0e0e0;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .kinetia-chat-input:focus {
             border-color: #f77c18;
-            box-shadow: 0 0 0 1px rgba(247, 124, 24, 0.3);
+            box-shadow: 0 0 0 1px rgba(247, 124, 24, 0.3), 0 0 20px rgba(247, 124, 24, 0.1);
+            transform: scale(1.02);
         }
 
         .kinetia-chat-input::placeholder {
@@ -334,7 +481,7 @@
 
         .kinetia-chat-send:hover {
             background-color: #ff8c28;
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(15deg);
             box-shadow: 0 0 15px rgba(247, 124, 24, 0.4);
         }
 
@@ -390,12 +537,20 @@
             font-weight: bold;
             display: none;
             box-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
+            z-index: 2;
+            animation: notificationPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes notificationPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* Indicador de escritura con efecto neón */
         .typing-indicator {
             display: flex;
             align-items: center;
+            position: relative;
         }
 
         .typing-indicator::after {
@@ -425,6 +580,57 @@
         @keyframes blink {
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
+        }
+
+        /* Efecto de explosión de estrellas al enviar mensaje */
+        .star-explosion {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #f77c18;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: starBurst 1s ease-out forwards;
+        }
+
+        @keyframes starBurst {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Efecto de ondas en el fondo cuando se abre el chat */
+        .wave-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(247, 124, 24, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: waveExpand 1s ease-out;
+        }
+
+        @keyframes waveExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(10);
+                opacity: 0;
+            }
         }
 
         /* Estilos responsivos */
@@ -466,7 +672,7 @@
             </div>
             <button class="kinetia-chat-close" id="kinetiaChatClose">×</button>
         </div>
-        <div class="kinetia-chat-body">
+        <div class="kinetia-chat-body" id="kinetiaChatBody">
             <div class="kinetia-chat-messages" id="kinetiaChatMessages">
                 <!-- Los mensajes se cargarán dinámicamente -->
             </div>
@@ -490,10 +696,55 @@
             const chatInput = document.getElementById('kinetiaChatInput');
             const chatSend = document.getElementById('kinetiaChatSend');
             const chatMessages = document.getElementById('kinetiaChatMessages');
+            const chatBody = document.getElementById('kinetiaChatBody');
             const chatNotification = document.getElementById('kinetiaChatNotification');
             
             // URL del webhook - REEMPLAZAR CON TU URL REAL DE N8N
             const webhookUrl = 'https://n8n.kinetia.tech/webhook/9cfc5452-bddc-45de-b93b-1fd6687db9bc';
+            
+            // Función para scroll suave al final
+            function scrollToBottom() {
+                chatBody.scrollTo({
+                    top: chatBody.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Función para crear efecto de explosión de estrellas
+            function createStarExplosion(x, y) {
+                const explosion = document.createElement('div');
+                explosion.className = 'star-explosion';
+                explosion.style.left = x + 'px';
+                explosion.style.top = y + 'px';
+                
+                for (let i = 0; i < 8; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    const angle = (i * 45) * Math.PI / 180;
+                    const distance = 30 + Math.random() * 20;
+                    star.style.left = Math.cos(angle) * distance + 'px';
+                    star.style.top = Math.sin(angle) * distance + 'px';
+                    star.style.animationDelay = Math.random() * 0.3 + 's';
+                    explosion.appendChild(star);
+                }
+                
+                document.body.appendChild(explosion);
+                setTimeout(() => {
+                    document.body.removeChild(explosion);
+                }, 1000);
+            }
+            
+            // Función para crear efecto de ondas
+            function createWaveEffect() {
+                const wave = document.createElement('div');
+                wave.className = 'wave-effect';
+                chatWindow.appendChild(wave);
+                setTimeout(() => {
+                    if (chatWindow.contains(wave)) {
+                        chatWindow.removeChild(wave);
+                    }
+                }, 1000);
+            }
             
             // Mostrar mensaje de bienvenida al abrir el chat
             chatButton.addEventListener('click', function() {
@@ -502,9 +753,14 @@
                 chatButton.classList.remove('pulse');
                 chatNotification.style.display = 'none';
                 
-                // Si se está abriendo el chat por primera vez y no hay mensajes
-                if (!wasActive && chatMessages.children.length === 0) {
-                    addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
+                if (!wasActive) {
+                    createWaveEffect();
+                    // Si se está abriendo el chat por primera vez y no hay mensajes
+                    if (chatMessages.children.length === 0) {
+                        setTimeout(() => {
+                            addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
+                        }, 500);
+                    }
                 }
                 
                 chatInput.focus();
@@ -518,11 +774,18 @@
             function sendMessage() {
                 const message = chatInput.value.trim();
                 if (message) {
+                    // Crear efecto de explosión de estrellas en el botón de envío
+                    const rect = chatSend.getBoundingClientRect();
+                    createStarExplosion(rect.left + rect.width/2, rect.top + rect.height/2);
+                    
                     // Agregar mensaje del usuario al chat
                     addMessage(message, 'user');
                     
                     // Limpiar campo de entrada
                     chatInput.value = '';
+                    
+                    // Scroll inmediato al enviar mensaje del usuario
+                    setTimeout(scrollToBottom, 50);
                     
                     // Mostrar indicador de escritura
                     addTypingIndicator();
@@ -593,6 +856,8 @@
                         }
                         
                         addMessage(botResponse, 'bot');
+                        // Scroll automático después de recibir respuesta del bot
+                        setTimeout(scrollToBottom, 100);
                     })
                     .catch(error => {
                         console.error('Error detallado:', error);
@@ -612,6 +877,8 @@
                         }
                         
                         addMessage(errorMessage, 'bot');
+                        // Scroll automático después de mostrar error
+                        setTimeout(scrollToBottom, 100);
                     });
                 }
             }
@@ -626,8 +893,8 @@
                 
                 chatMessages.appendChild(messageElement);
                 
-                // Scroll al final del chat
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // Scroll al final del chat con un pequeño delay para la animación
+                setTimeout(scrollToBottom, 100);
             }
             
             // Función para mostrar indicador de escritura
@@ -639,7 +906,7 @@
                 indicator.textContent = 'Escribiendo...';
                 
                 chatMessages.appendChild(indicator);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                setTimeout(scrollToBottom, 50);
             }
             
             // Función para eliminar el indicador de escritura
@@ -665,6 +932,15 @@
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
+                }
+            });
+            
+            // Efecto de partículas al escribir
+            chatInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    this.style.boxShadow = '0 0 0 1px rgba(247, 124, 24, 0.3), 0 0 20px rgba(247, 124, 24, 0.1), inset 0 0 10px rgba(247, 124, 24, 0.05)';
+                } else {
+                    this.style.boxShadow = '';
                 }
             });
             
@@ -756,9 +1032,74 @@
                     isMoving = false;
                 });
             }
+            
+            // Efecto de respiración en el botón cuando está inactivo
+            let breathingInterval;
+            function startBreathingEffect() {
+                breathingInterval = setInterval(() => {
+                    if (!chatWindow.classList.contains('active')) {
+                        chatButton.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            chatButton.style.transform = 'scale(1)';
+                        }, 1000);
+                    }
+                }, 4000);
+            }
+            
+            function stopBreathingEffect() {
+                clearInterval(breathingInterval);
+            }
+            
+            // Iniciar efecto de respiración
+            startBreathingEffect();
+            
+            // Detener respiración cuando el chat está activo
+            chatButton.addEventListener('click', stopBreathingEffect);
+            chatClose.addEventListener('click', startBreathingEffect);
+            
+            // Efecto de partículas al hacer hover en mensajes
+            chatMessages.addEventListener('mouseover', function(e) {
+                if (e.target.classList.contains('kinetia-chat-message')) {
+                    e.target.style.filter = 'brightness(1.1)';
+                }
+            });
+            
+            chatMessages.addEventListener('mouseout', function(e) {
+                if (e.target.classList.contains('kinetia-chat-message')) {
+                    e.target.style.filter = 'brightness(1)';
+                }
+            });
+            
+            // Efecto de shake al enviar mensaje vacío
+            function shakeInput() {
+                chatInput.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    chatInput.style.animation = '';
+                }, 500);
+            }
+            
+            // Añadir CSS para el shake
+            const shakeStyle = document.createElement('style');
+            shakeStyle.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(shakeStyle);
+            
+            // Modificar la función sendMessage para incluir el shake
+            const originalSendMessage = sendMessage;
+            sendMessage = function() {
+                const message = chatInput.value.trim();
+                if (!message) {
+                    shakeInput();
+                    return;
+                }
+                originalSendMessage();
+            };
         });
     </script>
-</body>
-</html>
 </body>
 </html>
