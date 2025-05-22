@@ -185,7 +185,7 @@
             text-shadow: 0 0 5px rgba(247, 124, 24, 0.3);
         }
 
-        /* Área de seguimiento del ratón */
+        /* Área de seguimiento del ratón - Línea continua */
         .kinetia-mouse-tracker {
             position: absolute;
             top: 0;
@@ -197,14 +197,14 @@
             overflow: hidden;
         }
 
-        /* Partículas para el efecto del ratón */
-        .kinetia-particle {
+        .kinetia-mouse-trail {
             position: absolute;
-            background: radial-gradient(circle, rgba(247, 124, 24, 0.8) 0%, rgba(247, 124, 24, 0) 70%);
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, rgba(247, 124, 24, 0.8) 0%, rgba(247, 124, 24, 0.4) 50%, transparent 100%);
             border-radius: 50%;
             pointer-events: none;
-            opacity: 0;
-            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(247, 124, 24, 0.6);
         }
 
         /* Contenido del chat */
@@ -468,9 +468,7 @@
         </div>
         <div class="kinetia-chat-body">
             <div class="kinetia-chat-messages" id="kinetiaChatMessages">
-                <div class="kinetia-chat-message bot">
-                    ¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?
-                </div>
+                <!-- Los mensajes se cargarán dinámicamente -->
             </div>
         </div>
         <div class="kinetia-chat-input-area">
@@ -495,13 +493,20 @@
             const chatNotification = document.getElementById('kinetiaChatNotification');
             
             // URL del webhook - REEMPLAZAR CON TU URL REAL DE N8N
-            const webhookUrl = 'https://n8n.kinetia.tech/webhook-test/29deeeba-e560-4d69-acbd-6f4115d576fa';
+            const webhookUrl = 'https://tu-instancia-n8n.com/webhook/kinetia-chatbot';
             
-            // Mostrar/ocultar ventana de chat
+            // Mostrar mensaje de bienvenida al abrir el chat
             chatButton.addEventListener('click', function() {
+                const wasActive = chatWindow.classList.contains('active');
                 chatWindow.classList.toggle('active');
                 chatButton.classList.remove('pulse');
                 chatNotification.style.display = 'none';
+                
+                // Si se está abriendo el chat por primera vez y no hay mensajes
+                if (!wasActive && chatMessages.children.length === 0) {
+                    addMessage('¡Hola! Soy el asistente virtual de Kinetia. ¿En qué puedo ayudarte hoy?', 'bot');
+                }
+                
                 chatInput.focus();
             });
             
@@ -531,59 +536,82 @@
                     };
                     
                     console.log('Enviando datos al webhook:', requestData);
+                    console.log('URL del webhook:', webhookUrl);
                     
                     // Enviar mensaje al webhook de n8n
                     fetch(webhookUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Accept': 'application/json'
                         },
                         body: JSON.stringify(requestData)
                     })
                     .then(response => {
-                        console.log('Respuesta recibida:', response);
+                        console.log('Estado de respuesta:', response.status);
+                        console.log('Headers de respuesta:', response.headers);
+                        
                         if (!response.ok) {
-                            throw new Error('Error en la respuesta del servidor: ' + response.status);
+                            throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
                         }
-                        return response.json();
+                        
+                        // Verificar si la respuesta tiene contenido
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            return response.json();
+                        } else {
+                            // Si no es JSON, obtener como texto
+                            return response.text().then(text => {
+                                console.log('Respuesta como texto:', text);
+                                return { response: text || 'Mensaje recibido correctamente.' };
+                            });
+                        }
                     })
                     .then(data => {
-                        console.log('Datos recibidos:', data);
-                        // Remover indicador de escritura
+                        console.log('Datos procesados recibidos:', data);
                         removeTypingIndicator();
                         
-                        // Procesar respuesta del bot
-                        if (data && data.response) {
-                            addMessage(data.response, 'bot');
-                        } else if (data && data.message) {
-                            addMessage(data.message, 'bot');
+                        // Buscar la respuesta en diferentes campos posibles
+                        let botResponse = null;
+                        
+                        if (data.response) {
+                            botResponse = data.response;
+                        } else if (data.message) {
+                            botResponse = data.message;
+                        } else if (data.reply) {
+                            botResponse = data.reply;
+                        } else if (data.answer) {
+                            botResponse = data.answer;
+                        } else if (data.text) {
+                            botResponse = data.text;
+                        } else if (typeof data === 'string') {
+                            botResponse = data;
                         } else {
-                            addMessage('He recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo pronto.', 'bot');
+                            // Si es un objeto, intentar obtener el primer valor string
+                            const values = Object.values(data);
+                            botResponse = values.find(val => typeof val === 'string') || 'Respuesta recibida de n8n.';
                         }
+                        
+                        addMessage(botResponse, 'bot');
                     })
                     .catch(error => {
-                        console.error('Error en la conexión:', error);
+                        console.error('Error detallado:', error);
                         removeTypingIndicator();
                         
-                        // Mensaje alternativo en caso de error
-                        addMessage('Lo siento, estamos experimentando problemas de conexión. Por favor, intenta contactarnos por email o teléfono.', 'bot');
+                        // Mensaje de error más informativo
+                        let errorMessage = 'Lo siento, no puedo conectarme con el servidor en este momento. ';
                         
-                        // Intentar enviar notificación de error
-                        try {
-                            fetch(webhookUrl + '/error', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    error: error.toString(),
-                                    userId: generateUserId(),
-                                    timestamp: new Date().toISOString()
-                                })
-                            }).catch(() => {});
-                        } catch (e) {
-                            console.error('Error al enviar notificación de error:', e);
+                        if (error.message.includes('Failed to fetch')) {
+                            errorMessage += 'Por favor, verifica que la URL del webhook sea correcta y que n8n esté ejecutándose.';
+                        } else if (error.message.includes('404')) {
+                            errorMessage += 'El endpoint del webhook no se encontró. Verifica la URL en n8n.';
+                        } else if (error.message.includes('500')) {
+                            errorMessage += 'Hay un error en el flujo de n8n. Revisa los logs del workflow.';
+                        } else {
+                            errorMessage += 'Error: ' + error.message;
                         }
+                        
+                        addMessage(errorMessage, 'bot');
                     });
                 }
             }
@@ -648,84 +676,89 @@
                 }
             }, 20000); // 20 segundos
             
-            // Efecto de seguimiento del ratón
+            // Efecto de seguimiento del ratón - Línea continua
             const mouseTracker = document.getElementById('kinetiaMouseTracker');
             
             if (mouseTracker) {
-                let particles = [];
+                let trailElements = [];
+                let lastX = 0;
+                let lastY = 0;
+                let isMoving = false;
                 
-                // Función para crear una partícula
-                function createParticle(x, y) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('kinetia-particle');
-                    particle.style.width = Math.random() * 10 + 5 + 'px';
-                    particle.style.height = particle.style.width;
-                    particle.style.left = x + 'px';
-                    particle.style.top = y + 'px';
-                    mouseTracker.appendChild(particle);
+                // Función para crear un elemento de rastro
+                function createTrailElement(x, y) {
+                    const trail = document.createElement('div');
+                    trail.classList.add('kinetia-mouse-trail');
+                    trail.style.left = x + 'px';
+                    trail.style.top = y + 'px';
+                    mouseTracker.appendChild(trail);
                     
-                    // Animar la partícula
-                    gsap.to(particle, {
-                        opacity: 0.7,
-                        duration: 0.2,
-                        onComplete: () => {
-                            gsap.to(particle, {
-                                opacity: 0,
-                                duration: 0.8,
-                                onComplete: () => {
-                                    if (particle.parentNode) {
-                                        particle.parentNode.removeChild(particle);
-                                    }
-                                    const index = particles.indexOf(particle);
-                                    if (index > -1) {
-                                        particles.splice(index, 1);
-                                    }
+                    // Animar desvanecimiento
+                    setTimeout(() => {
+                        if (trail.parentNode) {
+                            trail.style.transition = 'opacity 0.8s ease-out';
+                            trail.style.opacity = '0';
+                            setTimeout(() => {
+                                if (trail.parentNode) {
+                                    trail.parentNode.removeChild(trail);
                                 }
-                            });
+                                const index = trailElements.indexOf(trail);
+                                if (index > -1) {
+                                    trailElements.splice(index, 1);
+                                }
+                            }, 800);
                         }
-                    });
+                    }, 100);
                     
-                    particles.push(particle);
+                    trailElements.push(trail);
                     
-                    // Limitar el número de partículas para evitar problemas de rendimiento
-                    if (particles.length > 50) {
-                        const oldParticle = particles.shift();
-                        if (oldParticle.parentNode) {
-                            oldParticle.parentNode.removeChild(oldParticle);
+                    // Limitar elementos para rendimiento
+                    if (trailElements.length > 100) {
+                        const oldTrail = trailElements.shift();
+                        if (oldTrail.parentNode) {
+                            oldTrail.parentNode.removeChild(oldTrail);
                         }
                     }
                 }
                 
-                // Polyfill para gsap si no está disponible
-                if (typeof gsap === 'undefined') {
-                    window.gsap = {
-                        to: function(element, options) {
-                            const { opacity, duration, onComplete } = options;
-                            
-                            element.style.transition = `opacity ${duration}s ease`;
-                            element.style.opacity = opacity;
-                            
-                            setTimeout(() => {
-                                if (onComplete) onComplete();
-                            }, duration * 1000);
-                        }
-                    };
+                // Función para crear línea continua entre dos puntos
+                function createContinuousTrail(x1, y1, x2, y2) {
+                    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                    const steps = Math.max(1, Math.floor(distance / 3)); // Un punto cada 3 píxeles
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        const ratio = i / steps;
+                        const x = x1 + (x2 - x1) * ratio;
+                        const y = y1 + (y2 - y1) * ratio;
+                        createTrailElement(x, y);
+                    }
                 }
                 
-                // Escuchar movimiento del ratón solo dentro de la ventana de chat
+                // Escuchar movimiento del ratón
                 chatWindow.addEventListener('mousemove', function(e) {
-                    // Obtener posición relativa dentro del chatWindow
                     const rect = chatWindow.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
                     
-                    // Limitar la creación de partículas por rendimiento (cada 2 píxeles)
-                    if (Math.random() > 0.6) { // Solo crear partícula 40% de las veces para rendimiento
-                        createParticle(x, y);
+                    if (isMoving && (Math.abs(x - lastX) > 2 || Math.abs(y - lastY) > 2)) {
+                        createContinuousTrail(lastX, lastY, x, y);
+                    } else if (!isMoving) {
+                        createTrailElement(x, y);
+                        isMoving = true;
                     }
+                    
+                    lastX = x;
+                    lastY = y;
+                });
+                
+                // Resetear cuando el ratón sale de la ventana
+                chatWindow.addEventListener('mouseleave', function() {
+                    isMoving = false;
                 });
             }
         });
     </script>
+</body>
+</html>
 </body>
 </html>
