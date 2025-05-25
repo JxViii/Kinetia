@@ -251,7 +251,7 @@
     color: var(--slider-sell-color);
 
     display: grid;
-    grid-template-rows: 15% 1fr;
+    grid-template-rows: auto 1fr;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -274,9 +274,13 @@
     align-items: center;
 }
 
+.k-content.ventas .process .item h3{
+    width: 80%;
+    margin: 0 auto;
+}
+
 .k-content.ventas .process .item p,
 .k-content.ventas .process .item h3{
-    margin-left: 0;
     display: none;
     text-align: center;
 }
@@ -290,7 +294,7 @@
     flex-basis: 22vw;
     filter: brightness(1.2);
     height: auto;
-    max-height: 300px;
+    max-height: 320px;
 }
 
 .k-content.ventas .process .item.activo + *,
