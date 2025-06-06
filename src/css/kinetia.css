@@ -6,7 +6,7 @@
       #9b97ed 20%,
       #07017d 40%,
       #000b1b 70%
-    ), url('/images-card/textures/carto.png');
+    ), url("/images/textures/carto.png");
     background-blend-mode: darken;
     overflow-x: hidden;
     max-width: 1200px;
@@ -30,7 +30,6 @@
     height: 60px;
     padding-left: 15px;
     z-index: 1999;
-    width: 100%;
     background-color: rgba(0,0,0,0.5);
     backdrop-filter: blur(10px) saturate(150%);
     -webkit-backdrop-filter: blur(10px) saturate(150%);
