@@ -17,6 +17,14 @@
     color: var(--text);
   }
 
+  a, button{
+    transition: transform .5s ease;
+  }
+
+  a:hover, button:hover{
+    transform: scale(1.05);
+  }
+
   section{
     padding: 10px 30px;
   }
@@ -60,13 +68,13 @@
     &:hover{
       transform: scale(1.035);
       &>img{
-        filter: brightness(.8) grayscale(.5);
+        filter: brightness(1.1) saturate(1.1);
       }
       &::after{
         transform: scale(1.035);
       }
       &::before{
-        background: rgb(182, 182, 182);
+        background: #FFFE;
         transform: scale(1.035);
       }
     }
