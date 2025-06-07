@@ -703,7 +703,7 @@
         @media (max-width: 480px) {
             .kinetia-chat-window {
                 width: 100%;
-                height: 100%;
+                height: calc(100dvh - 50px);
                 bottom: 0;
                 right: 0;
                 border-radius: 0;
@@ -859,6 +859,7 @@
                         chatWindow.classList.remove('closing');
                     }, 400);
                 } else {
+                    chatButton.style.visibility = 'hidden';
                     // Abrir chat
                     chatButton.classList.remove('pulse');
                     chatNotification.style.display = 'none';
@@ -901,6 +902,8 @@
                 const centerY = rect.top + rect.height / 2;
                 
                 createSimpleParticles(centerX, centerY, true);
+
+                chatButton.style.removeProperty('visibility');
                 
                 chatWindow.classList.remove('active');
                 chatWindow.classList.add('closing');
