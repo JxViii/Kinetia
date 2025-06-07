@@ -65,6 +65,10 @@
       &::after{
         transform: scale(1.035);
       }
+      &::before{
+        background: rgb(182, 182, 182);
+        transform: scale(1.035);
+      }
     }
  }
 
@@ -74,6 +78,19 @@
   width: 220px;
   border-radius: 100%;
   transition: filter .25s ease, transform .25s ease;
+}
+
+.pfp::before{
+  content: "";
+  position: absolute;
+  inset: 5px 50px 0 5px;
+  height: 220px;
+  width: 220px;
+  background: #FFFF;
+  border-radius: 100%;
+  z-index: -1;
+
+  transition: background .25s ease, transform .25s ease;
 }
 
 .pfp::after {
@@ -87,7 +104,7 @@
           rgb(134, 134, 214) 80%
         );
   border-radius: 100%;
-  z-index: -1;
+  z-index: -2;
   transition: transform .25s ease;
 }
 
