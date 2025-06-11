@@ -266,6 +266,8 @@
 }
 
 .k-content.ventas .process .item:before{
+    overflow: hidden;
+    pointer-events: none;
     position: absolute;
     content: "";
     inset: 0 0 0 0;
@@ -503,6 +505,7 @@
 
     .k-content.ventas .process .item.activo,
     .k-content.ventas .process .item.hovered{
+        overflow: hidden;
         flex-basis: auto;
         /* height: auto; */
         max-height: 200px;
