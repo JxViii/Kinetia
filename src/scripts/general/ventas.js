@@ -147,4 +147,4 @@ function activarAnimacionProceso() {
 }
 
 // Ejecutar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', activarAnimacionProceso);
+// document.addEventListener('DOMContentLoaded', activarAnimacionProceso);

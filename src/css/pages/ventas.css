@@ -240,6 +240,10 @@
     gap: 1.5vw;
 }
 
+.k-content.ventas .process .item *{
+    pointer-events: auto;
+}
+
 .k-content.ventas .process .item{
     padding: 1.2vw;
     border-radius: 20px;
@@ -441,7 +445,7 @@
         gap: 3vh;
     }
 
-    .k-content.ventas .process .item:nth-child(odd){
+    /* .k-content.ventas .process .item:nth-child(odd){
         animation: showMovementS 2s ease-in-out 1 forwards;
         animation-play-state: paused;
         animation-delay: 0.7s;
@@ -451,7 +455,7 @@
         animation: showMovementL 3.5s ease-in-out 1 forwards;
         animation-play-state: paused;
         animation-delay: 0.7s;
-    }
+    } */
 
     @keyframes showMovementS {
         0% {
