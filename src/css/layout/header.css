@@ -34,7 +34,7 @@ header{
   display: flex;
   align-items: center;
   color: var(--color-white);
-  text-shadow: 0 0 1.5px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0 1.5px rgba(0, 0, 0, 0.5);
 }
 
 .head-title img{

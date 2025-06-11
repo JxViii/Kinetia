@@ -23,7 +23,7 @@
   grid-template-columns: repeat(2, 22vw);
   column-gap: 10vw;
   font-family: 'Poppins', sans-serif;
-  text-shadow: 0px 5px 30px black;
+  text-shadow: 0px 5px 30px rgba(0,0,0,.5);
   z-index: 100;
 }
 
