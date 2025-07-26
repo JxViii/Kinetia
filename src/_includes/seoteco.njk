@@ -24,11 +24,11 @@
     </div>
   </section>
   <section class="socials">
-    <a href="" onclick="openLinkedIn('{{ linkedin }}')" style="--pos: 1" target="_blank">
+    <a href="" onclick="openLinkedIn('{{ linkedin }}', event)" style="--pos: 1" target="_blank">
       <i class="fab fa-linkedin-in"></i>
     </a>
     <!-- https://x.com/pablomeve -->
-    <a href="" onclick="openTwitter('{{ x }}')" style="--pos: 2" target="_blank">
+    <a href="" onclick="openTwitter('{{ x }}', event)" style="--pos: 2" target="_blank">
       <i class="fab fa-twitter"></i>
     </a>
 
@@ -61,7 +61,9 @@
 
   <!-- truco -->
   <script>
-  function openTwitter(username) {
+  function openTwitter(username, event) {
+    event.preventDefault();
+
     const now = new Date().getTime();
     // Intenta abrir la app de Twitter/X
     window.location = 'twitter://user?screen_name=' + username;
@@ -75,7 +77,9 @@
     }, 1000);
   }
 
-  function openLinkedIn(username) {
+  function openLinkedIn(username, event) {
+    event.preventDefault();
+
     const now = new Date().getTime();
     // Intenta abrir la app de LinkedIn (Android/iOS)
     window.location = 'linkedin://in/' + username;
